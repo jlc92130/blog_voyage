@@ -1,0 +1,9 @@
+.NavigationItem {
+  margin: 10px;
+  text-decoration: none;
+}
+
+.NavigationItem a {
+  text-decoration: none;
+  color: #B4B897;
+} 
