@@ -8,9 +8,9 @@ import NavigationItem from "./NavigationItem/NavigationItem";
 function Navigation() {
   return (
     <ul className={classes.Navigation}>
-      <NavigationItem to="/">Acceuil</NavigationItem>  
+      <NavigationItem exact={true} to="/">Acceuil</NavigationItem>  
       <NavigationItem to="/articles">Articles</NavigationItem>  
-      <NavigationItem to="/contact">Contact</NavigationItem>  
+      <NavigationItem exact={true} to="/contact">Contact</NavigationItem>  
     </ul>
   );
 }

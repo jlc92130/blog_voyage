@@ -1,7 +1,8 @@
 import React from 'react';
 
-function Articles() {
-  return <h1>articles</h1>
+function Article(props) {
+  return <h1>article</h1>
+  
 }
 
-export default Articles;
+export default Article;

@@ -1,12 +1,13 @@
 // Librairies
 import React from "react";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classes from './NavigationItem.module.css';
 
 function NavigationItem(props) {
   return (
     <li className={classes.NavigationItem}>
-      <Link to={props.to}>{props.children}</Link>
+      <NavLink exact={props.exact} to={props.to} activeClassName={classes.tot}>{props.children}</NavLink>
+      {/*  on peut remplacer activeClassName par activeStyle={{color: black}}  */}
     </li>
   );
 }

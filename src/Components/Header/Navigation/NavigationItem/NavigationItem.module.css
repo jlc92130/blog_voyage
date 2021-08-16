@@ -5,5 +5,11 @@
 
 .NavigationItem a {
   text-decoration: none;
-  color: #B4B897;
+  color: #333d29;
 } 
+
+.NavigationItem a:hover,
+.NavigationItem a:focus,
+.NavigationItem a.tot {
+  color: #94d2bd  ;
+}

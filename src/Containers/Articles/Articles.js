@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Articles() {
   return (
     
-    <h1>article</h1>
+    <h1>Articles</h1>
   
   )
 }

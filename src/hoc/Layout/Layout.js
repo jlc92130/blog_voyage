@@ -1,6 +1,6 @@
 // Librairies
 import React from 'react';
-import classes from './Layout.modules.css';
+import classes from './Layout.module.css';
 
 // Composants
 import Header from '../../Components/Header/Header';
