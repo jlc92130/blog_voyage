@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
-function Articles() {
+
+
+function Articles(props) {
+
   return (
-    
-    <h1>Articles</h1>
+    <>
+      <h1>Articles</h1>
+      {/* <Redirect to='/' />  */}
+    </>
   
   )
 }

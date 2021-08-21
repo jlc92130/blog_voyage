@@ -1,0 +1,15 @@
+.Input {
+  margin-bottom: 25px;
+}
+
+.Input label {
+  text-transform: uppercase;
+  font-weight: 200;
+  display: block;
+}
+
+.Input input, .Input textarea, .Input select {
+  width: 100%;
+  padding: 10px;
+}
+

@@ -1,0 +1,21 @@
+.Ajouter {
+  width: 90%;
+  background-color:  rgb(36, 149, 241);
+  margin: auto;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.submit {
+  background-color: aqua;
+  margin: 5px;
+  padding: 10px 15px;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.submit:hover,
+.submit:focus {
+  background-color: rgb(88, 88, 156);
+}
