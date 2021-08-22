@@ -7,6 +7,10 @@
 }
 
 .submit {
+  text-align: right;
+}
+
+.submit input {
   background-color: aqua;
   margin: 5px;
   padding: 10px 15px;
@@ -15,7 +19,7 @@
   cursor: pointer;
   border-radius: 4px;
 }
-.submit:hover,
-.submit:focus {
+.submit input:hover,
+.submit input:focus {
   background-color: rgb(88, 88, 156);
 }

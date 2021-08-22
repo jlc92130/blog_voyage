@@ -6,10 +6,15 @@
   text-transform: uppercase;
   font-weight: 200;
   display: block;
+  text-align: left;
 }
 
 .Input input, .Input textarea, .Input select {
   width: 100%;
   padding: 10px;
+  border-radius: 4px;
+  font-family: arial;
+  font-size: 1rem;
+  border: 1px solid silver;
 }
 

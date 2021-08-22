@@ -17,13 +17,23 @@ function Ajouter() {
         placeholder: 'Titre',
       },
       value: '',
-      label: 'Titre'
+      label: 'Titre',
+      valid: false, 
+      validation: {
+        required: true,
+        minlength: 5,
+        maxlength: 20,
+      } 
     },
     contenu: {
       elementType: 'textarea',
       elementConfig: {},
       value: '',
-      label: 'Contenu'
+      label: 'Contenu',
+      valid: false, 
+      validation: {
+        required: true,
+      } 
     },
     auteur: {
       elementType: 'input',
@@ -32,7 +42,12 @@ function Ajouter() {
         placeholder: 'Auteur'
       },
       value: '',
-      label: 'Auteur'
+      label: 'Auteur',
+      valid: false, 
+      validation: {
+        required: true,
+        minlength: 2,
+      } 
     },
     etat: {
       elementType: 'select',
@@ -43,7 +58,8 @@ function Ajouter() {
         ]
       },
       value: '',
-      label: 'Etat'
+      label: 'Etat',
+      valid: false
     }
   });
 
@@ -57,20 +73,53 @@ function Ajouter() {
     });
   }
 
+  // Functions
+  const checkValidity = (value, rules) => {
+    let isValid = true;
+    if (rules.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
+    if(rules.minlength) {
+      isValid =  value.length >= rules.minlength && isValid;
+    }
+    if(rules.maxlength) {
+      isValid = value.length <= rules.maxlength && isValid; 
+    }
+    return isValid;
+  };
+
+  const inputChangedHandler = (e, id) => {
+    let newInputs = {...inputs};
+    newInputs[id].value = e.target.value;
+
+    // check the value entered
+    newInputs[id].valid = checkValidity(newInputs[id].value, newInputs[id].validation);
+    
+    SetInputs(newInputs); 
+  };
+
+  const formHandler = (e) => {
+    e.preventDefault();
+  }
   
   let form = (
-    <form className={classes.Ajouter}>
+    <form className={classes.Ajouter} onSubmit={(e) => formHandler(e)}>
       {formElementsArray.map(formElement => (
         <Input 
           key={formElement.id}
+          id={formElement.id}
           label={formElement.config.label}
           value={formElement.config.value}
           type={formElement.config.elementType}
           config={formElement.config.elementConfig}
+          changed={(e) => inputChangedHandler(e, formElement.id)}
+          valid={formElement.config.valid}
         />
       ))
       }
-      <input className={classes.submit} type="submit" value="envoyer" />
+      <div className={classes.submit}>
+        <input type="submit" value="Ajouter un article" />
+      </div>
     </form>
   );
 
