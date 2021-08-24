@@ -1,4 +1,5 @@
 .Ajouter {
+  color: aliceblue;
   width: 90%;
   background-color:  rgb(36, 149, 241);
   margin: auto;
@@ -11,15 +12,20 @@
 }
 
 .submit input {
-  background-color: aqua;
+  background-color: rgb(234, 0, 255);
   margin: 5px;
   padding: 10px 15px;
   border: 0;
-  color: white;
+  color: aliceblue;
   cursor: pointer;
   border-radius: 4px;
 }
 .submit input:hover,
 .submit input:focus {
   background-color: rgb(88, 88, 156);
+}
+
+.submit input:disabled {
+  opacity: .5;
+  cursor: not-allowed;
 }

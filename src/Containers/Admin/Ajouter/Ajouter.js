@@ -7,14 +7,16 @@ import Input from '../../../Components/UI/Input/Input';
 
 
 function Ajouter() {
-  
+  // STATES
+  // State 1
   const [inputs, SetInputs] = useState({
-    // State
+    
     titre: {
       elementType: 'input',
       elementConfig: {
         type: 'text',
         placeholder: 'Titre',
+        errorMessage: 'Vous devez rentrer entre 5 et 20 caractères'
       },
       value: '',
       label: 'Titre',
@@ -23,23 +25,30 @@ function Ajouter() {
         required: true,
         minlength: 5,
         maxlength: 20,
-      } 
+      },
+      touched: false,
     },
     contenu: {
       elementType: 'textarea',
-      elementConfig: {},
+      elementConfig: {
+        errorMessage: 'Vous devez rentrer au moins 5 caractères',
+        type: 'text',
+      },
       value: '',
       label: 'Contenu',
       valid: false, 
       validation: {
         required: true,
-      } 
+        minlength: 5,
+      },
+      touched: false,
     },
     auteur: {
       elementType: 'input',
       elementConfig: {
         type: 'text',
-        placeholder: 'Auteur'
+        placeholder: 'Auteur',
+        errorMessage: 'Vous devez rentrer entre 5 et 20 caractères'
       },
       value: '',
       label: 'Auteur',
@@ -47,8 +56,23 @@ function Ajouter() {
       validation: {
         required: true,
         minlength: 2,
-      } 
+      },
+      touched: false, 
     },
+    // email: {
+    //   elementType: 'input',
+    //   elementConfig: {
+    //     type: 'email',
+    //     placeholder: 'email@email.fr'
+    //   },
+    //   value: '',
+    //   label: 'Email',
+    //   valid: false, 
+    //   validation: {
+    //     required: true,
+    //     isEmail: true
+    //   } 
+    // },
     etat: {
       elementType: 'select',
       elementConfig: {
@@ -59,9 +83,14 @@ function Ajouter() {
       },
       value: '',
       label: 'Etat',
-      valid: false
+      valid: true,
+      validation: {}
     }
   });
+  // State 2
+  const [validForm, SetValidForm] = useState(false);
+
+  // END STATES
 
   // Variables
 
@@ -74,6 +103,9 @@ function Ajouter() {
   }
 
   // Functions
+
+  
+  
   const checkValidity = (value, rules) => {
     let isValid = true;
     if (rules.required) {
@@ -85,17 +117,41 @@ function Ajouter() {
     if(rules.maxlength) {
       isValid = value.length <= rules.maxlength && isValid; 
     }
+    // if(rules.isEmail) {
+    //   isValid = validateEmail(value) && isValid;
+    // }
     return isValid;
   };
 
+  // const validateEmail = (email) => {
+  //   var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  //   var valid = emailReg.test(email);
+
+  //   if(!valid) {
+  //       return false;
+  //   } else {
+  //       return true;
+  //   }
+  // }
+
+
+
   const inputChangedHandler = (e, id) => {
     let newInputs = {...inputs};
+    newInputs[id].touched = true;
     newInputs[id].value = e.target.value;
 
     // check the value entered
     newInputs[id].valid = checkValidity(newInputs[id].value, newInputs[id].validation);
     
     SetInputs(newInputs); 
+
+    //check form
+    let formIsValid = true;
+    for (let input in newInputs) {
+      formIsValid = newInputs[input].valid && formIsValid;
+    }
+    SetValidForm(formIsValid);
   };
 
   const formHandler = (e) => {
@@ -114,11 +170,13 @@ function Ajouter() {
           config={formElement.config.elementConfig}
           changed={(e) => inputChangedHandler(e, formElement.id)}
           valid={formElement.config.valid}
+          touched={formElement.config.touched}
+          errorMessage={formElement.config.elementConfig.errorMessage}
         />
       ))
       }
       <div className={classes.submit}>
-        <input type="submit" value="Ajouter un article" />
+        <input type="submit" value="Ajouter un article" disabled={validForm.valider ? '': true}/>
       </div>
     </form>
   );
