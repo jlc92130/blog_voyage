@@ -1,22 +1,30 @@
 // Librairies
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './Header.module.css';
 
 // Composants
 import Navigation from './Navigation/Navigation';
 
 function Header() {
-  return (
-    <header className={classes.Header}>
-      <div className={['container', classes.flex].join(' ')}>
-        <div className={classes.logo}>
-          BLOG
-        </div>
+  // States
+  const [showSubMenu, setShowSubMenu] = useState(false);
 
-        <nav>
-          <Navigation />
-        </nav>
-      </div>
+  // Functions
+  const handleShowSubMenu = () => setShowSubMenu(!showSubMenu);
+
+  return (
+    <header>
+      <nav className={classes.Navbar}>
+        <div className={['container', classes.flex].join(' ')}>
+          <div className={classes.logo}>
+          Voyage
+          </div>
+          <Navigation showSubMenu={showSubMenu} />
+        </div>
+        <div onClick={handleShowSubMenu} className={classes.Navburger}>
+          <i className={showSubMenu ? 'fas fa-times' : 'fas fa-bars'} style={{color: 'white'}} />
+        </div>
+      </nav>
     </header>
   );
 }

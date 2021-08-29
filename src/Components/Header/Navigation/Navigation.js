@@ -1,19 +1,32 @@
 // Librairies
-import React from "react";
-import classes from './Navigation.module.css';
-import routes from '../../../routes';
+import React, { useState } from "react";
+
 
 // Composants
+import classes from './Navigation.module.css';
+import routes from '../../../config/routes';
 import NavigationItem from "./NavigationItem/NavigationItem";
+ 
 
-function Navigation() {
+
+
+function Navigation(props) {
+  // States
+  //const [click, setClick] = useState(false);
+  //const [dropdown, setDropdown] = useState(true);
+
+ // Functions
+  //const closeMobileMenu = () => setClick(false);
+
+
+
   return (
-    <ul className={classes.Navigation}>
-      <NavigationItem exact={true} to={routes.HOME}>Acceuil</NavigationItem>  
-      <NavigationItem to={routes.ARTICLES}>Articles</NavigationItem>  
-      <NavigationItem to={routes.CONTACT}>Contact</NavigationItem>  
-      <NavigationItem to={routes.AJOUTER}>Ajouter</NavigationItem>
-    </ul>
+      <ul className={[props.showSubMenu ? classes.ShowNavBar : 'bidon' , classes.Navigation].join(' ') }>
+        <NavigationItem exact={true} to={routes.HOME}>Home</NavigationItem>  
+        <NavigationItem to={routes.ARTICLES} dropdown>Destinations</NavigationItem>  
+        <NavigationItem to={routes.CONTACT}>Contact</NavigationItem>  
+        <NavigationItem to={routes.AJOUTER}>Ajouter</NavigationItem>
+      </ul>
   );
 }
 

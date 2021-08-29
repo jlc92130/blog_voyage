@@ -1,0 +1,46 @@
+.DropdownMenu {
+  width: 140px;
+  position: absolute;
+  top: 80px;
+  list-style-type: none;
+  text-align: start;
+}
+
+.DropdownMenu li {
+  color: white;
+  background: #6b6a69;
+  cursor: pointer;
+}
+
+.DropdownMenu li:hover {
+  background: black;
+  color: white;
+}
+
+/* .DropdownMenu.clicked {
+  display: none;
+} */
+
+.DropdownLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  padding: 16px;
+  margin-left: 5px;
+}
+
+.DropdownLink:hover {
+  text-decoration: none;
+  color:white;
+}
+
+@media screen and (max-width:767px) {
+  .DropdownLink {
+    display: block;
+    padding: .5rem;
+    font-size: 5vw;
+  }
+}
+

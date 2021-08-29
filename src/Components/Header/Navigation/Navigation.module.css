@@ -1,4 +1,30 @@
 .Navigation {
-  list-style-type: none;
   display: flex;
 }
+
+ul { 
+  list-style: none;
+  padding:0;
+   margin: 0 
+  }
+
+@media screen and (max-width:767px) {
+  .Navigation {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: -200vw;
+    left: 0;
+    bottom: 0px;
+    height: 100vh;
+    padding: 2rem;
+    background-color: black;
+  }  
+
+ .ShowNavBar  {
+    right: 0vw;
+  }  
+}
+
+ 

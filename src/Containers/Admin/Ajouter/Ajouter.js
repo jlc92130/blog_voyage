@@ -1,12 +1,14 @@
 // Librairie
 import React, { useState} from 'react';
 import classes from './Ajouter.module.css';
+import axios from '../../../config/axios-firebase';
+import routes from '../../../config/routes';
 
 // Composant
 import Input from '../../../Components/UI/Input/Input';
 
 
-function Ajouter() {
+function Ajouter(props) {
   // STATES
   // State 1
   const [inputs, SetInputs] = useState({
@@ -16,7 +18,7 @@ function Ajouter() {
       elementConfig: {
         type: 'text',
         placeholder: 'Titre',
-        errorMessage: 'Vous devez rentrer entre 5 et 20 caractères'
+        errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
       },
       value: '',
       label: 'Titre',
@@ -31,7 +33,7 @@ function Ajouter() {
     contenu: {
       elementType: 'textarea',
       elementConfig: {
-        errorMessage: 'Vous devez rentrer au moins 5 caractères',
+        errormessage: 'Vous devez rentrer au moins 5 caractères',
         type: 'text',
       },
       value: '',
@@ -48,7 +50,7 @@ function Ajouter() {
       elementConfig: {
         type: 'text',
         placeholder: 'Auteur',
-        errorMessage: 'Vous devez rentrer entre 5 et 20 caractères'
+        errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
       },
       value: '',
       label: 'Auteur',
@@ -73,7 +75,7 @@ function Ajouter() {
     //     isEmail: true
     //   } 
     // },
-    etat: {
+    brouillon: {
       elementType: 'select',
       elementConfig: {
         options: [
@@ -81,7 +83,7 @@ function Ajouter() {
           {value: false, displayValue: 'publié'}
         ]
       },
-      value: '',
+      value: true,
       label: 'Etat',
       valid: true,
       validation: {}
@@ -154,8 +156,28 @@ function Ajouter() {
     SetValidForm(formIsValid);
   };
 
+  // Submit form
   const formHandler = (e) => {
     e.preventDefault();
+
+    const article = {
+      titre: inputs.titre.value,
+      contenu: inputs.contenu.value,
+      auteur: inputs.auteur.value,
+      brouillon: inputs.brouillon.value
+    };
+    
+    // Axios send data
+    axios.post('/articles.json', article)
+      .then(response => {
+        // redirection to the form
+        props.history.replace(routes.ARTICLES);
+        // Initialize State2
+        SetValidForm(false);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   
   let form = (
@@ -171,12 +193,12 @@ function Ajouter() {
           changed={(e) => inputChangedHandler(e, formElement.id)}
           valid={formElement.config.valid}
           touched={formElement.config.touched}
-          errorMessage={formElement.config.elementConfig.errorMessage}
+          errormessage={formElement.config.elementConfig.errormessage}
         />
       ))
       }
       <div className={classes.submit}>
-        <input type="submit" value="Ajouter un article" disabled={validForm.valider ? '': true}/>
+        <input type="submit" value="Ajouter un article" disabled={validForm ? '': true}/>
       </div>
     </form>
   );

@@ -40,16 +40,16 @@ function Input(props) {
     break;
   }
 
-  let errorMessage;
+  let errormessage;
   if (props.touched && !props.valid){
-    errorMessage = <span>{props.errorMessage}</span>;
-}
+    errormessage = <span>{props.errormessage}</span>;
+  }
 
   return (
     <div className={classes.Input}>
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
-      {errorMessage}
+      {errormessage} 
     </div>
   );
 }

@@ -1,5 +1,4 @@
 .NavigationItem {
-  margin: 10px;
   text-decoration: none;
 }
 
@@ -8,8 +7,32 @@
   color: #333d29;
 } 
 
-.NavigationItem a:hover,
-.NavigationItem a:focus,
-.NavigationItem a.tot {
-  color: #94d2bd  ;
+
+.navItem {
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.navLink:hover {
+  background-color: #000000;
+  color:cornsilk;
+  border-radius: 4px;
+  transition: all 0.8s ease-out;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+@media screen and (max-width:767px) {
+  .navItem {
+    display: block;
+    padding: 2.5rem;
+    font-size: 5vw;
+  }
 }
