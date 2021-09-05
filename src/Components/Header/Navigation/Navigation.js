@@ -6,6 +6,9 @@ import React, { useState } from "react";
 import classes from './Navigation.module.css';
 import routes from '../../../config/routes';
 import NavigationItem from "./NavigationItem/NavigationItem";
+//import NavItems tab
+import {NavBarItems} from "./NavItems/NavBarItems";
+
  
 
 
@@ -18,14 +21,17 @@ function Navigation(props) {
  // Functions
   //const closeMobileMenu = () => setClick(false);
 
-
+  //[props.showSubMenu ? classes.ShowNavBar : 'bidon' , classes.Navigation]
+   
+ 
 
   return (
-      <ul className={[props.showSubMenu ? classes.ShowNavBar : 'bidon' , classes.Navigation].join(' ') }>
-        <NavigationItem exact={true} to={routes.HOME}>Home</NavigationItem>  
-        <NavigationItem to={routes.ARTICLES} dropdown>Destinations</NavigationItem>  
-        <NavigationItem to={routes.CONTACT}>Contact</NavigationItem>  
-        <NavigationItem to={routes.AJOUTER}>Ajouter</NavigationItem>
+      <ul className={classes.NavMenuItems} >
+        {NavBarItems.map(item => {
+          return (
+            <NavigationItem  id={item.id} exact={true} cl={item.cName} to={item.path} title={item.title} >{item.title}</NavigationItem> 
+          )})
+        }
       </ul>
   );
 }

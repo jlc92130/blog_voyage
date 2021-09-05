@@ -1,38 +1,54 @@
-.NavigationItem {
-  text-decoration: none;
-}
-
-.NavigationItem a {
-  text-decoration: none;
-  color: #333d29;
-} 
-
-
-.navItem {
-  display: flex;
+@import url("../Dropdown2/Dropdown2.module.css");
+/* CSS OF NAVBAR ITEMS  */
+.NavItems {
+  display: inline-flex;
+  height: 100px;
   align-items: center;
-  height: 80px;
+
 }
 
-.navLink {
+.NavItems a{
   color: white;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
-.navLink:hover {
-  background-color: #000000;
-  color:cornsilk;
-  border-radius: 4px;
-  transition: all 0.8s ease-out;
+.NavItems .active {
+  color: aqua;
+}
+
+
+.NavItems a:hover{
+  background-color: rgb(1, 24, 16); 
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 8px;
+  transition: 0.3s all ease-out; 
+  padding: 7px 5px;
 }
 
-@media screen and (max-width:767px) {
-  .navItem {
-    display: block;
-    padding: 2.5rem;
-    font-size: 5vw;
-  }
+/*  CSS OF DROPDOWN ITEMS  */
+.NavSubMenuDestinations.clicked {
+ display: none;
+ color: white;
 }
+
+.NavSubMenuDestinations a{
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.NavSubMenuDestinations a:hover{
+  background-color: aquamarine; 
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.NavSubMenuDestinations .active{
+    color: aqua;
+  }
+
+
