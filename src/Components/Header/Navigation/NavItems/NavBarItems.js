@@ -1,3 +1,5 @@
+import { ZoneGeoItems } from "./ZoneGeoItems";
+
 export const NavBarItems = [
   {
     id: 1,
@@ -10,6 +12,7 @@ export const NavBarItems = [
     title: "DESTINATIONS",
     path: '../destination',
     cName: "NavItems",
+    dropdown: ZoneGeoItems  
   },
   {
     id: 3,

@@ -5,7 +5,8 @@ const routes = {
   PAYS: '/pays',
   CONSEILS: '/conseils',
   AJOUTER: '/admin/ajouter',
-  BONSPLANS: '/bonplans'
+  BONSPLANS: '/bonplans',
+  ARTICLES: '/articles'
 }
 
 export default routes;

@@ -1,11 +1,8 @@
-@import url("../Dropdown2/Dropdown2.module.css");
 /* CSS OF NAVBAR ITEMS  */
-.NavItems {
+/* .NavItems {
   display: inline-flex;
-  height: 100px;
   align-items: center;
-
-}
+} */
 
 .NavItems a{
   color: white;
@@ -20,7 +17,7 @@
 
 
 .NavItems a:hover{
-  background-color: rgb(1, 24, 16); 
+  color: rgb(12, 24, 24);
   text-decoration: none;
   border-radius: 8px;
   transition: 0.3s all ease-out; 
@@ -28,27 +25,43 @@
 }
 
 /*  CSS OF DROPDOWN ITEMS  */
-.NavSubMenuDestinations.clicked {
+.NavSubMenu1.clicked {
  display: none;
  color: white;
 }
 
-.NavSubMenuDestinations a{
+.NavSubMenu1 a{
   display: block;
   width: 100%;
   height: 100%;
   color: white;
 }
 
-.NavSubMenuDestinations a:hover{
-  background-color: aquamarine; 
+.NavSubMenu2 a{
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.NavSubMenu2 a:hover{
+  background-color: rgb(5, 100, 68); 
   color: white;
   text-decoration: none;
   cursor: pointer;
 }
 
-.NavSubMenuDestinations .active{
-    color: aqua;
-  }
+.NavSubMenu2 .active{
+  color: rgb(12, 24, 24);
+}
+
+
+.NavSubMenu1 a:hover{
+  background-color: rgb(5, 100, 68); 
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 

@@ -27,9 +27,8 @@ function Header() {
   //   }
 
   return (
-    <header>
-      <div className='container'>
-        <nav className={classes.Navbar}>
+    <header >
+        <nav  className={`${classes.Navbar} container`}>
           <NavLink to='/' className={classes.Nav__bar__logo}>
               Voyage <i className='fab fa-typo3' />
           </NavLink>
@@ -37,12 +36,9 @@ function Header() {
           {/* Responsive, burger Menu */}
                 <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
             {/* <div className={['container', classes.flex].join(' ')}> */}
-            <Navigation />
-            <Button />
+          <Navigation />
+          <Button />
         </nav>
-        
-      </div>
-     
     </header>
   );
 }

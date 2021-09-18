@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {PaysItems} from '../NavItems/PaysItems';
 import NavigationItem from "../NavigationItem/NavigationItem";
 import classes from './Dropdown2.module.css';

@@ -1,28 +1,22 @@
 .DropdownMenuItems2 {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   position: absolute;
   list-style: none;
   text-align:left;
   width: 10rem;
-  top: 60px;
+  top: 0px;
   left: 10rem;
-  background:   rgb(61, 247, 185);
+  background: rgb(61, 247, 185);
   padding: 0px;
 }
-
-.BlockDropdown {
-  display: flex;
-  flex-direction: row;
-}
+ 
+ 
 
 
 
 
-.DropdownMenuItems2 a:hover {
-  color: white;
-  text-decoration: none;
-}
+
 
        
        

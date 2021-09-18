@@ -29,13 +29,14 @@ function Input(props) {
     break;
     case 'select':
       inputElement = (
-        <select value={props.value} id={props.id} onChange={props.changed}>
+        <select value={props.value} id={props.id} onChange={props.changed} >
           {props.config.options.map( option => (
-            <option key={option.value} value={option.value}>
+           <option key={option.value} value={option.value}>
               {option.displayValue}
-            </option>
+           </option>  
           ))}
         </select>
+        
       )
     break;
   }
@@ -46,7 +47,7 @@ function Input(props) {
   }
 
   return (
-    <div className={classes.Input}>
+    <div className={classes.Input} style={{display: props.display}}>
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
       {errormessage} 

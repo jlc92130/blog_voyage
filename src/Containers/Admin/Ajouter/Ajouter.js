@@ -5,7 +5,8 @@ import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
 
 // Composant
-import Input from '../../../Components/UI/Input/Input';
+import Inputt from '../../../Components/UI/Input/Input';
+
 
 
 function Ajouter(props) {
@@ -87,10 +88,44 @@ function Ajouter(props) {
       label: 'Etat',
       valid: true,
       validation: {}
+    },
+    rubrique: {
+      elementType: 'select',
+      elementConfig: {
+        display: 'block',
+
+        options: [
+          {value: true, displayValue: 'Destinations'},
+          {value: false, displayValue: 'Test'},
+        ]
+      },
+      value: true,
+      label: 'RUBRIQUE',
+      valid: true,
+      validation: {}
+    },
+    pays: {
+      elementType: 'select',
+      elementConfig: {
+        display: 'none',
+        options: [
+          {value: true, displayValue: 'Chine'},
+          {value: true, displayValue: 'France'},
+          {value: true, displayValue: 'Italie'},
+          {value: false, displayValue: 'Pays-Bas'},
+        ]
+      },
+      value: true,
+      label: 'PAYS',
+      valid: true,
+      validation: {}
     }
   });
   // State 2
   const [validForm, SetValidForm] = useState(false);
+
+  // State 3 displayvalue in Rubrique
+  const [isDestination, SetIsDestination] = useState(false);
 
   // END STATES
 
@@ -106,8 +141,6 @@ function Ajouter(props) {
 
   // Functions
 
-  
-  
   const checkValidity = (value, rules) => {
     let isValid = true;
     if (rules.required) {
@@ -138,10 +171,18 @@ function Ajouter(props) {
 
 
 
-  const inputChangedHandler = (e, id) => {
+  const inputChangedHandler = (e, id, rubrique) => {
     let newInputs = {...inputs};
     newInputs[id].touched = true;
     newInputs[id].value = e.target.value;
+
+            
+           
+          if (rubrique === 'Destinations') {
+            SetIsDestination(!isDestination);
+          } 
+           
+          isDestination ? newInputs.pays.elementConfig.display = 'block' : newInputs.pays.elementConfig.display = 'none'; 
 
     // check the value entered
     newInputs[id].valid = checkValidity(newInputs[id].value, newInputs[id].validation);
@@ -183,17 +224,19 @@ function Ajouter(props) {
   let form = (
     <form className={classes.Ajouter} onSubmit={(e) => formHandler(e)}>
       {formElementsArray.map(formElement => (
-        <Input 
+        <Inputt 
           key={formElement.id}
           id={formElement.id}
           label={formElement.config.label}
           value={formElement.config.value}
           type={formElement.config.elementType}
+          display={formElement.config.elementConfig.displayValue}
           config={formElement.config.elementConfig}
-          changed={(e) => inputChangedHandler(e, formElement.id)}
+          changed={(e) => inputChangedHandler(e, formElement.id, formElement.config.elementConfig.options.displayValue )}
           valid={formElement.config.valid}
           touched={formElement.config.touched}
           errormessage={formElement.config.elementConfig.errormessage}
+         // isDestin = {(e) => checkRubrique(e, formElement.config.elementConfig.options.displayValue)}
         />
       ))
       }

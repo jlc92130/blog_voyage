@@ -29,7 +29,7 @@ function Navigation(props) {
       <ul className={classes.NavMenuItems} >
         {NavBarItems.map(item => {
           return (
-            <NavigationItem  id={item.id} exact={true} cl={item.cName} to={item.path} title={item.title} >{item.title}</NavigationItem> 
+            <NavigationItem dropDown={item.dropdown} id={item.id} exact={true} cl={item.cName} to={item.path} title={item.title} >{item.title}</NavigationItem> 
           )})
         }
       </ul>

@@ -13,8 +13,7 @@ import Destinations from './Containers/pages/Destinations/Destinations';
 import Pays from './Containers/pages/Pays/Pays';
 import Bonsplans from './Containers/pages/Bonsplans/Bonplans';
 import Conseils from './Containers/pages/Conseils/Conseils';
-import Articles from './Containers/Articles/Articles';
-import Article from './Containers/Articles/Article/Article';
+import Article from './Containers/Destinations/Pays/Articles/Article/Article';
 import Ajouter from './Containers/Admin/Ajouter/Ajouter';
 
 function App() {
@@ -28,8 +27,6 @@ function App() {
           <Route exact path={routes.PAYS} component={Pays} /> 
           <Route exact path={routes.BONSPLANS} component={Bonsplans} /> 
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
-
-          
           <Route path={routes.ARTICLES+'/:id'} component={Article} />   
           <Route exact path={routes.AJOUTER} component={Ajouter} />
           <Route render={() => <h1>404</h1>} />  
