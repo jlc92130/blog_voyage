@@ -36,7 +36,6 @@ function Input(props) {
            </option>  
           ))}
         </select>
-        
       )
     break;
   }
@@ -47,11 +46,19 @@ function Input(props) {
   }
 
   return (
-    <div className={classes.Input} style={{display: props.display}}>
+    props.isPays ?
+    <div className={classes.Input}  style={{display: props.show ? 'block' : 'none' }} >
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
       {errormessage} 
     </div>
+    :
+    <div className={classes.Input} >
+      <label htmlFor={props.id}>{props.label}</label>
+      {inputElement}
+      {errormessage} 
+    </div>
+
   );
 }
 

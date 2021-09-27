@@ -79,6 +79,7 @@ function Ajouter(props) {
     brouillon: {
       elementType: 'select',
       elementConfig: {
+        show: true,
         options: [
           {value: true, displayValue: 'brouillon'},
           {value: false, displayValue: 'publié'}
@@ -92,11 +93,10 @@ function Ajouter(props) {
     rubrique: {
       elementType: 'select',
       elementConfig: {
-        display: 'block',
-
+        show: true,
         options: [
-          {value: true, displayValue: 'Destinations'},
-          {value: false, displayValue: 'Test'},
+          {value: 'Test', displayValue: 'Test'},
+          {value: 'Destinations', displayValue: 'Destinations'},
         ]
       },
       value: true,
@@ -107,12 +107,13 @@ function Ajouter(props) {
     pays: {
       elementType: 'select',
       elementConfig: {
-        display: 'none',
+        isPays: true,
+        show: false,
         options: [
-          {value: true, displayValue: 'Chine'},
-          {value: true, displayValue: 'France'},
-          {value: true, displayValue: 'Italie'},
-          {value: false, displayValue: 'Pays-Bas'},
+          {value: 'chine', displayValue: 'Chine'},
+          {value: 'france', displayValue: 'France'},
+          {value: 'italie', displayValue: 'Italie'},
+          {value: 'pays-bas', displayValue: 'Pays-Bas'},
         ]
       },
       value: true,
@@ -171,18 +172,20 @@ function Ajouter(props) {
 
 
 
-  const inputChangedHandler = (e, id, rubrique) => {
+  const inputChangedHandler = (e, id) => {
     let newInputs = {...inputs};
     newInputs[id].touched = true;
     newInputs[id].value = e.target.value;
-
-            
-           
-          if (rubrique === 'Destinations') {
-            SetIsDestination(!isDestination);
-          } 
-           
-          isDestination ? newInputs.pays.elementConfig.display = 'block' : newInputs.pays.elementConfig.display = 'none'; 
+     
+    if(id == "rubrique") {
+      if(e.target.value === 'Destinations') {
+        newInputs['pays'].elementConfig.show = true
+      } 
+      else {
+        newInputs['pays'].elementConfig.show = false
+      }
+    }
+      
 
     // check the value entered
     newInputs[id].valid = checkValidity(newInputs[id].value, newInputs[id].validation);
@@ -230,13 +233,13 @@ function Ajouter(props) {
           label={formElement.config.label}
           value={formElement.config.value}
           type={formElement.config.elementType}
-          display={formElement.config.elementConfig.displayValue}
           config={formElement.config.elementConfig}
-          changed={(e) => inputChangedHandler(e, formElement.id, formElement.config.elementConfig.options.displayValue )}
+          changed={(e) => inputChangedHandler(e, formElement.id)}
           valid={formElement.config.valid}
           touched={formElement.config.touched}
+          show={formElement.config.elementConfig.show}
           errormessage={formElement.config.elementConfig.errormessage}
-         // isDestin = {(e) => checkRubrique(e, formElement.config.elementConfig.options.displayValue)}
+          isPays={formElement.config.elementConfig.isPays}
         />
       ))
       }

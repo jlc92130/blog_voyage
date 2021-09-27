@@ -1,5 +1,5 @@
 // Librairies
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { NavLink } from 'react-router-dom';
 import classesNavigationItem from './NavigationItem.module.css';
 import Dropdown from '../../Navigation/Dropdown1/Dropdown';
@@ -9,26 +9,37 @@ import Dropdown from '../../Navigation/Dropdown1/Dropdown';
 
 function NavigationItem(props) {     
  
+  const dropDownRef = useRef(null);
   //{[classes.container, classes.navItem].join(' ')}
+const onMouseEnterHandler = () => {
+  dropDownRef.current.style.display="flex";
+}
+const onMouseLeaveHandler = () => {
+  dropDownRef.current.style.display="none";
+}
+
 
   return (
     <>
           <li 
             key={props.id} 
             className={classesNavigationItem.[props.cl]}
+            onMouseEnter={props.dropDown ? () => onMouseEnterHandler() : null} 
+            onMouseLeave={props.dropDown ? () => onMouseLeaveHandler() : null}
+            
           >
             {props.dropDown ? 
-            <>
-              <NavLink
-                zone={props.zone}
-                key={props.id}
-                exact={props.exact} 
-                to={props.to} 
-                activeClassName={classesNavigationItem.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
-              >
-                {props.title}
-              </NavLink>
-                <Dropdown dropDown={props.dropDown} /> 
+              <>
+                <NavLink
+                  zone={props.zone}
+                  key={props.id}
+                  exact={props.exact} 
+                  to={props.to} 
+                  activeClassName={classesNavigationItem.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
+                >
+                  {props.title}
+                </NavLink>
+                <Dropdown dropDownRef={dropDownRef} dropDown={props.dropDown} /> 
               </>
               :
               <NavLink
@@ -42,13 +53,7 @@ function NavigationItem(props) {
               </NavLink>
             }
           </li>
-          
-             
-        
-      
-    
     </>
-   
   );
 }
 

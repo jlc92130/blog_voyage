@@ -1,5 +1,6 @@
+/* first dropdown */
 .DropdownMenuItems {
-  display: flex;
+  display: none;
   flex-direction: column;
   position: absolute;
   list-style: none;
@@ -9,6 +10,22 @@
   background:   rgb(61, 247, 185);
   padding: 0px;
 }
+
+/* second dropdown  */
+.DropdownMenuItems .DropdownMenuItems {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  list-style: none;
+  text-align: start;
+  width: 10rem;
+  top: 0px;
+  right: -160px;
+  background:   rgb(61, 247, 185);
+  padding: 0px;
+}
+
+
 
 
        

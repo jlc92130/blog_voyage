@@ -5,6 +5,9 @@
 } */
 
 .NavItems a{
+  display: flex;
+  align-items: center;
+  height: 100px;
   color: white;
   text-decoration: none;
   font-size: 1.1rem;
@@ -19,16 +22,14 @@
 .NavItems a:hover{
   color: rgb(12, 24, 24);
   text-decoration: none;
-  border-radius: 8px;
   transition: 0.3s all ease-out; 
-  padding: 7px 5px;
 }
 
 /*  CSS OF DROPDOWN ITEMS  */
-.NavSubMenu1.clicked {
- display: none;
- color: white;
-}
+
+.NavSubMenu1 {
+  position: relative;
+ }
 
 .NavSubMenu1 a{
   display: block;
@@ -37,8 +38,18 @@
   color: white;
 }
 
+.NavSubMenu1 .active{
+  color: rgb(12, 24, 24);
+}
+
+.NavSubMenu1 a:hover{
+  background-color: rgb(5, 100, 68); 
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .NavSubMenu2 a{
-  display: block;
   width: 100%;
   height: 100%;
   color: white;
@@ -56,12 +67,6 @@
 }
 
 
-.NavSubMenu1 a:hover{
-  background-color: rgb(5, 100, 68); 
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 
 
