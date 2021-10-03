@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import { NavLink } from 'react-router-dom';
 import classesNavigationItem from './NavigationItem.module.css';
-import Dropdown from '../../Navigation/Dropdown1/Dropdown';
+import Dropdown from '../../Navigation/Dropdown/Dropdown';
 
 
 //Navbar menu items

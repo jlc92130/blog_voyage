@@ -11,7 +11,7 @@ function Input(props) {
   if(!props.valid && props.touched) {
     inputClasses.push(classes.invalid);
   }
- 
+
   
   let inputElement;
   switch (props.type) {
@@ -29,13 +29,27 @@ function Input(props) {
     break;
     case 'select':
       inputElement = (
-        <select value={props.value} id={props.id} onChange={props.changed} >
+        <select value={props.value} id={props.id} onChange={props.changed} defaultValue={props.config.defaultValue}>
           {props.config.options.map( option => (
-           <option key={option.value} value={option.value}>
+           <option key={option.value} value={option.value} disabled={option.disabled || false}>
               {option.displayValue}
            </option>  
           ))}
         </select>
+      )
+    break;
+    case 'file':
+      inputElement = (
+        <>
+        <input 
+          id={props.id}
+          type='file'
+          className={inputClasses}
+          value={props.value || ''}
+          {...props.config}
+          onChange={props.changed} />
+        <button onClick={props.fileUpload}>Upload</button>
+        </>
       )
     break;
   }
@@ -45,20 +59,13 @@ function Input(props) {
     errormessage = <span>{props.errormessage}</span>;
   }
 
+  const displayValue = props.isshow ? 'block' : 'none'
   return (
-    props.isPays ?
-    <div className={classes.Input}  style={{display: props.show ? 'block' : 'none' }} >
+    <div className={classes.Input}  style={{display: displayValue }} >
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
       {errormessage} 
     </div>
-    :
-    <div className={classes.Input} >
-      <label htmlFor={props.id}>{props.label}</label>
-      {inputElement}
-      {errormessage} 
-    </div>
-
   );
 }
 

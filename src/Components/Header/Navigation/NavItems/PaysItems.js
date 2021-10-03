@@ -4,7 +4,7 @@ export const PaysItems = {
       id: 1,
       title: "FRANCE",
       zone: "EUROPE",
-      path: '/france',
+      path: '../../france',
       cName: "NavSubMenu2",
     },
     {
@@ -27,7 +27,7 @@ export const PaysItems = {
       id: 4,
       title: "CHINE",
       zone: "ASIE",
-      path: '/chine',
+      path: '../destination/pays/chine',
       cName: "NavSubMenu2",
     },
   ]

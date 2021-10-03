@@ -10,32 +10,32 @@ export const NavBarItems = [
   {
     id: 2,
     title: "DESTINATIONS",
-    path: '../destination',
+    path: '../../destination',
     cName: "NavItems",
     dropdown: ZoneGeoItems  
   },
   {
     id: 3,
     title: "CONSEILS",
-    path: '../conseils',
+    path: '../../conseils',
     cName: "NavItems",
   },
   {
     id: 4,
     title: "CONTACT",
-    path: '../contact',
+    path: '../../contact',
     cName: "NavItems",
   },
   {
     id: 5,
     title: "BONSPLANS",
-    path: '../bonplans',
+    path: '../../bonplans',
     cName: "NavItems",
   },
   {
     id: 6,
     title: "AJOUTER",
-    path: '../admin/ajouter',
+    path: '../../admin/ajouter',
     cName: "NavItems",
   },
 ]

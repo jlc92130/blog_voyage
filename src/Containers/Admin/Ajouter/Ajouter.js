@@ -3,6 +3,8 @@ import React, { useState} from 'react';
 import classes from './Ajouter.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
+import {storage} from '../../../firebase/index';
+
 
 // Composant
 import Inputt from '../../../Components/UI/Input/Input';
@@ -17,6 +19,7 @@ function Ajouter(props) {
     titre: {
       elementType: 'input',
       elementConfig: {
+        isShow: true,
         type: 'text',
         placeholder: 'Titre',
         errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
@@ -34,6 +37,7 @@ function Ajouter(props) {
     contenu: {
       elementType: 'textarea',
       elementConfig: {
+        isShow: true,
         errormessage: 'Vous devez rentrer au moins 5 caractères',
         type: 'text',
       },
@@ -49,6 +53,7 @@ function Ajouter(props) {
     auteur: {
       elementType: 'input',
       elementConfig: {
+        isShow: true,
         type: 'text',
         placeholder: 'Auteur',
         errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
@@ -79,13 +84,13 @@ function Ajouter(props) {
     brouillon: {
       elementType: 'select',
       elementConfig: {
-        show: true,
+        isShow: true,
         options: [
           {value: true, displayValue: 'brouillon'},
           {value: false, displayValue: 'publié'}
         ]
       },
-      value: true,
+       
       label: 'Etat',
       valid: true,
       validation: {}
@@ -93,13 +98,14 @@ function Ajouter(props) {
     rubrique: {
       elementType: 'select',
       elementConfig: {
-        show: true,
+        isShow: true,
+        defaultValue: '0',
         options: [
-          {value: 'Test', displayValue: 'Test'},
+          {value: '0', displayValue: 'Sectionner un champs' },
           {value: 'Destinations', displayValue: 'Destinations'},
         ]
       },
-      value: true,
+      
       label: 'RUBRIQUE',
       valid: true,
       validation: {}
@@ -108,7 +114,7 @@ function Ajouter(props) {
       elementType: 'select',
       elementConfig: {
         isPays: true,
-        show: false,
+        isShow: false,
         options: [
           {value: 'chine', displayValue: 'Chine'},
           {value: 'france', displayValue: 'France'},
@@ -116,8 +122,19 @@ function Ajouter(props) {
           {value: 'pays-bas', displayValue: 'Pays-Bas'},
         ]
       },
-      value: true,
+       
       label: 'PAYS',
+      valid: true,
+      validation: {}
+    },
+    img: {
+      elementType: 'file',
+      elementConfig: {
+        isShow: true,
+        //isFile: true,
+      },
+      value: '',
+      label: 'Image',
       valid: true,
       validation: {}
     }
@@ -125,9 +142,7 @@ function Ajouter(props) {
   // State 2
   const [validForm, SetValidForm] = useState(false);
 
-  // State 3 displayvalue in Rubrique
-  const [isDestination, SetIsDestination] = useState(false);
-
+   
   // END STATES
 
   // Variables
@@ -173,17 +188,42 @@ function Ajouter(props) {
 
 
   const inputChangedHandler = (e, id) => {
-    let newInputs = {...inputs};
+    let newInputs = inputs;
     newInputs[id].touched = true;
+    //newInputs[id].value = e.target.files[0].name;
     newInputs[id].value = e.target.value;
+    
+
+
+    //console.log(e.target.files[0]);
      
+    
     if(id == "rubrique") {
       if(e.target.value === 'Destinations') {
-        newInputs['pays'].elementConfig.show = true
+        newInputs['pays'].elementConfig.isShow = true
       } 
       else {
-        newInputs['pays'].elementConfig.show = false
+        newInputs['pays'].elementConfig.isShow = false
       }
+    }
+    if(e.target.files[0]) {
+      const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
+      const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
+      //const fileName = e.target.files[0].name
+      const extension = fileName.split('.').pop().toLowerCase();  // JPG  -> jpg
+      const file = new File([newInputs[id].value], fileName);
+
+      switch (extension) {
+        case 'jpg' :
+          metadata = 'image/jpeg';
+          break;
+        default: 
+          break;
+      }
+      newInputs[id].metadata = metadata; // metadata is a new props of state
+      newInputs[id].value = file.name;   // toto.jpg  
+      newInputs[id].file = file;
+      console.log(newInputs);
     }
       
 
@@ -198,7 +238,12 @@ function Ajouter(props) {
       formIsValid = newInputs[input].valid && formIsValid;
     }
     SetValidForm(formIsValid);
-  };
+  }
+
+  const handleUpload = (e, id) => {
+    //console.log(inputs);
+    const uploadTask = storage.ref(`images/${inputs.img.file.name}`).put(inputs.img.file, {contentType: inputs.img.metadata});
+  }
 
   // Submit form
   const formHandler = (e) => {
@@ -208,7 +253,8 @@ function Ajouter(props) {
       titre: inputs.titre.value,
       contenu: inputs.contenu.value,
       auteur: inputs.auteur.value,
-      brouillon: inputs.brouillon.value
+      brouillon: inputs.brouillon.value,
+      image: inputs.img.value
     };
     
     // Axios send data
@@ -237,9 +283,11 @@ function Ajouter(props) {
           changed={(e) => inputChangedHandler(e, formElement.id)}
           valid={formElement.config.valid}
           touched={formElement.config.touched}
-          show={formElement.config.elementConfig.show}
+          isshow={formElement.config.elementConfig.isShow}
           errormessage={formElement.config.elementConfig.errormessage}
           isPays={formElement.config.elementConfig.isPays}
+          //isFile={formElement.config.elementConfig.isFile}
+          fileUpload={(e) => handleUpload(e, formElement.id)}
         />
       ))
       }

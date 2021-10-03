@@ -2,7 +2,7 @@ const routes = {
   HOME: '/',
   CONTACT: '/contact',
   DESTINATIONS: '/destination',
-  PAYS: '/pays',
+  CHINE: '/destination/pays/chine',
   CONSEILS: '/conseils',
   AJOUTER: '/admin/ajouter',
   BONSPLANS: '/bonplans',

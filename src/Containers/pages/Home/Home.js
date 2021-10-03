@@ -13,7 +13,9 @@ function Home(pros) {
           // search: "?order=new"
           state: {fromHome: true}
         }} 
-        style={{marginLeft: '15px'}} >lien vers ancre</Link>
+        style={{marginLeft: '15px'}} >
+          lien vers ancre
+      </Link>
 
     </>
   )

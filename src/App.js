@@ -10,7 +10,7 @@ import Layout from "./hoc/Layout/Layout";
 import Home from './Containers/pages/Home/Home';
 import Contact from './Components/Contact/Contact';
 import Destinations from './Containers/pages/Destinations/Destinations';
-import Pays from './Containers/pages/Pays/Pays';
+import Chine from './Containers/pages/Pays/Chine';
 import Bonsplans from './Containers/pages/Bonsplans/Bonplans';
 import Conseils from './Containers/pages/Conseils/Conseils';
 import Article from './Containers/Destinations/Pays/Articles/Article/Article';
@@ -24,7 +24,7 @@ function App() {
           <Route exact path={routes.HOME} component={Home} />
           <Route path={routes.CONTACT} component={Contact} />
           <Route exact path={routes.DESTINATIONS} component={Destinations} />  
-          <Route exact path={routes.PAYS} component={Pays} /> 
+          <Route exact path={routes.CHINE} component={Chine} /> 
           <Route exact path={routes.BONSPLANS} component={Bonsplans} /> 
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
           <Route path={routes.ARTICLES+'/:id'} component={Article} />   
