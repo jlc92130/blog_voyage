@@ -1,16 +1,35 @@
 // Librairies
-import React from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
+//import Uploader from '../../Uploader/Uploader';
+import ImageUpload from '../../ImageUpload/ImageUpload';
 
 // Composant
 import classes from './Input.module.css';
 
 
-function Input(props) {
+function Input(props, ref) {
+
+  const progressRef2 = useRef();
+  const imgRef2 = useRef();
+  useImperativeHandle(ref, () => ({
+    html: (progression) => {
+      //progressRef2.current.value = progression+'%';
+      progressRef2.current.style.width = progression+'%';
+    }
+  }));
+
+  
 
   let inputClasses=[];
   if(!props.valid && props.touched) {
-    inputClasses.push(classes.invalid);
+   inputClasses.push(classes.invalid);
   }
+
+  let inputClasses1=[];
+  if(!props.valid && props.touched) {
+    inputClasses1.push(classes.invalid2) 
+  }
+  
 
   
   let inputElement;
@@ -41,26 +60,55 @@ function Input(props) {
     case 'file':
       inputElement = (
         <>
+        
         <input 
           id={props.id}
           type='file'
           className={inputClasses}
           value={props.value || ''}
           {...props.config}
-          onChange={props.changed} />
-        <button onClick={props.fileUpload}>Upload</button>
+          onChange={props.changed}
+          accept=".jpg, .jpeg" />
+        
+
+        {/* <ImageUpload /> */}
+        <button onClick={props.fileUpload} disabled={props.valid ? '': true}>Upload</button>
+        <div   className={`${classes.progress}`}>
+          <div ref={progressRef2} className={classes.progressBar}></div>
+        </div>
+        <div className={classes.imageContainer}>
+          <img ref={imgRef2} id="myimg" src={props.url || 'http://via.placeholder.com/400*150'}  alt="uploadImage" className={classes.imageSize} />
+        </div>
+        {/* <Uploader 
+           id={props.id}
+           type='file'
+           className={inputClasses}
+           value={props.value || ''}
+           {...props.config}
+           onChange={props.changed}
+        /> */}
         </>
+        
       )
     break;
   }
 
   let errormessage;
   if (props.touched && !props.valid){
-    errormessage = <span>{props.errormessage}</span>;
+    errormessage = <span className={inputClasses1}>{props.errormessage}</span>;
   }
 
-  const displayValue = props.isshow ? 'block' : 'none'
+
+  const displayValue = props.show ? 'block' : 'none';
+  
   return (
+    props.show ?
+    <div className={classes.Input}  style={{display: displayValue }} >
+      <label htmlFor={props.id}>{props.label}</label>
+      {inputElement}
+      {errormessage} 
+    </div>
+    :
     <div className={classes.Input}  style={{display: displayValue }} >
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
@@ -69,4 +117,5 @@ function Input(props) {
   );
 }
 
-export default Input;
+const InputWithRef = forwardRef(Input);
+export default InputWithRef;

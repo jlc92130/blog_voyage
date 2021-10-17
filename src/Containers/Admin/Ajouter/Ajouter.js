@@ -1,10 +1,9 @@
 // Librairie
-import React, { useState} from 'react';
+import React, { useRef, useState} from 'react';
 import classes from './Ajouter.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
-import {storage} from '../../../firebase/index';
-
+import firebase, {storage} from '../../../firebase/index';
 
 // Composant
 import Inputt from '../../../Components/UI/Input/Input';
@@ -19,7 +18,7 @@ function Ajouter(props) {
     titre: {
       elementType: 'input',
       elementConfig: {
-        isShow: true,
+        show: true,
         type: 'text',
         placeholder: 'Titre',
         errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
@@ -37,7 +36,7 @@ function Ajouter(props) {
     contenu: {
       elementType: 'textarea',
       elementConfig: {
-        isShow: true,
+        show: true,
         errormessage: 'Vous devez rentrer au moins 5 caractères',
         type: 'text',
       },
@@ -53,7 +52,7 @@ function Ajouter(props) {
     auteur: {
       elementType: 'input',
       elementConfig: {
-        isShow: true,
+        show: true,
         type: 'text',
         placeholder: 'Auteur',
         errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
@@ -84,7 +83,7 @@ function Ajouter(props) {
     brouillon: {
       elementType: 'select',
       elementConfig: {
-        isShow: true,
+        show: true,
         options: [
           {value: true, displayValue: 'brouillon'},
           {value: false, displayValue: 'publié'}
@@ -98,7 +97,7 @@ function Ajouter(props) {
     rubrique: {
       elementType: 'select',
       elementConfig: {
-        isShow: true,
+        show: true,
         defaultValue: '0',
         options: [
           {value: '0', displayValue: 'Sectionner un champs' },
@@ -107,14 +106,14 @@ function Ajouter(props) {
       },
       
       label: 'RUBRIQUE',
-      valid: true,
+      valid: false,
       validation: {}
     },
     pays: {
       elementType: 'select',
       elementConfig: {
         isPays: true,
-        isShow: false,
+        show: false,
         options: [
           {value: 'chine', displayValue: 'Chine'},
           {value: 'france', displayValue: 'France'},
@@ -130,20 +129,33 @@ function Ajouter(props) {
     img: {
       elementType: 'file',
       elementConfig: {
-        isShow: true,
+        show: 'true',
+        errormessage: 'Vous devez choisir parmi ces fichier jpeg, jpg, png, gif'
         //isFile: true,
       },
       value: '',
+      urlImage:'',
+      file:'',
       label: 'Image',
       valid: true,
-      validation: {}
+      validation: {
+        required: true,
+        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+      },
     }
   });
   // State 2
   const [validForm, SetValidForm] = useState(false);
 
+
+  // Ref
+  const progressRef =  useRef(null);
+
+  const imgRef1 =  useRef(null);
+
    
   // END STATES
+  
 
   // Variables
 
@@ -156,7 +168,7 @@ function Ajouter(props) {
   }
 
   // Functions
-
+  
   const checkValidity = (value, rules) => {
     let isValid = true;
     if (rules.required) {
@@ -168,11 +180,18 @@ function Ajouter(props) {
     if(rules.maxlength) {
       isValid = value.length <= rules.maxlength && isValid; 
     }
+    if(rules.allowedExtensions) {
+      isValid = rules.allowedExtensions.includes(value) && isValid;
+    }
     // if(rules.isEmail) {
     //   isValid = validateEmail(value) && isValid;
     // }
     return isValid;
   };
+
+   
+
+   
 
   // const validateEmail = (email) => {
   //   var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -188,48 +207,60 @@ function Ajouter(props) {
 
 
   const inputChangedHandler = (e, id) => {
-    let newInputs = inputs;
+    let newInputs = {...inputs};
     newInputs[id].touched = true;
     //newInputs[id].value = e.target.files[0].name;
-    newInputs[id].value = e.target.value;
+    
+      newInputs[id].value = e.target.value;
     
 
-
-    //console.log(e.target.files[0]);
-     
-    
-    if(id == "rubrique") {
-      if(e.target.value === 'Destinations') {
-        newInputs['pays'].elementConfig.isShow = true
-      } 
-      else {
-        newInputs['pays'].elementConfig.isShow = false
-      }
-    }
-    if(e.target.files[0]) {
-      const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
-      const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
-      //const fileName = e.target.files[0].name
+  
+    if(id == 'img') {
+      // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
+      // const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
+      const file = e.target.files[0];
+      const fileName = e.target.files[0].name     //  toto.jpg (in c/exem/toto.jpg)
       const extension = fileName.split('.').pop().toLowerCase();  // JPG  -> jpg
-      const file = new File([newInputs[id].value], fileName);
+      //const file = new File([newInputs[id].value], fileName);  other way to do 
+
+      let metadata;
 
       switch (extension) {
         case 'jpg' :
           metadata = 'image/jpeg';
           break;
+        case 'png' :
+          metadata = 'image/jpeg';
+          break;
+        case 'jpeg' :
+          metadata = 'text/plain';
+          break;
         default: 
           break;
       }
       newInputs[id].metadata = metadata; // metadata is a new props of state
-      newInputs[id].value = file.name;   // toto.jpg  
+      newInputs[id].extension = extension;
+     // newInputs[id].value = fileName;
       newInputs[id].file = file;
-      console.log(newInputs);
+
+      newInputs[id].valid = checkValidity(newInputs[id].extension, newInputs[id].validation);
+    } else {
+      newInputs[id].valid = checkValidity(newInputs[id].value, newInputs[id].validation);
     }
+
+    if(id == "rubrique") {
+      if(e.target.value === 'Destinations') {
+        newInputs['pays'].elementConfig.show = true
+        newInputs['rubrique'].valid = true
+      } 
+      else {
+        newInputs['pays'].elementConfig.show = false
+        newInputs['rubrique'].valid = false
+      }
+    }
+
       
 
-    // check the value entered
-    newInputs[id].valid = checkValidity(newInputs[id].value, newInputs[id].validation);
-    
     SetInputs(newInputs); 
 
     //check form
@@ -240,9 +271,71 @@ function Ajouter(props) {
     SetValidForm(formIsValid);
   }
 
-  const handleUpload = (e, id) => {
-    //console.log(inputs);
-    const uploadTask = storage.ref(`images/${inputs.img.file.name}`).put(inputs.img.file, {contentType: inputs.img.metadata});
+  const handleUpload =   (e) => {
+    e.preventDefault();
+    
+    let newInputs = {...inputs};
+    let date = Date.now();
+    let newName = newInputs.img.file.name + "_" + date;
+    var storageRef = storage.ref(`images/${newName}`); //   images/toto_01022021.jpg
+    // upload the image in firebase
+    var uploadTask =  storageRef.put(newInputs.img.file, {contentType: newInputs.img.metadata});
+    
+    
+    /******* PROGRESS BAR   *********/
+    const next = (snapshot) => {       
+      let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;    
+      progressRef.current.html(Math.round(percentage));
+    };
+
+    const error = (error) => {
+      switch (error.code) {
+        case 'storage/unauthorized':
+          console.log('User has no permission')  
+          break;
+        case 'storage/canceled':
+          console.log('User was cancelled')  
+          break;
+        case 'storage/unknown':
+          console.log(error);
+          break;
+        default:
+          break;
+      }
+    };
+
+    const complete = async () => {
+      const img = document.getElementById('myimg');
+      
+      storageRef.getDownloadURL().then(url => img.src = url);
+      // We put the url in the state
+      await (function () {
+        const url = img.src;
+        newInputs.img.urlImage = url;
+      })();
+    };
+      
+
+    
+
+    uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED, {
+        'next': next,
+        'error': error,
+        'complete': complete,
+      });
+    
+      
+      
+      // function() {
+      //   storage.ref('images').child(newName).getDownloadURL().then(url => {   // images is the repository name in Storage Firebase
+      //     // url is the url of image in firebase storage
+      //     inputs.img.firebaseUrl = url;
+      //   })
+      // },
+    
+   
+   SetInputs(newInputs); 
   }
 
   // Submit form
@@ -254,14 +347,14 @@ function Ajouter(props) {
       contenu: inputs.contenu.value,
       auteur: inputs.auteur.value,
       brouillon: inputs.brouillon.value,
-      image: inputs.img.value
+      image: inputs.img.urlImage
     };
     
     // Axios send data
     axios.post('/articles.json', article)
       .then(response => {
         // redirection to the form
-        props.history.replace(routes.ARTICLES);
+        props.history.replace(routes.AJOUTER);
         // Initialize State2
         SetValidForm(false);
       })
@@ -272,7 +365,10 @@ function Ajouter(props) {
   
   let form = (
     <form className={classes.Ajouter} onSubmit={(e) => formHandler(e)}>
-      {formElementsArray.map(formElement => (
+      
+      {formElementsArray.map( formElement => (
+        <>
+         {console.log(formElement.config)}
         <Inputt 
           key={formElement.id}
           id={formElement.id}
@@ -283,16 +379,20 @@ function Ajouter(props) {
           changed={(e) => inputChangedHandler(e, formElement.id)}
           valid={formElement.config.valid}
           touched={formElement.config.touched}
-          isshow={formElement.config.elementConfig.isShow}
+          show={formElement.config.elementConfig.show}
           errormessage={formElement.config.elementConfig.errormessage}
           isPays={formElement.config.elementConfig.isPays}
-          //isFile={formElement.config.elementConfig.isFile}
-          fileUpload={(e) => handleUpload(e, formElement.id)}
+          fileUpload={(e) => handleUpload(e)}
+          url = {formElement.config.urlImage}
+          ref = {progressRef}
+          //url = {inputEl.current}
         />
+        </>
       ))
       }
+
       <div className={classes.submit}>
-        <input type="submit" value="Ajouter un article" disabled={validForm ? '': true}/>
+        <input type="submit" value="Ajouter un article" disabled={validForm ? false : true}/>
       </div>
     </form>
   );
