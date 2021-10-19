@@ -33,6 +33,23 @@ function Ajouter(props) {
       },
       touched: false,
     },
+    accroche: {
+      elementType: 'textarea',
+      elementConfig: {
+        show: true,
+        errormessage: 'L\'accroche ne doit pas être vide et doit contenir entre 5 et 10 caractères',
+        type: 'text',
+      },
+      value: '',
+      label: 'ACCROCHE',
+      valid: false, 
+      validation: {
+        required: true,
+        minlength: 5,
+        maxlength: 10,
+      },
+      touched: false,
+    },
     contenu: {
       elementType: 'textarea',
       elementConfig: {
@@ -89,7 +106,6 @@ function Ajouter(props) {
           {value: false, displayValue: 'publié'}
         ]
       },
-       
       label: 'Etat',
       valid: true,
       validation: {}
@@ -104,7 +120,6 @@ function Ajouter(props) {
           {value: 'Destinations', displayValue: 'Destinations'},
         ]
       },
-      
       label: 'RUBRIQUE',
       valid: false,
       validation: {}
@@ -121,7 +136,6 @@ function Ajouter(props) {
           {value: 'pays-bas', displayValue: 'Pays-Bas'},
         ]
       },
-       
       label: 'PAYS',
       valid: true,
       validation: {}
@@ -304,15 +318,11 @@ function Ajouter(props) {
       }
     };
 
-    const complete = async () => {
+    const complete = () => {
       const img = document.getElementById('myimg');
       
       storageRef.getDownloadURL().then(url => img.src = url);
-      // We put the url in the state
-      await (function () {
-        const url = img.src;
-        newInputs.img.urlImage = url;
-      })();
+      newInputs.img.urlImage = img.src;
     };
       
 
@@ -338,23 +348,52 @@ function Ajouter(props) {
    SetInputs(newInputs); 
   }
 
+  // genererate slug
+  const generateSlug = (str) =>{
+    
+      str = str.replace(/^\s+|\s+$/g, ''); // trim
+      str = str.toLowerCase();
+    
+      // remove accents, swap ñ for n, etc
+      var from = "àáãäâèéëêìíïîòóöôùúüûñç·/_,:;";
+      var to   = "aaaaaeeeeiiiioooouuuunc------";
+  
+      for (var i=0, l=from.length ; i<l ; i++) {
+          str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+      }
+  
+      str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+          .replace(/\s+/g, '-') // collapse whitespace and replace by -
+          .replace(/-+/g, '-'); // collapse dashes
+  
+      return str;
+  }
+  
+
   // Submit form
   const formHandler = (e) => {
     e.preventDefault();
 
+    const slug = generateSlug(inputs.titre.value);
+    
     const article = {
       titre: inputs.titre.value,
+      accroche: inputs.accroche.value,
       contenu: inputs.contenu.value,
       auteur: inputs.auteur.value,
       brouillon: inputs.brouillon.value,
-      image: inputs.img.urlImage
+      date: Date.now(),
+      image: inputs.img.urlImage,
+      slug: slug,
     };
+
+    
     
     // Axios send data
     axios.post('/articles.json', article)
       .then(response => {
         // redirection to the form
-        props.history.replace(routes.AJOUTER);
+        props.history.replace(routes.CHINE);
         // Initialize State2
         SetValidForm(false);
       })

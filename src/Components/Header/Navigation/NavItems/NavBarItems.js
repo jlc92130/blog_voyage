@@ -10,7 +10,7 @@ export const NavBarItems = [
   {
     id: 2,
     title: "DESTINATIONS",
-    path: '../../destination',
+    path: '/destination',
     cName: "NavItems",
     dropdown: ZoneGeoItems  
   },

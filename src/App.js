@@ -27,7 +27,7 @@ function App() {
           <Route exact path={routes.CHINE} component={Chine} /> 
           <Route exact path={routes.BONSPLANS} component={Bonsplans} /> 
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
-          <Route path={routes.ARTICLES+'/:id'} component={Article} />   
+          <Route path={routes.DESTINATIONS+'/:id'} component={Article} />   
           <Route exact path={routes.AJOUTER} component={Ajouter} />
           <Route render={() => <h1>404</h1>} />  
         </Switch>

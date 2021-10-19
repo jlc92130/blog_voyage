@@ -68,14 +68,19 @@ function Input(props, ref) {
           value={props.value || ''}
           {...props.config}
           onChange={props.changed}
-          accept=".jpg, .jpeg" />
+          accept=".jpg, .jpeg, .png" />
         
 
         {/* <ImageUpload /> */}
-        <button onClick={props.fileUpload} disabled={props.valid ? '': true}>Upload</button>
+        {/* <button onClick={props.fileUpload} disabled={props.valid ? '': true}>Upload</button> */}
         <div   className={`${classes.progress}`}>
           <div ref={progressRef2} className={classes.progressBar}></div>
         </div>
+        <div>
+          
+        </div>
+
+
         <div className={classes.imageContainer}>
           <img ref={imgRef2} id="myimg" src={props.url || 'http://via.placeholder.com/400*150'}  alt="uploadImage" className={classes.imageSize} />
         </div>
