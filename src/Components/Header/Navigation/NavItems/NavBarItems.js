@@ -4,7 +4,7 @@ export const NavBarItems = [
   {
     id: 1,
     title: "HOME",
-    path: '../',
+    path: '/',
     cName: "NavItems",
   },
   {
@@ -29,7 +29,7 @@ export const NavBarItems = [
   {
     id: 5,
     title: "BONSPLANS",
-    path: '../../bonplans',
+    path: '../../bonsplans',
     cName: "NavItems",
   },
   {

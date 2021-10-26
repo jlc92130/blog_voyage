@@ -48,9 +48,9 @@ function Input(props, ref) {
     break;
     case 'select':
       inputElement = (
-        <select value={props.value} id={props.id} onChange={props.changed} defaultValue={props.config.defaultValue}>
+        <select value={props.value}  id={props.id} onChange={props.changed} defaultValue={props.config.defaultValue}>
           {props.config.options.map( option => (
-           <option key={option.value} value={option.value} disabled={option.disabled || false}>
+           <option key={option.value} zone={option.zone} value={props.id == 'pays' ? option.value[0]: option.value} disabled={option.disabled || false}>
               {option.displayValue}
            </option>  
           ))}
@@ -73,14 +73,13 @@ function Input(props, ref) {
 
         {/* <ImageUpload /> */}
         {/* <button onClick={props.fileUpload} disabled={props.valid ? '': true}>Upload</button> */}
+        
+        {/*****  PROGRESS BAR  ******/}
         <div   className={`${classes.progress}`}>
           <div ref={progressRef2} className={classes.progressBar}></div>
         </div>
-        <div>
-          
-        </div>
 
-
+        {/*****  IMAGE   ******/}
         <div className={classes.imageContainer}>
           <img ref={imgRef2} id="myimg" src={props.url || 'http://via.placeholder.com/400*150'}  alt="uploadImage" className={classes.imageSize} />
         </div>

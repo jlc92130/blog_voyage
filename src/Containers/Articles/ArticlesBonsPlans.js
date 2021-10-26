@@ -1,22 +1,22 @@
 // Librairies
-import React, { useState, useEffect } from 'react';
-import axios from '../../../config/axios-firebase';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState} from 'react';
+import axios from '../../config/axios-firebase';
+
 
 // Composants
-import DisplayedArticles from '../../../Components/DisplayedArticles/DisplayedArticles';
-import routes from '../../../config/routes';
+import DisplayedArticles from '../../Components/DisplayedArticles/DisplayedArticles';
 
-function Home(pros) {
+function ArticlesBonsPlans(props) {
+
   // State
   const [articles, setArticles] = useState([]);
-
+  console.log(props);
   // ComponentDidMount 
   useEffect(() => {
-    axios.get('/articles.json?orderBy="date"&limitToLast=3') // display the last 3 articles ordered by date
+    axios.get(`/articles.json?orderBy="rubrique"&equalTo="bonsplans"`)
       .then(resp => {
         const articlesArray = [];
-
+        console.log(resp.data);
         for (let key in resp.data) {
           articlesArray.push({
             ...resp.data[key], // destructuring
@@ -24,6 +24,7 @@ function Home(pros) {
           });
         }
         articlesArray.reverse();
+
         setArticles(articlesArray);
       })
       .catch(error => {
@@ -31,14 +32,12 @@ function Home(pros) {
       });
   }, []);
 
-
   return (
     <>
-      <h1>home</h1>
+      <h1>ARTICLES</h1>
       <DisplayedArticles articles={articles} />
-      <Link to={routes.DESTINATIONS}>Afficher tout les articles</Link>
     </>
-  )
+  );
 }
 
-export default Home;
+export default ArticlesBonsPlans;

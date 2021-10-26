@@ -6,14 +6,28 @@ import routes from '../../../config/routes';
 
 function DisplayedArticle(props) {
 
+//let rubriqueName = props.article.rubrique;
+
+
  return (
-  <Link to={routes.DESTINATIONS+'/'+props.article.slug}>
-    <div className={classes.DisplayedArticle}>
-      <h2>{props.article.titre}</h2>
-      <p>{props.article.accroche}</p>
-      <small>{props.article.auteur}</small>
-    </div>
-  </Link>
+   props.article.rubrique == 'destination' ?
+    <Link className={classes.link} to={props.article.rubrique + '/' + props.article.pays + '/' + props.article.slug} >
+      <div className={classes.DisplayedArticle}>
+        <h2>{props.article.titre}</h2>
+        <p>{props.article.accroche}</p>
+        
+        <small>{props.article.auteur}</small>
+      </div>
+    </Link>
+    :
+    <Link className={classes.link} to={ props.article.rubrique + '/' + props.article.slug} >
+      <div className={classes.DisplayedArticle}>
+        <h2>{props.article.titre}</h2>
+        <p>{props.article.accroche}</p>
+        
+        <small>{props.article.auteur}</small>
+      </div>
+    </Link>
  )
 }
 

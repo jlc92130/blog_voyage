@@ -4,4 +4,12 @@
   margin: 10px;
   background-color: rgb(133, 140, 143);
   color: white;
+  transition: .3s;
+}
+.link:hover  {
+  color: inherit;
+  text-decoration: none;
+}
+.DisplayedArticle:hover {
+  box-shadow: 0 10px 10px rgba(255, 255, 255, 0.938), 0 6px 6px rgba(255, 255, 255, 0.938);  
 }

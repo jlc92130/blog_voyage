@@ -11,20 +11,6 @@ import Button from '../Button/Button';
 function Header() {
   // States
   const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
-
-  // Variables
-
-  // Functions
-   
-  // const handleClick = () => setClick(!click);
-  // const closeMobileMenu = () =>setClick(false);
-
-  //   if(isMenu) {
-  //       boxClass.push('menuq2');
-  //   }else{
-  //       boxClass.push('');
-  //   }
 
   return (
     <header >

@@ -9,12 +9,13 @@ import routes from './config/routes';
 import Layout from "./hoc/Layout/Layout";
 import Home from './Containers/pages/Home/Home';
 import Contact from './Components/Contact/Contact';
-import Destinations from './Containers/pages/Destinations/Destinations';
-import Chine from './Containers/pages/Pays/Chine';
 import Bonsplans from './Containers/pages/Bonsplans/Bonplans';
 import Conseils from './Containers/pages/Conseils/Conseils';
-import Article from './Containers/Destinations/Pays/Articles/Article/Article';
+import Article from './Containers/Articles/Article/Article';
+import ArticlesDestinations from './Containers/Articles/ArticlesDestinations';
+import ArticlesBonsPlans from './Containers/Articles/ArticlesBonsPlans';
 import Ajouter from './Containers/Admin/Ajouter/Ajouter';
+
 
 function App() {
   return (
@@ -23,11 +24,20 @@ function App() {
         <Switch>
           <Route exact path={routes.HOME} component={Home} />
           <Route path={routes.CONTACT} component={Contact} />
-          <Route exact path={routes.DESTINATIONS} component={Destinations} />  
-          <Route exact path={routes.CHINE} component={Chine} /> 
-          <Route exact path={routes.BONSPLANS} component={Bonsplans} /> 
+          
+          <Route exact path={routes.DESTINATIONS} component={ArticlesDestinations} />  
+          <Route exact path={routes.DESTINATIONS + routes.EUROPE } component={ArticlesDestinations} />  
+          <Route exact path={routes.DESTINATIONS + routes.ASIE } component={ArticlesDestinations} />  
+
+          <Route exact path={routes.DESTINATIONS + routes.PAYS + '/:slug'} component={Article} /> 
+          <Route exact path={routes.DESTINATIONS + routes.CHINE + '/:slug'} component={Article} /> 
+          <Route exact path={routes.DESTINATIONS + routes.ITALIE + '/:slug'} component={Article} /> 
+
+
+          <Route exact path={routes.BONSPLANS} component={ArticlesBonsPlans} />
+          <Route exact path={routes.BONSPLANS + '/:slug'} component={Article} /> 
+
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
-          <Route path={routes.DESTINATIONS+'/:id'} component={Article} />   
           <Route exact path={routes.AJOUTER} component={Ajouter} />
           <Route render={() => <h1>404</h1>} />  
         </Switch>

@@ -117,7 +117,9 @@ function Ajouter(props) {
         defaultValue: '0',
         options: [
           {value: '0', displayValue: 'Sectionner un champs' },
-          {value: 'Destinations', displayValue: 'Destinations'},
+          {value: 'destination', displayValue: 'Destination'},
+          {value: 'bonsplans', displayValue: 'Bonplans'},
+          {value: 'conseils', displayValue: 'Conseils'},
         ]
       },
       label: 'RUBRIQUE',
@@ -130,13 +132,15 @@ function Ajouter(props) {
         isPays: true,
         show: false,
         options: [
-          {value: 'chine', displayValue: 'Chine'},
-          {value: 'france', displayValue: 'France'},
-          {value: 'italie', displayValue: 'Italie'},
-          {value: 'pays-bas', displayValue: 'Pays-Bas'},
+          {value: '0', displayValue: 'Sectionner un champs' },
+          {value: ['chine','asie'], displayValue: 'Chine'},
+          {value: ['france','europe'], displayValue: 'France'},
+          {value: ['italie','europe'], displayValue: 'Italie'},
+          {value: ['pays-bas','europe'], displayValue: 'Pays-Bas'},
         ]
       },
       label: 'PAYS',
+      zone: '',
       valid: true,
       validation: {}
     },
@@ -225,9 +229,8 @@ function Ajouter(props) {
     newInputs[id].touched = true;
     //newInputs[id].value = e.target.files[0].name;
     
-      newInputs[id].value = e.target.value;
+    id == "destination" ? newInputs[id].value = e.target.value.split(',')[0] : newInputs[id].value = e.target.value;
     
-
   
     if(id == 'img') {
       // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
@@ -262,10 +265,25 @@ function Ajouter(props) {
       newInputs[id].valid = checkValidity(newInputs[id].value, newInputs[id].validation);
     }
 
+    // activate or disactivate the validation of the form
     if(id == "rubrique") {
-      if(e.target.value === 'Destinations') {
+      if(e.target.value === 'destination') {
         newInputs['pays'].elementConfig.show = true
+        newInputs['pays'].valid = false
         newInputs['rubrique'].valid = true
+        newInputs['rubrique'].value = 'destination'
+      } 
+      else if(e.target.value === 'bonsplans') {
+        newInputs['rubrique'].valid = true
+        newInputs['rubrique'].value = 'bonsplans'
+        newInputs['pays'].elementConfig.show = false
+        newInputs['pays'].valid = true
+      } 
+      else if(e.target.value === 'conseils') {
+        newInputs['rubrique'].valid = true
+        newInputs['rubrique'].value = 'conseils'
+        newInputs['pays'].valid = true
+        newInputs['pays'].elementConfig.show = false
       } 
       else {
         newInputs['pays'].elementConfig.show = false
@@ -273,18 +291,35 @@ function Ajouter(props) {
       }
     }
 
-      
+    if(id == "pays") {
+      if(e.target.value !== '0') {
+        newInputs['pays'].valid = true
+        let value_zone = newInputs['pays'].elementConfig.options.value[1];
+        newInputs['pays'].zone = value_zone;
+        console.log(newInputs['pays'].zone);
+      } 
+      else {
+        newInputs['pays'].valid = false
+      }
+
+
+      //console.log(newInputs.pays.zone);
+    }
+    
 
     SetInputs(newInputs); 
+    
 
-    //check form
+    //check if form is valid 
     let formIsValid = true;
     for (let input in newInputs) {
       formIsValid = newInputs[input].valid && formIsValid;
     }
     SetValidForm(formIsValid);
+    
   }
 
+  //upload image
   const handleUpload =   (e) => {
     e.preventDefault();
     
@@ -324,9 +359,6 @@ function Ajouter(props) {
       storageRef.getDownloadURL().then(url => img.src = url);
       newInputs.img.urlImage = img.src;
     };
-      
-
-    
 
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED, {
@@ -334,8 +366,6 @@ function Ajouter(props) {
         'error': error,
         'complete': complete,
       });
-    
-      
       
       // function() {
       //   storage.ref('images').child(newName).getDownloadURL().then(url => {   // images is the repository name in Storage Firebase
@@ -343,8 +373,6 @@ function Ajouter(props) {
       //     inputs.img.firebaseUrl = url;
       //   })
       // },
-    
-   
    SetInputs(newInputs); 
   }
 
@@ -370,18 +398,22 @@ function Ajouter(props) {
   }
   
 
-  // Submit form
+  // Submit form AJOUTER
+
   const formHandler = (e) => {
     e.preventDefault();
-
-    const slug = generateSlug(inputs.titre.value);
     
+    const slug = generateSlug(inputs.titre.value);
+
     const article = {
       titre: inputs.titre.value,
       accroche: inputs.accroche.value,
       contenu: inputs.contenu.value,
       auteur: inputs.auteur.value,
       brouillon: inputs.brouillon.value,
+      rubrique: inputs.rubrique.value,
+      pays: inputs.pays.value,
+      zone: inputs.pays.zone,
       date: Date.now(),
       image: inputs.img.urlImage,
       slug: slug,
@@ -392,8 +424,9 @@ function Ajouter(props) {
     // Axios send data
     axios.post('/articles.json', article)
       .then(response => {
-        // redirection to the form
-        props.history.replace(routes.CHINE);
+        // reload the form to clean the fields
+        //window.location.reload();
+        props.history.replace(routes.HOME);
         // Initialize State2
         SetValidForm(false);
       })
@@ -407,7 +440,6 @@ function Ajouter(props) {
       
       {formElementsArray.map( formElement => (
         <>
-         {console.log(formElement.config)}
         <Inputt 
           key={formElement.id}
           id={formElement.id}
@@ -423,8 +455,8 @@ function Ajouter(props) {
           isPays={formElement.config.elementConfig.isPays}
           fileUpload={(e) => handleUpload(e)}
           url = {formElement.config.urlImage}
+          zone = {formElement.config.zone}
           ref = {progressRef}
-          //url = {inputEl.current}
         />
         </>
       ))

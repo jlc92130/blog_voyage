@@ -31,7 +31,6 @@ const onMouseLeaveHandler = () => {
             {props.dropDown ? 
               <>
                 <NavLink
-                  zone={props.zone}
                   key={props.id}
                   exact={props.exact} 
                   to={props.to} 

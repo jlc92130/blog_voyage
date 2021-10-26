@@ -4,7 +4,7 @@ export const ZoneGeoItems = [
   {
     id: 1,
     title: "EUROPE",
-    path: '../destination/eu',
+    path: '../destination/europe',
     cName: "NavSubMenu1",
     dropDown: PaysItems.EUROPE
   },
