@@ -48,10 +48,11 @@ function Input(props, ref) {
     break;
     case 'select':
       inputElement = (
-        <select value={props.value}  id={props.id} onChange={props.changed} defaultValue={props.config.defaultValue}>
+        <select  id={props.id}  onChange={props.changed} defaultValue={props.config.defaultValue} value={props.value}>
           {props.config.options.map( option => (
-           <option key={option.value} zone={option.zone} value={props.id == 'pays' ? option.value[0]: option.value} disabled={option.disabled || false}>
+           <option key={option.value} zone={option.zone}  value={option.value}>
               {option.displayValue}
+            
            </option>  
           ))}
         </select>
@@ -106,18 +107,18 @@ function Input(props, ref) {
   const displayValue = props.show ? 'block' : 'none';
   
   return (
-    props.show ?
+    // props.show ?
     <div className={classes.Input}  style={{display: displayValue }} >
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
       {errormessage} 
     </div>
-    :
-    <div className={classes.Input}  style={{display: displayValue }} >
-      <label htmlFor={props.id}>{props.label}</label>
-      {inputElement}
-      {errormessage} 
-    </div>
+    // :
+    // <div className={classes.Input}  style={{display: displayValue }} >
+    //   <label htmlFor={props.id}>{props.label}</label>
+    //   {inputElement}
+    //   {errormessage} 
+    // </div>
   );
 }
 

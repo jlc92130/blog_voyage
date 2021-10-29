@@ -132,15 +132,16 @@ function Ajouter(props) {
         isPays: true,
         show: false,
         options: [
-          {value: '0', displayValue: 'Sectionner un champs' },
-          {value: ['chine','asie'], displayValue: 'Chine'},
-          {value: ['france','europe'], displayValue: 'France'},
-          {value: ['italie','europe'], displayValue: 'Italie'},
-          {value: ['pays-bas','europe'], displayValue: 'Pays-Bas'},
+          {value: '0',     displayValue: 'Sectionner un champs', zone: '' },
+          {value: 'chine', displayValue: 'Chine', zone: 'asie' },
+          {value: 'france', displayValue: 'France', zone: 'europe' },
+          {value: 'italie', displayValue: 'Italie', zone: 'europe'},
+          {value: 'pays-bas', displayValue: 'Pays-Bas', zone: 'europe'},
         ]
       },
       label: 'PAYS',
       zone: '',
+      value:'',
       valid: true,
       validation: {}
     },
@@ -206,11 +207,7 @@ function Ajouter(props) {
     // }
     return isValid;
   };
-
-   /// a surrpimer************************************************
-   /******************************************** */
-
-   
+ 
 
   // const validateEmail = (email) => {
   //   var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -230,7 +227,9 @@ function Ajouter(props) {
     newInputs[id].touched = true;
     //newInputs[id].value = e.target.files[0].name;
     
-    id == "destination" ? newInputs[id].value = e.target.value.split(',')[0] : newInputs[id].value = e.target.value;
+      newInputs[id].value = e.target.value;    
+
+   // id == "destination" ? newInputs[id].value = e.target.value.split(',')[0] : newInputs[id].value = e.target.value;
     
   
     if(id == 'img') {
@@ -270,46 +269,48 @@ function Ajouter(props) {
     if(id == "rubrique") {
       if(e.target.value === 'destination') {
         newInputs['pays'].elementConfig.show = true
-        newInputs['pays'].valid = false
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'destination'
       } 
       else if(e.target.value === 'bonsplans') {
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'bonsplans'
+        newInputs['pays'].value = 0
         newInputs['pays'].elementConfig.show = false
         newInputs['pays'].valid = true
       } 
       else if(e.target.value === 'conseils') {
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'conseils'
+        newInputs['pays'].value = 0 // if we choose "conseils" we reput value to 0 then if before we choosed "destination" "italie" and after "conseils" then 
         newInputs['pays'].valid = true
         newInputs['pays'].elementConfig.show = false
       } 
       else {
         newInputs['pays'].elementConfig.show = false
         newInputs['rubrique'].valid = false
+
       }
     }
 
     if(id == "pays") {
       if(e.target.value !== '0') {
         newInputs['pays'].valid = true
-        let value_zone = newInputs['pays'].elementConfig.options.value[1];
-        newInputs['pays'].zone = value_zone;
-        console.log(newInputs['pays'].zone);
+        newInputs['pays'].value = e.target.value
       } 
       else {
         newInputs['pays'].valid = false
       }
-
-
       //console.log(newInputs.pays.zone);
+    
     }
     
+     
 
     SetInputs(newInputs); 
-    
+
+    console.log(inputs['pays'].value);
+    console.log(inputs['pays'].zone);
 
     //check if form is valid 
     let formIsValid = true;
@@ -441,6 +442,7 @@ function Ajouter(props) {
       
       {formElementsArray.map( formElement => (
         <>
+         
         <Inputt 
           key={formElement.id}
           id={formElement.id}
@@ -456,9 +458,9 @@ function Ajouter(props) {
           isPays={formElement.config.elementConfig.isPays}
           fileUpload={(e) => handleUpload(e)}
           url = {formElement.config.urlImage}
-          zone = {formElement.config.zone}
           ref = {progressRef}
         />
+       
         </>
       ))
       }
