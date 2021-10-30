@@ -8,6 +8,11 @@ import classes from './Input.module.css';
 
 
 function Input(props, ref) {
+ 
+  // VARIABLES
+  let reduced = "";
+
+  //REF
 
   const progressRef2 = useRef();
   const imgRef2 = useRef();
@@ -18,6 +23,19 @@ function Input(props, ref) {
     }
   }));
 
+  // display only the countries that match with the continent using a filter using reduce's function
+  // we map the tab "options" in the state where the id="pays" we return the table "filtered"
+  if(props.id == "pays") {
+     reduced = props.config.options.reduce(function(filtered, option) {
+
+      if (option.continent == props.continent) {
+         var someNewValue =  option.value;
+         filtered.push(someNewValue);
+      }
+      return filtered;
+    }, []);
+    console.log(reduced);
+  }
   
 
   let inputClasses=[];
@@ -29,8 +47,6 @@ function Input(props, ref) {
   if(!props.valid && props.touched) {
     inputClasses1.push(classes.invalid2) 
   }
-  
-
   
   let inputElement;
   switch (props.type) {
@@ -47,15 +63,29 @@ function Input(props, ref) {
       inputElement = (<textarea value={props.value} className={inputClasses} id={props.id} onChange={props.changed} />)
     break;
     case 'select':
+     
+
       inputElement = (
+        
+        props.id == "pays" ?
+        <>
         <select  id={props.id}  onChange={props.changed} defaultValue={props.config.defaultValue} value={props.value}>
-          {props.config.options.map( option => (
-           <option key={option.value} zone={option.zone}  value={option.value}>
-              {option.displayValue}
-            
-           </option>  
+          {reduced.map( option => (                      
+            <option key={option}  value={option}>
+              {option}
+            </option>  
           ))}
         </select>
+        </>
+        :
+        <select  id={props.id}  onChange={props.changed} defaultValue={props.config.defaultValue} value={props.value}>
+          {props.config.options.map( option => (
+            <option key={option.value}  value={option.value}>
+              {option.displayValue}
+            </option>  
+          ))}
+        </select>
+        
       )
     break;
     case 'file':

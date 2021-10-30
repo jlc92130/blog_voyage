@@ -4,6 +4,7 @@ import classes from './Ajouter.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
 import firebase, {storage} from '../../../firebase/index';
+import { ZoneGeoItems } from '../../../Components/Header/Navigation/NavItems/ZoneGeoItems';
 
 // Composant
 import Inputt from '../../../Components/UI/Input/Input';
@@ -24,6 +25,7 @@ function Ajouter(props) {
         errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
       },
       value: '',
+      cont: false,
       label: 'Titre',
       valid: false, 
       validation: {
@@ -41,6 +43,8 @@ function Ajouter(props) {
         type: 'text',
       },
       value: '',
+      cont: false,
+
       label: 'ACCROCHE',
       valid: false, 
       validation: {
@@ -58,6 +62,8 @@ function Ajouter(props) {
         type: 'text',
       },
       value: '',
+      cont: false,
+
       label: 'Contenu',
       valid: false, 
       validation: {
@@ -75,6 +81,8 @@ function Ajouter(props) {
         errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
       },
       value: '',
+      cont: false,
+
       label: 'Auteur',
       valid: false, 
       validation: {
@@ -107,6 +115,8 @@ function Ajouter(props) {
         ]
       },
       label: 'Etat',
+      cont: false,
+
       valid: true,
       validation: {}
     },
@@ -123,28 +133,51 @@ function Ajouter(props) {
         ]
       },
       label: 'RUBRIQUE',
+      cont: false,
+
       valid: false,
       validation: {}
     },
+
+    continent: {
+      elementType: 'select',
+      elementConfig: {
+        isRegion: true,
+        show: false,
+        options: [
+          {value: '0',     displayValue: 'Sectionner un champs'},
+          {value: 'asie', displayValue: 'Asie'},
+          {value: 'europe', displayValue: 'Europe'},
+          {value: 'amerique', displayValue: 'Amerique'},
+        ]
+      },
+      label: 'Zone Geographique',
+      cont: false,
+      value:'',
+      valid: true,
+      validation: {}
+    },
+
     pays: {
       elementType: 'select',
       elementConfig: {
         isPays: true,
         show: false,
         options: [
-          {value: '0',     displayValue: 'Sectionner un champs', zone: '' },
-          {value: 'chine', displayValue: 'Chine', zone: 'asie' },
-          {value: 'france', displayValue: 'France', zone: 'europe' },
-          {value: 'italie', displayValue: 'Italie', zone: 'europe'},
-          {value: 'pays-bas', displayValue: 'Pays-Bas', zone: 'europe'},
+          {value: '0',     displayValue: 'Sectionner un champs', continent:null},
+          {value: 'chine', displayValue: 'Chine', continent:'asie'},
+          {value: 'france', displayValue: 'France', continent:'europe'},
+          {value: 'italie', displayValue: 'Italie', continent:'europe'},
+          {value: 'pays-bas', displayValue: 'Pays-Bas', continent:'europe'},
         ]
       },
       label: 'PAYS',
-      zone: '',
       value:'',
+      cont: true,
       valid: true,
       validation: {}
     },
+    
     img: {
       elementType: 'file',
       elementConfig: {
@@ -156,6 +189,8 @@ function Ajouter(props) {
       urlImage:'',
       file:'',
       label: 'Image',
+      cont: false,
+
       valid: true,
       validation: {
         required: true,
@@ -166,17 +201,28 @@ function Ajouter(props) {
   // State 2
   const [validForm, SetValidForm] = useState(false);
 
+  const [continent, setContinent] = useState();
 
-  // Ref
+
+
+
+
+
+  
+  // END STATES
+  
+  // REF
   const progressRef =  useRef(null);
 
   const imgRef1 =  useRef(null);
 
-   
-  // END STATES
-  
+  // VARIABLES
 
-  // Variables
+  const continentItems = [];
+  ZoneGeoItems.forEach(continent => { 
+    continentItems.push(continent.title.toLowerCase());
+  });
+  
 
   const formElementsArray = []; 
   for(let key in inputs) {
@@ -225,11 +271,22 @@ function Ajouter(props) {
   const inputChangedHandler = (e, id) => {
     let newInputs = {...inputs};
     newInputs[id].touched = true;
+
     //newInputs[id].value = e.target.files[0].name;
     
       newInputs[id].value = e.target.value;    
-
    // id == "destination" ? newInputs[id].value = e.target.value.split(',')[0] : newInputs[id].value = e.target.value;
+
+    
+    if (id == "continent") {
+      const continent = e.target.value
+      setContinent(continent);
+    }
+   
+
+
+
+
     
   
     if(id == 'img') {
@@ -268,28 +325,42 @@ function Ajouter(props) {
     // activate or disactivate the validation of the form
     if(id == "rubrique") {
       if(e.target.value === 'destination') {
-        newInputs['pays'].elementConfig.show = true
+        newInputs['continent'].elementConfig.show = true
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'destination'
       } 
       else if(e.target.value === 'bonsplans') {
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'bonsplans'
+        newInputs['continent'].value = 0
         newInputs['pays'].value = 0
+        newInputs['continent'].elementConfig.show = false
         newInputs['pays'].elementConfig.show = false
-        newInputs['pays'].valid = true
+        newInputs['continent'].valid = true
       } 
       else if(e.target.value === 'conseils') {
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'conseils'
-        newInputs['pays'].value = 0 // if we choose "conseils" we reput value to 0 then if before we choosed "destination" "italie" and after "conseils" then 
-        newInputs['pays'].valid = true
+        newInputs['continent'].value = 0 // if we choose "conseils" we reput value to 0 then if before we choosed "destination" "italie" and after "conseils" then 
+        newInputs['pays'].value = 0
+        newInputs['continent'].valid = true
+        newInputs['continent'].elementConfig.show = false
         newInputs['pays'].elementConfig.show = false
       } 
       else {
         newInputs['pays'].elementConfig.show = false
+        newInputs['continent'].elementConfig.show = false
         newInputs['rubrique'].valid = false
-
+      }
+    }
+    if(id="continent") {
+      if(continentItems.includes(e.target.value)) {
+        newInputs['continent'].valid = true
+        newInputs['continent'].value = e.target.value
+        newInputs['pays'].elementConfig.show = true
+      } 
+      else {
+        newInputs['pays'].valid = false
       }
     }
 
@@ -309,8 +380,8 @@ function Ajouter(props) {
 
     SetInputs(newInputs); 
 
-    console.log(inputs['pays'].value);
-    console.log(inputs['pays'].zone);
+    //console.log(inputs['pays'].value);
+    //console.log(inputs['pays'].zone);
 
     //check if form is valid 
     let formIsValid = true;
@@ -446,6 +517,7 @@ function Ajouter(props) {
         <Inputt 
           key={formElement.id}
           id={formElement.id}
+          continent={continent}
           label={formElement.config.label}
           value={formElement.config.value}
           type={formElement.config.elementType}

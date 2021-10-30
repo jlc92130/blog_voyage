@@ -10,10 +10,11 @@ function Articles(props) {
 
   // State
   const [articles, setArticles] = useState([]);
-  console.log(props);
+  let slug = props.match.path.replace(/\//g, '');  //"props.matchpath" <=> "/conseils" && "slug" <=> "conseils" => we remove the "/"
+  console.log(props.match); 
   // ComponentDidMount 
   useEffect(() => {
-    axios.get(`/articles.json?orderBy="rubrique"&equalTo="destination"`)
+    axios.get(`/articles.json?orderBy="rubrique"&equalTo="${slug}"`) // slug = {"destination"..., "asie"..., "france"...}
       .then(resp => {
         const articlesArray = [];
         console.log(resp.data);

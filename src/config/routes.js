@@ -3,7 +3,7 @@ const routes =  {
   HOME: '/',
   CONTACT: '/contact',
   DESTINATIONS: '/destination',
-  CHINE: '/destination/pays/chine',
+  //CHINE: '/destination/pays/chine',
   CONSEILS: '/conseils',
   AJOUTER: '/admin/ajouter',
   BONSPLANS: '/bonsplans',
