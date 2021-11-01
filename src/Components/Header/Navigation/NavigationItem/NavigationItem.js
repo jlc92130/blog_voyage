@@ -11,12 +11,12 @@ function NavigationItem(props) {
  
   const dropDownRef = useRef(null);
   //{[classes.container, classes.navItem].join(' ')}
-const onMouseEnterHandler = () => {
-  dropDownRef.current.style.display="flex";
-}
-const onMouseLeaveHandler = () => {
-  dropDownRef.current.style.display="none";
-}
+  const onMouseEnterHandler = () => {
+    dropDownRef.current.style.display="flex";
+  }
+  const onMouseLeaveHandler = () => {
+    dropDownRef.current.style.display="none";
+  }
 
 
   return (

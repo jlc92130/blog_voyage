@@ -126,15 +126,15 @@ function Ajouter(props) {
         show: true,
         defaultValue: '0',
         options: [
-          {value: '0', displayValue: 'Sectionner un champs' },
-          {value: 'destination', displayValue: 'Destination'},
+          {value: '0', displayValue: 'Selectionner un champs' },
+          {value: 'destinations', displayValue: 'Destination'},
           {value: 'bonsplans', displayValue: 'Bonplans'},
           {value: 'conseils', displayValue: 'Conseils'},
         ]
       },
       label: 'RUBRIQUE',
       cont: false,
-
+      value: '',
       valid: false,
       validation: {}
     },
@@ -145,7 +145,7 @@ function Ajouter(props) {
         isRegion: true,
         show: false,
         options: [
-          {value: '0',     displayValue: 'Sectionner un champs'},
+          {value: '0',     displayValue: 'Selectionner un champs'},
           {value: 'asie', displayValue: 'Asie'},
           {value: 'europe', displayValue: 'Europe'},
           {value: 'amerique', displayValue: 'Amerique'},
@@ -164,7 +164,7 @@ function Ajouter(props) {
         isPays: true,
         show: false,
         options: [
-          {value: '0',     displayValue: 'Sectionner un champs', continent:null},
+          {value: '0',     displayValue: 'Selectionner un champs', continent:null},
           {value: 'chine', displayValue: 'Chine', continent:'asie'},
           {value: 'france', displayValue: 'France', continent:'europe'},
           {value: 'italie', displayValue: 'Italie', continent:'europe'},
@@ -281,14 +281,11 @@ function Ajouter(props) {
     if (id == "continent") {
       const continent = e.target.value
       setContinent(continent);
+
+      //SetInputs(newInputs[id].value = continent);
     }
    
 
-
-
-
-    
-  
     if(id == 'img') {
       // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
       // const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
@@ -324,10 +321,10 @@ function Ajouter(props) {
 
     // activate or disactivate the validation of the form
     if(id == "rubrique") {
-      if(e.target.value === 'destination') {
+      if(e.target.value === 'destinations') {
         newInputs['continent'].elementConfig.show = true
         newInputs['rubrique'].valid = true
-        newInputs['rubrique'].value = 'destination'
+        newInputs['rubrique'].value = 'destinations'
       } 
       else if(e.target.value === 'bonsplans') {
         newInputs['rubrique'].valid = true
@@ -353,15 +350,15 @@ function Ajouter(props) {
         newInputs['rubrique'].valid = false
       }
     }
-    if(id="continent") {
+    if(id == "continent") {
       if(continentItems.includes(e.target.value)) {
         newInputs['continent'].valid = true
         newInputs['continent'].value = e.target.value
         newInputs['pays'].elementConfig.show = true
       } 
-      else {
-        newInputs['pays'].valid = false
-      }
+      // else {
+      //   newInputs['pays'].valid = false
+      // }
     }
 
     if(id == "pays") {
@@ -369,19 +366,15 @@ function Ajouter(props) {
         newInputs['pays'].valid = true
         newInputs['pays'].value = e.target.value
       } 
-      else {
-        newInputs['pays'].valid = false
-      }
-      //console.log(newInputs.pays.zone);
-    
+      // else {
+        
+      //   newInputs['pays'].valid = false
+      // }
     }
     
      
 
     SetInputs(newInputs); 
-
-    //console.log(inputs['pays'].value);
-    //console.log(inputs['pays'].zone);
 
     //check if form is valid 
     let formIsValid = true;
@@ -486,7 +479,7 @@ function Ajouter(props) {
       brouillon: inputs.brouillon.value,
       rubrique: inputs.rubrique.value,
       pays: inputs.pays.value,
-      zone: inputs.pays.zone,
+      continent: inputs.continent.value,
       date: Date.now(),
       image: inputs.img.urlImage,
       slug: slug,

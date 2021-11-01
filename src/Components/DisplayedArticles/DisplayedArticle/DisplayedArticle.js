@@ -2,15 +2,11 @@
 import React from 'react';
 import classes from './DisplayedArticle.module.css';
 import { Link } from 'react-router-dom';
-import routes from '../../../config/routes';
 
 function DisplayedArticle(props) {
 
-//let rubriqueName = props.article.rubrique;
-
-
  return (
-   props.article.rubrique == 'destination' ?
+   props.article.rubrique == 'destinations' ?
     <Link className={classes.link} to={props.article.rubrique + '/' + props.article.pays + '/' + props.article.slug} >
       <div className={classes.DisplayedArticle}>
         <h2>{props.article.titre}</h2>

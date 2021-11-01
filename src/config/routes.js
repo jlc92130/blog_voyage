@@ -2,7 +2,7 @@
 const routes =  {
   HOME: '/',
   CONTACT: '/contact',
-  DESTINATIONS: '/destination',
+  DESTINATIONS: '/destinations',
   //CHINE: '/destination/pays/chine',
   CONSEILS: '/conseils',
   AJOUTER: '/admin/ajouter',
@@ -12,8 +12,8 @@ const routes =  {
   CHINE: '/chine',
   ITALIE: '/italie',
   EUROPE: '/europe',
-  ASIE: '/asie'
-   
+  ASIE: '/asie',
+  AMERIQUE: '/amerique',
 }
 
 export default routes;

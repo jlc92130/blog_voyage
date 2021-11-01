@@ -34,7 +34,7 @@ function Input(props, ref) {
       }
       return filtered;
     }, []);
-    console.log(reduced);
+    reduced.unshift("Selectionner un champs"); // add the filed to our table
   }
   
 
@@ -65,28 +65,27 @@ function Input(props, ref) {
     case 'select':
      
 
-      inputElement = (
-        
-        props.id == "pays" ?
-        <>
-        <select  id={props.id}  onChange={props.changed} defaultValue={props.config.defaultValue} value={props.value}>
-          {reduced.map( option => (                      
-            <option key={option}  value={option}>
-              {option}
-            </option>  
-          ))}
-        </select>
-        </>
-        :
-        <select  id={props.id}  onChange={props.changed} defaultValue={props.config.defaultValue} value={props.value}>
-          {props.config.options.map( option => (
-            <option key={option.value}  value={option.value}>
-              {option.displayValue}
-            </option>  
-          ))}
-        </select>
-        
-      )
+    inputElement = (
+      
+      props.id == "pays" ?
+      
+      <select  id={props.id}  onChange={props.changed} defaultValue={props.config.defaultValue} value={props.value}>
+        {reduced.map( option => (                      
+          <option key={option}  value={option}>
+            {option}
+          </option>  
+        ))}
+      </select>
+      :
+      <select  id={props.id}  onChange={props.changed} defaultValue={props.config.defaultValue} value={props.value}>
+        {props.config.options.map( option => (
+          <option key={option.value}  value={option.value}>
+            {option.displayValue}
+          </option>  
+        ))}
+      </select>
+      
+    )
     break;
     case 'file':
       inputElement = (

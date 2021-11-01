@@ -23,11 +23,12 @@ function App() {
       <Layout>
         <Switch>
           <Route exact path={routes.HOME} component={Home} />
-          <Route path={routes.CONTACT} component={Contact} />
+          <Route exact path={routes.CONTACT} component={Contact} />
           
-          <Route exact path={routes.DESTINATIONS} component={ArticlesDestinations} />  
-          <Route exact path={routes.EUROPE} component={ArticlesDestinations} />  
-          <Route exact path={routes.ASIE } component={ArticlesDestinations} />  
+          <Route exact path={ routes.DESTINATIONS} component={ArticlesDestinations} />  
+          <Route exact path={ routes.EUROPE} component={ArticlesDestinations} />  
+          <Route exact path={ routes.ASIE } component={ArticlesDestinations} />  
+          <Route exact path={ routes.AMERIQUE } component={ArticlesDestinations} />  
 
           <Route exact path={routes.DESTINATIONS + routes.PAYS + '/:slug'} component={Article} /> 
           <Route exact path={routes.DESTINATIONS + routes.CHINE + '/:slug'} component={Article} /> 
