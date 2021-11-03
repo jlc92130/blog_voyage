@@ -10,7 +10,6 @@ import { ZoneGeoItems } from '../../Components/Header/Navigation/NavItems/ZoneGe
 import DisplayedArticles from '../../Components/DisplayedArticles/DisplayedArticles';
 
 function Articles(props) {
-
   
   // State
   const [articles, setArticles] = useState([]);
