@@ -56,7 +56,7 @@ function Articles(props) {
           for (let key in resp.data) {
             articlesArray.push({
               ...resp.data[key], // destructuring
-              id: key 
+              id: key,
             });
           }
           articlesArray.reverse();
