@@ -278,7 +278,7 @@ function Ajouter(props) {
    // id == "destination" ? newInputs[id].value = e.target.value.split(',')[0] : newInputs[id].value = e.target.value;
 
     
-    if (id == "continent") {
+    if (id === "continent") {
       const continent = e.target.value
       setContinent(continent);
 
@@ -286,7 +286,7 @@ function Ajouter(props) {
     }
    
 
-    if(id == 'img') {
+    if(id === 'img') {
       // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
       // const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
       const file = e.target.files[0];
@@ -320,7 +320,7 @@ function Ajouter(props) {
     }
 
     // activate or disactivate the validation of the form
-    if(id == "rubrique") {
+    if(id === "rubrique") {
       if(e.target.value === 'destinations') {
         newInputs['continent'].elementConfig.show = true
         newInputs['rubrique'].valid = true
@@ -350,7 +350,7 @@ function Ajouter(props) {
         newInputs['rubrique'].valid = false
       }
     }
-    if(id == "continent") {
+    if(id === "continent") {
       if(continentItems.includes(e.target.value)) {
         newInputs['continent'].valid = true
         newInputs['continent'].value = e.target.value
@@ -361,7 +361,7 @@ function Ajouter(props) {
       // }
     }
 
-    if(id == "pays") {
+    if(id === "pays") {
       if(e.target.value !== '0') {
         newInputs['pays'].valid = true
         newInputs['pays'].value = e.target.value
@@ -469,6 +469,7 @@ function Ajouter(props) {
   const formHandler = (e) => {
     e.preventDefault();
     
+    //we create the slug from the title
     const slug = generateSlug(inputs.titre.value);
 
     const article = {

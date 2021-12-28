@@ -13,31 +13,33 @@ function Articles(props) {
   
   // State
   const [articles, setArticles] = useState([]);
-  let slug = props.match.path.replace(/\//g, '');  //"props.match.path" <=> "/conseils" => "slug" = "conseils" => we remove the "/"
-  
+  let slug = props.match.path.replace(/\//g, '');  //"props.match.path" <=> "/conseils" => we remove the "/" => "slug" = "conseils"  ou "asie".... 
+  console.log(props.match.path)
   // VARIABLES
   const navbarItemTab = [];
+  const continentItems = [];
+
   NavBarItems.forEach(navItem => { 
     navbarItemTab.push(navItem.title.toLowerCase());
   });
-
-  const continentItems = [];
+// navbarItemTab = ["destinations","conseils"...]
+  
   ZoneGeoItems.forEach(continent => { 
     continentItems.push(continent.title.toLowerCase());
   });
-  
+// continentItems = ["asie","europe"...]
 
   // ComponentDidMount   
   useEffect(() => {
     if(navbarItemTab.includes(slug)) {
 
-      axios.get(`/articles.json?orderBy="rubrique"&equalTo="${slug}"`) // slug = {"destination"..., "asie"..., "france"...}
+      axios.get(`/articles.json?orderBy="rubrique"&equalTo="${slug}"`) // slug ="destination" ou "conseils" ou....
         .then(resp => {
           const articlesArray = [];
-          for (let key in resp.data) {
+          for (let key in resp.data) {   // key = "MnROkKtRzRcPCiceYWq" ....
             articlesArray.push({
-              ...resp.data[key], // destructuring
-              id: key 
+            ...resp.data[key], // destructuring
+            id: key 
             });
           }
           articlesArray.reverse();

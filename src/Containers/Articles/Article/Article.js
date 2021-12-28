@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import classes from './Article.module.css';
 import axios from 'axios';
 
 function Article(props) {
@@ -20,8 +21,8 @@ function Article(props) {
 
     return (
       <>
-
-        <h1>Ma page article {props.match.params.slug}</h1>
+        {/* page of the article */}
+        <h1 className={classes.ArticleTitle}>{props.match.params.slug}</h1> 
       </>
     )
 }

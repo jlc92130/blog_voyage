@@ -4,13 +4,14 @@
   align-items: center;
 } */
 
-.NavItems a{
+.NavItems {
+  height: 100%;
   display: flex;
   align-items: center;
-  height: 100px;
+}
+.NavItems a{
   color: white;
   text-decoration: none;
-  font-size: 1.1rem;
   font-size: 1.1rem;
 }
 
@@ -20,7 +21,7 @@
 
 
 .NavItems a:hover{
-  color: rgb(12, 24, 24);
+  color: aqua;
   text-decoration: none;
   transition: 0.3s all ease-out; 
 }

@@ -25,7 +25,7 @@ function Input(props, ref) {
 
   // display only the countries that match with the continent using a filter using reduce's function
   // we map the tab "options" in the state where the id="pays" we return the table "filtered"
-  if(props.id == "pays") {
+  if(props.id === "pays") {
      reduced = props.config.options.reduce(function(filtered, option) {
 
       if (option.continent == props.continent) {

@@ -8,13 +8,13 @@
 }
 
 body {
-  margin: auto;
+  background-color: black;
   padding: 0px;
   overflow-x: hidden;
   background-repeat: repeat;
   font-family: 'Inter', sans-serif;
   display: grid;
-  grid-template-rows: 120px auto 40px;
+  grid-template-rows: 100px auto 40px;
   grid-template-columns: auto;
   grid-template-areas: "header"
                        "main"

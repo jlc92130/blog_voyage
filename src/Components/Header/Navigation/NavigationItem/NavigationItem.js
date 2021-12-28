@@ -26,7 +26,6 @@ function NavigationItem(props) {
             className={classesNavigationItem.[props.cl]}
             onMouseEnter={props.dropDown ? () => onMouseEnterHandler() : null} 
             onMouseLeave={props.dropDown ? () => onMouseLeaveHandler() : null}
-            
           >
             {props.dropDown ? 
               <>

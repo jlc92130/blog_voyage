@@ -8,7 +8,7 @@ const routes =  {
   AJOUTER: '/admin/ajouter',
   BONSPLANS: '/bonsplans',
   ARTICLES: '/articles',
-  //PAYS:  ['/chine' || '/italie'],
+  PAYS:  ['/chine', '/italie' ],
   CHINE: '/chine',
   ITALIE: '/italie',
   EUROPE: '/europe',

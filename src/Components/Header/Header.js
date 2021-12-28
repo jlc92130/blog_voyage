@@ -20,7 +20,7 @@ function Header() {
           </NavLink>
           {/* <div onClick={handleShowSubMenu} className={classes.Navburger}>  */}
           {/* Responsive, burger Menu */}
-                <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
             {/* <div className={['container', classes.flex].join(' ')}> */}
           <Navigation />
           <Button />

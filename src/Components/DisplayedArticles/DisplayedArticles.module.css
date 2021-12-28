@@ -2,6 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 80%;
+  margin: 0 auto;
   background-color: rgb(24, 26, 27);
   color: white;
 }

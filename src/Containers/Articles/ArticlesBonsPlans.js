@@ -10,7 +10,6 @@ function ArticlesBonsPlans(props) {
 
   // State
   const [articles, setArticles] = useState([]);
-  console.log(props);
   // ComponentDidMount 
   useEffect(() => {
     axios.get(`/articles.json?orderBy="rubrique"&equalTo="bonsplans"`)
