@@ -385,8 +385,8 @@ function Ajouter(props) {
     
   }
 
-  //upload image
-  const handleUpload =   (e) => {
+  /******* UPLOAD IMAGE ***********/
+  const handleUpload = (e) => {
     e.preventDefault();
     
     let newInputs = {...inputs};

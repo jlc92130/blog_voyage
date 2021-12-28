@@ -1,3 +1,25 @@
 .titleH1 {
   color: white;
 }
+
+.h2 {
+  color: white;
+}
+
+.ContainerEspritBlog {
+  position: relative;
+  width: 100%;
+  height: 40vh;
+  background-size: 'cover';
+}
+
+.EspritBlog {
+   
+  position: absolute;
+  width: 30%;
+  overflow: hidden;
+  background-color: rgb(133, 140, 143);
+  color: white;
+  margin-left: 20%;
+  margin-top: 30px;
+}

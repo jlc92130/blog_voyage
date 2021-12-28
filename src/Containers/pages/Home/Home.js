@@ -36,6 +36,7 @@ function Home(pros) {
       });
   }, []);
 
+  
 
   return (
     <div>
@@ -49,8 +50,33 @@ function Home(pros) {
       >
         <h1 className={classes.titleH1}>Blog Voyage jl</h1>
       </div>
-      <DisplayedArticles articles={articles} />
-      <Link to={routes.DESTINATIONS}>Afficher tout les articles</Link>
+      <section>
+        <h2 className={classes.h2}>Derniers Articles</h2>
+        <DisplayedArticles articles={articles} />
+      </section>
+      <section>
+        <h2 className={classes.h2}>Articles Populaires</h2>
+        <DisplayedArticles articles={articles} />
+      </section>
+      <section>
+        <div  
+          className={classes.ContainerEspritBlog}
+          style={{ 
+            backgroundImage: `url(${Bandeau})`,
+            backgroundSize: 'cover',
+          }}
+        >
+          <div className={classes.EspritBlog}>
+            <h3>L'Esprit De Ce Blog Voyage ?</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab voluptas minus harum alias, molestiae officiis quae facere rerum corrupti, soluta in excepturi velit vero non! Repellat deleniti quas dicta officia.
+              Vitae unde voluptatibus soluta non modi minima sequi! Veniam similique aut, corrupti labore nisi vero possimus doloribus et repellendus libero accusamus eius, adipisci molestias quas impedit nobis necessitatibus porro dolorem.
+              Excepturi debitis similique impedit laudantium, eos numquam explicabo illo sunt, quas praesentium dolor asperiores possimus nostrum ea et. Optio rem repudiandae reiciendis placeat odit tempore aspernatur quia aperiam rerum nulla!
+            </p>
+          </div>
+        </div>
+      </section>
+
     </div>
   )
 }

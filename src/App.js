@@ -12,7 +12,7 @@ import Contact from './Components/Contact/Contact';
 import Bonsplans from './Containers/Pages/Bonsplans/Bonplans';
 import Conseils from './Containers/Pages/Conseils/Conseils';
 import Article from './Containers/Articles/Article/Article';
-import PagesDestinations from './Containers/Pages/Destinations/Destinations';
+import Destinations from './Containers/Pages/Destinations/Destinations';
 import ArticlesBonsPlans from './Containers/Articles/ArticlesBonsPlans';
 import Ajouter from './Containers/Admin/Ajouter/Ajouter';
 
@@ -25,16 +25,15 @@ function App() {
           <Route exact path={routes.HOME} component={Home} />
           <Route exact path={routes.CONTACT} component={Contact} />
           
-          <Route exact path={ routes.DESTINATIONS} component={PagesDestinations} />  
-          {/* <Route exact path={ routes.EUROPE} component={ArticlesDestinations} />  
-          <Route exact path={ routes.ASIE } component={ArticlesDestinations} />  
-          <Route exact path={ routes.AMERIQUE } component={ArticlesDestinations} />   */}
-
-          <Route exact path={routes.DESTINATIONS + routes.PAYS.includes() + '/:slug'} component={Article} /> 
-          <Route exact path={routes.DESTINATIONS + routes.CHINE + '/:slug'} component={Article} /> 
-          <Route exact path={routes.DESTINATIONS + routes.ITALIE + '/:slug'} component={Article} /> 
-
-
+          <Route exact path={ routes.DESTINATIONS} component={Destinations} />  
+          { routes.CONTINENT.map(continent => (
+            <Route exact path={routes.DESTINATIONS + continent} component={Article} /> 
+          ))
+          }
+          { routes.PAYS.map(pays => (
+            <Route exact path={routes.DESTINATIONS + pays + '/:slug'} component={Article} /> 
+          ))
+          }
           <Route exact path={routes.BONSPLANS} component={ArticlesBonsPlans} />
           <Route exact path={routes.BONSPLANS + '/:slug'} component={Article} /> 
 

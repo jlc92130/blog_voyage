@@ -69,7 +69,7 @@ function Articles(props) {
           console.log(error)
         });
     }
-  }, [slug]);
+  }, []);
 
   
 

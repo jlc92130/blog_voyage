@@ -22,7 +22,8 @@ function Article(props) {
     return (
       <>
         {/* page of the article */}
-        <h1 className={classes.ArticleTitle}>{props.match.params.slug}</h1> 
+        <h1 className={classes.ArticleTitle}>{props.match.params.slug}</h1>
+         
       </>
     )
 }
