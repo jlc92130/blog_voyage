@@ -7,10 +7,9 @@ import { NavLink } from 'react-router-dom';
 // Composants
 import Navigation from './Navigation/Navigation';
 import Button from '../Button/Button';
+import Bar from '../../Containers/Bar/Bar';
 
 function Header() {
-  // States
-  const [click, setClick] = useState(false);
 
   return (
     <header >
@@ -18,12 +17,11 @@ function Header() {
           <NavLink to='/' className={classes.Nav__bar__logo}>
               Voyage <i className='fab fa-typo3' />
           </NavLink>
-          {/* <div onClick={handleShowSubMenu} className={classes.Navburger}>  */}
           {/* Responsive, burger Menu */}
-          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
-            {/* <div className={['container', classes.flex].join(' ')}> */}
+        
           <Navigation />
           <Button />
+          <Bar />
         </nav>
     </header>
   );

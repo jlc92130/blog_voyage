@@ -1,0 +1,11 @@
+ .MenuIcon {
+  display: none;
+ }
+
+ @media screen and (max-width:767px) {
+  .MenuIcon {
+    display: block;
+    color: white;
+    padding: 20px;
+ }
+ }

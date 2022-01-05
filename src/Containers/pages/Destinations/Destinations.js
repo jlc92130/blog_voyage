@@ -6,7 +6,7 @@ import axios from '../../../config/axios-firebase';
 import classes from './Destinations.module.css';
 
 // Composants
-import DisplayedArticles from '../../../Components/DisplayedArticles/DisplayedArticles';
+import DisplayArticles from '../../../Components/DisplayArticles/DisplayArticles';
 
 function Destinations() {
 
@@ -36,7 +36,7 @@ function Destinations() {
   return (
     <>
       <h1 className={classes.DestinationTitle}>DESTINATIONS</h1>
-      <DisplayedArticles articles={articles} />
+      <DisplayArticles articles={articles} />
     </>
   );
 }

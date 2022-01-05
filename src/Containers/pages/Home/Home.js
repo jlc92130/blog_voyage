@@ -6,7 +6,7 @@ import classes from './Home.module.css';
 
 
 // Composants
-import DisplayedArticles from '../../../Components/DisplayedArticles/DisplayedArticles';
+import DisplayArticles from '../../../Components/DisplayArticles/DisplayArticles';
 import routes from '../../../config/routes';
 
 //Images
@@ -52,11 +52,11 @@ function Home(pros) {
       </div>
       <section>
         <h2 className={classes.h2}>Derniers Articles</h2>
-        <DisplayedArticles articles={articles} />
+        <DisplayArticles articles={articles} />
       </section>
       <section>
         <h2 className={classes.h2}>Articles Populaires</h2>
-        <DisplayedArticles articles={articles} />
+        <DisplayArticles articles={articles} />
       </section>
       <section>
         <div  

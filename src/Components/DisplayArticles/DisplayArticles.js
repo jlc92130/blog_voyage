@@ -1,8 +1,8 @@
 import React from 'react';
 import CardArticle from './CardArticle/CardArticle';
-import classes from './DisplayedArticles.module.css';
+import classes from './DisplayArticles.module.css';
 
-function DisplayedArticles(props) {
+function DisplayArticles(props) {
 
   let articles = props.articles.map(article => (
     <CardArticle key={article.id} article={article} /> 
@@ -16,4 +16,4 @@ function DisplayedArticles(props) {
 }
 
 
-export default DisplayedArticles;
+export default DisplayArticles;

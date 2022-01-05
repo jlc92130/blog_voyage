@@ -7,22 +7,21 @@ import { ZoneGeoItems } from '../../Components/Header/Navigation/NavItems/ZoneGe
 
 
 // Composants
-import DisplayedArticles from '../../Components/DisplayedArticles/DisplayedArticles';
+import DisplayArticles from '../../Components/DisplayArticles/DisplayArticles';
 
 function Articles(props) {
   
   // State
   const [articles, setArticles] = useState([]);
   let slug = props.match.path.replace(/\//g, '');  //"props.match.path" <=> "/conseils" => we remove the "/" => "slug" = "conseils"  ou "asie".... 
-  console.log(props.match.path)
   // VARIABLES
-  const navbarItemTab = [];
+  const navbarItems = [];  // navbarItems = ["destinations","conseils"...]
   const continentItems = [];
 
   NavBarItems.forEach(navItem => { 
-    navbarItemTab.push(navItem.title.toLowerCase());
+    navbarItems.push(navItem.title.toLowerCase());
   });
-// navbarItemTab = ["destinations","conseils"...]
+
   
   ZoneGeoItems.forEach(continent => { 
     continentItems.push(continent.title.toLowerCase());
@@ -31,7 +30,7 @@ function Articles(props) {
 
   // ComponentDidMount   
   useEffect(() => {
-    if(navbarItemTab.includes(slug)) {
+    if(navbarItems.includes(slug)) {
 
       axios.get(`/articles.json?orderBy="rubrique"&equalTo="${slug}"`) // slug ="destination" ou "conseils" ou....
         .then(resp => {
@@ -76,7 +75,7 @@ function Articles(props) {
   return (
     <>
       <h1>ARTICLES</h1>
-      <DisplayedArticles articles={articles} />
+      <DisplayArticles articles={articles} />
     </>
   );
 }

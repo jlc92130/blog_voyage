@@ -4,7 +4,7 @@ import classes from './Button.module.css';
 
 function Button() {
   return (
-    <Link to='sign-up'>
+    <Link to='sign-up' className={classes.ButtonLink}>
       <button className={classes.Button}>Sign Up</button>
     </Link>
   )

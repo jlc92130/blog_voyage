@@ -9,7 +9,7 @@ import classes from './Dropdown.module.css';
     <ul  className={classes.DropdownMenuItems} ref={props.dropDownRef} >
       {props.dropDown.map(item => {
         return(
-          <NavigationItem key={item.id} dropDown={item.dropDown} id={item.id} exact={true} to={item.path} zone={item.title} cl={item.cName} title={item.title} />
+          <NavigationItem key={item.id} dropDown={item.dropDown} id={item.id} exact={true} to={item.path} cl={item.cName} title={item.title} />
         )
       })}
     </ul>    

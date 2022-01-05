@@ -203,11 +203,6 @@ function Ajouter(props) {
 
   const [continent, setContinent] = useState();
 
-
-
-
-
-
   
   // END STATES
   
@@ -289,8 +284,8 @@ function Ajouter(props) {
     if(id === 'img') {
       // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
       // const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
-      const file = e.target.files[0];
-      const fileName = e.target.files[0].name     //  toto.jpg (in c/exem/toto.jpg)
+      const file = e.target.files[0];             //  c/exem/toto.jpg
+      const fileName = e.target.files[0].name     //  toto.jpg 
       const extension = fileName.split('.').pop().toLowerCase();  // JPG  -> jpg
       //const file = new File([newInputs[id].value], fileName);  other way to do 
 
@@ -304,15 +299,18 @@ function Ajouter(props) {
           metadata = 'image/jpeg';
           break;
         case 'jpeg' :
-          metadata = 'text/plain';
+          metadata = 'image/jpeg';
           break;
         default: 
           break;
       }
       newInputs[id].metadata = metadata; // metadata is a new props of state
-      newInputs[id].extension = extension;
+      newInputs[id].extension = extension;  // extension is a new props of state
      // newInputs[id].value = fileName;
       newInputs[id].file = file;
+      newInputs[id].urlImage = file;
+
+      
 
       newInputs[id].valid = checkValidity(newInputs[id].extension, newInputs[id].validation);
     } else {
@@ -388,12 +386,12 @@ function Ajouter(props) {
   /******* UPLOAD IMAGE ***********/
   const handleUpload = (e) => {
     e.preventDefault();
-    
+    // send image in firebase storage
     let newInputs = {...inputs};
     let date = Date.now();
-    let newName = newInputs.img.file.name + "_" + date;
-    var storageRef = storage.ref(`images/${newName}`); //   images/toto_01022021.jpg
-    // upload the image in firebase
+    let newName = newInputs.img.file.name + "_" + date;   // ex  toto_01022021 the new name we will give to the uploaded image before sending in DB
+    var storageRef = storage.ref(`/images/${newName}`); //   images/toto_01022021
+    // upload the image in firebase storage
     var uploadTask =  storageRef.put(newInputs.img.file, {contentType: newInputs.img.metadata});
     
     
@@ -440,6 +438,7 @@ function Ajouter(props) {
       //   })
       // },
    SetInputs(newInputs); 
+    
   }
 
   // genererate slug
@@ -506,7 +505,6 @@ function Ajouter(props) {
     <form className={classes.Ajouter} onSubmit={(e) => formHandler(e)}>
       
       {formElementsArray.map( formElement => (
-        <>
          
         <Inputt 
           key={formElement.id}
@@ -526,8 +524,6 @@ function Ajouter(props) {
           url = {formElement.config.urlImage}
           ref = {progressRef}
         />
-       
-        </>
       ))
       }
 
