@@ -20,12 +20,12 @@ function ImageUpload(props) {
 
   return (
     <>
-      <button onClick={props.fileUpload} disabled={props.valid ? '': true}>Upload</button>
+      <button onClick={props.fileUpload}>Upload</button>
       <div   className={`${classes.progress}`}>
         <div  className={classes.progressBar}></div>
       </div>
       <div className="uploadImage">
-        <img src=""  alt="uploadImage" className={classes.imageContainer} />
+        <img src={props.urlImg}  alt="uploadImage" className={classes.imageContainer} />
       </div>
     </>
   );

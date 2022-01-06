@@ -7,7 +7,7 @@ import routes from './config/routes';
 
 // Composants
 import Layout from "./hoc/Layout/Layout";
-import Home from './Containers/Pages/Home/Home';
+import Home from './Containers/Pages/Home2/Home2';
 import Contact from './Components/Contact/Contact';
 import Bonsplans from './Containers/Pages/Bonsplans/Bonplans';
 import Conseils from './Containers/Pages/Conseils/Conseils';

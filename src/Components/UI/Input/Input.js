@@ -105,7 +105,7 @@ function Input(props, ref) {
 
 
 
-        <ImageUpload />  
+        <ImageUpload urlImg={props.url.name} />  
         {/* <button onClick={props.fileUpload} disabled={props.valid ? '': true}>Upload</button> */}
         
 

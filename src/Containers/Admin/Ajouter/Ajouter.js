@@ -285,6 +285,7 @@ function Ajouter(props) {
       // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
       // const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
       const file = e.target.files[0];             //  c/exem/toto.jpg
+      const urlImage = e.target.files[0];         //  c/exem/toto.jpg
       const fileName = e.target.files[0].name     //  toto.jpg 
       const extension = fileName.split('.').pop().toLowerCase();  // JPG  -> jpg
       //const file = new File([newInputs[id].value], fileName);  other way to do 
@@ -308,7 +309,7 @@ function Ajouter(props) {
       newInputs[id].extension = extension;  // extension is a new props of state
      // newInputs[id].value = fileName;
       newInputs[id].file = file;
-      newInputs[id].urlImage = file;
+      newInputs[id].urlImage = urlImage;
 
       
 
@@ -373,6 +374,7 @@ function Ajouter(props) {
      
 
     SetInputs(newInputs); 
+    console.log(inputs)
 
     //check if form is valid 
     let formIsValid = true;
