@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../../config/axios-firebase';
 import { Link } from 'react-router-dom';
-import classes from './Home2.module.css';
+import classes from './Home.module.css';
 
 
 // Composants

@@ -374,7 +374,7 @@ function Ajouter(props) {
      
 
     SetInputs(newInputs); 
-    console.log(inputs)
+    console.log(inputs.img.urlImage.name)
 
     //check if form is valid 
     let formIsValid = true;
