@@ -1,7 +1,7 @@
 // Librairies
 import React, { useRef } from "react";
 import { NavLink } from 'react-router-dom';
-import classesNavigationItem from './NavigationItem.module.css';
+import classes from './NavigationItem.module.css';
 import Dropdown from '../../Navigation/Dropdown/Dropdown';
 
 
@@ -23,7 +23,7 @@ function NavigationItem(props) {
     <>
           <li 
             key={props.id} 
-            className={classesNavigationItem.[props.cl]}
+            className={classes.[props.cl]}
             onMouseEnter={props.dropDown ? () => onMouseEnterHandler() : null} 
             onMouseLeave={props.dropDown ? () => onMouseLeaveHandler() : null}
           >
@@ -33,7 +33,7 @@ function NavigationItem(props) {
                   key={props.id}
                   exact={props.exact} 
                   to={props.to} 
-                  activeClassName={classesNavigationItem.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
+                  activeClassName={classes.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
                 >
                   {props.title}
                 </NavLink>
@@ -45,7 +45,7 @@ function NavigationItem(props) {
                 key={props.id}
                 exact={props.exact} 
                 to={props.to} 
-                activeClassName={classesNavigationItem.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
+                activeClassName={classes.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
               >
                 {props.title}
               </NavLink>

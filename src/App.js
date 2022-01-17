@@ -7,14 +7,14 @@ import routes from './config/routes';
 
 // Composants
 import Layout from "./hoc/Layout/Layout";
-import Home from './Containers/toto/Home/Home';
+import Home from './Containers/Pagesss/Home/Home';
 import Contact from './Components/Contact/Contact';
-import Bonsplans from './Containers/toto/Bonsplans/Bonplans';
-import Conseils from './Containers/toto/Conseils/Conseils';
+import Bonsplans from './Containers/Pagesss/Bonsplans/Bonplans';
+import Conseils from './Containers/Pagesss/Conseils/Conseils';
 import Article from './Containers/Articles/Article/Article';
-import Destinations from './Containers/toto/Destinations/Destinations';
-import Continent from './Containers/toto/Continent/Continent'; 
-import Pays from './Containers/toto/Pays/Pays'; 
+import Destinations from './Containers/Pagesss/Destinations/Destinations';
+import Continent from './Containers/Pagesss/Continent/Continent'; 
+import Pays from './Containers/Pagesss/Pays/Pays'; 
 
 import Ajouter from './Containers/Admin/Ajouter/Ajouter';
 

@@ -14,7 +14,6 @@ function Continent(props) {
   // State
   const [articles, setArticles] = useState([]);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [toto, setToto] = useState("toto")
 
   // ComponentDidMount useEffect is executed at the end
   useEffect(() => {
@@ -31,7 +30,6 @@ function Continent(props) {
         
         setArticles(articlesArray);
         setHasLoaded(true);
-        setToto("titi");
       })
       .catch(error => {
         console.log(error)
@@ -66,7 +64,6 @@ function Continent(props) {
   // }, []);
 console.log(props.match.path.split('/').pop())
   console.log(hasLoaded)
-  console.log(toto)
   return (
     hasLoaded ? 
     (

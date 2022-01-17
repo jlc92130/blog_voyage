@@ -1,13 +1,11 @@
 // Librairies
 import React, { useState, useEffect } from 'react';
 import axios from '../../../config/axios-firebase';
-import { Link } from 'react-router-dom';
 import classes from './Home.module.css';
 
 
 // Composants
 import DisplayArticles from '../../../Components/DisplayArticles/DisplayArticles';
-import routes from '../../../config/routes';
 
 //Images
 import Bandeau from "../../../assets/images/homePage/Cap-vert.jpg"
@@ -40,14 +38,9 @@ function Home(pros) {
 
   return (
     <div>
-      <div  
-        style={{ 
-        backgroundImage: `url(${Bandeau})`,
-        width: "100%",
-        height: "50vh",
-        backgroundSize: 'cover',
-      }}
-      >
+
+      <div className={classes.ImageContainer} >
+        <img className={classes.Image}  src={Bandeau} alt='' />
         <h1 className={classes.titleH1}>Blog Voyage jl</h1>
       </div>
       <section>
@@ -59,13 +52,8 @@ function Home(pros) {
         <DisplayArticles articles={articles} />
       </section>
       <section>
-        <div  
-          className={classes.ContainerEspritBlog}
-          style={{ 
-            backgroundImage: `url(${Bandeau})`,
-            backgroundSize: 'cover',
-          }}
-        >
+        <div className={classes.ImageContainer} >
+          <img className={classes.Image}  src={Bandeau} alt='' />
           <div className={classes.EspritBlog}>
             <h3>L'Esprit De Ce Blog Voyage ?</h3>
             <p>
