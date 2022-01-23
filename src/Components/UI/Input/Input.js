@@ -1,11 +1,12 @@
 // Librairies
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 //import Uploader from '../../Uploader/Uploader';
-import ImageUpload from '../../ImageUpload/ImageUpload';
+import ProgressBar  from "../../ProgressBar/ProgressBar";
 
 
 // Composant
 import classes from './Input.module.css';
+import useStorage from '../../../hooks/useStorage';
 
 
 function Input(props, ref) {
@@ -16,13 +17,16 @@ function Input(props, ref) {
   //REF
 
   const progressRef2 = useRef();
-  const imgRef2 = useRef();
+
   useImperativeHandle(ref, () => ({
     html: (progression) => {
-      //progressRef2.current.value = progression+'%';
       progressRef2.current.style.width = progression+'%';
     }
   }));
+
+  
+
+
 
   // display only the countries that match with the continent using a filter using reduce's function
   // we map the tab "options" in the state where the id="pays" we return the table "filtered"
@@ -94,48 +98,20 @@ function Input(props, ref) {
         <input 
           id={props.id}
           type='file'
+          multiple
           className={inputClasses}
           value={props.value || ''}
           {...props.config}
           onChange={props.changed}
-          accept=".jpg, .jpeg, .png" />
-        
-        {/* <ButtonUpload /> */}
-
-
-
-
-        <ImageUpload urlImg={props.url.name} />  
-        {/* <button onClick={props.fileUpload} disabled={props.valid ? '': true}>Upload</button> */}
+          />
+    
         
 
+        {/* <ImageUpload  urlImg={props.fileImage.name} fileUpload={props.fileUpload} />   */}
+        <button onClick={props.fileUpload} >Upload</button>
 
-
-
-
-
-
-
-
-
-
-        {/*****  PROGRESS BAR  ******/}
-        <div   className={`${classes.progress}`}>
-          <div ref={progressRef2} className={classes.progressBar}></div>
-        </div>
-
-        {/*****  IMAGE   ******/}
-        <div className={classes.imageContainer}>
-          <img ref={imgRef2} id="myimg" src={props.url || 'http://via.placeholder.com/400*150'}  alt="uploadImage" className={classes.imageSize} />
-        </div>
-        {/* <Uploader 
-           id={props.id}
-           type='file'
-           className={inputClasses}
-           value={props.value || ''}
-           {...props.config}
-           onChange={props.changed}
-        /> */}
+        
+        
         </>
         
       )
@@ -156,6 +132,11 @@ function Input(props, ref) {
     <div className={classes.Input}  style={{display: displayValue }} >
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
+      
+      { props.fileImage && <div>{props.fileImage.name}</div>}
+      { props.fileImage && <ProgressBar file={props.fileImage} SetInputs={props.SetInputs} inputs={props.inputs} /> }
+      
+       
       {errormessage} 
     </div>
     // :

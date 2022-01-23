@@ -1,5 +1,5 @@
 // Librairie
-import React, { useRef, useState} from 'react';
+import React, { useRef, useState, useEffect} from 'react';
 import classes from './Ajouter.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
@@ -8,6 +8,8 @@ import { ZoneGeoItems } from '../../../Components/Header/Navigation/NavItems/Zon
 
 // Composant
 import Inputt from '../../../Components/UI/Input/Input';
+
+import useStorage from '../../../hooks/useStorage';
 
 
 
@@ -186,8 +188,8 @@ function Ajouter(props) {
         //isFile: true,
       },
       value: '',
-      urlImage:'',
-      file:'',
+      url:'',
+      fileImage:'',
       label: 'Image',
       cont: false,
 
@@ -200,16 +202,13 @@ function Ajouter(props) {
   });
   // State 2
   const [validForm, SetValidForm] = useState(false);
-
-  const [continent, setContinent] = useState();
-
+  const [continent, SetContinent] = useState();
   
   // END STATES
   
   // REF
   const progressRef =  useRef(null);
 
-  const imgRef1 =  useRef(null);
 
   // VARIABLES
 
@@ -275,7 +274,7 @@ function Ajouter(props) {
     
     if (id === "continent") {
       const continent = e.target.value
-      setContinent(continent);
+      SetContinent(continent);
 
       //SetInputs(newInputs[id].value = continent);
     }
@@ -284,11 +283,12 @@ function Ajouter(props) {
     if(id === 'img') {
       // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
       // const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
-      const file = e.target.files[0];             //  c/exem/toto.jpg
-      const urlImage = e.target.files[0];         //  c/exem/toto.jpg
-      const fileName = e.target.files[0].name     //  toto.jpg 
+      const fileImage = e.target.files[0];         //  c/exem/toto.jpg
+      const fileName = e.target.files[0].name;     //  toto.jpg 
       const extension = fileName.split('.').pop().toLowerCase();  // JPG  -> jpg
       //const file = new File([newInputs[id].value], fileName);  other way to do 
+      //SetImages(fileImage);
+
 
       let metadata;
 
@@ -308,10 +308,8 @@ function Ajouter(props) {
       newInputs[id].metadata = metadata; // metadata is a new props of state
       newInputs[id].extension = extension;  // extension is a new props of state
      // newInputs[id].value = fileName;
-      newInputs[id].file = file;
-      newInputs[id].urlImage = urlImage;
+      newInputs[id].fileImage = fileImage;
 
-      
 
       newInputs[id].valid = checkValidity(newInputs[id].extension, newInputs[id].validation);
     } else {
@@ -374,7 +372,6 @@ function Ajouter(props) {
      
 
     SetInputs(newInputs); 
-    console.log(inputs.img.urlImage.name)
 
     //check if form is valid 
     let formIsValid = true;
@@ -383,6 +380,7 @@ function Ajouter(props) {
     }
     SetValidForm(formIsValid);
     
+   
   }
 
   /******* UPLOAD IMAGE ***********/
@@ -391,55 +389,55 @@ function Ajouter(props) {
     // send image in firebase storage
     let newInputs = {...inputs};
     let date = Date.now();
-    let newName = newInputs.img.file.name + "_" + date;   // ex  toto_01022021 the new name we will give to the uploaded image before sending in DB
-    var storageRef = storage.ref(`/images/${newName}`); //   images/toto_01022021
-    // upload the image in firebase storage
-    var uploadTask =  storageRef.put(newInputs.img.file, {contentType: newInputs.img.metadata});
+    let newName = newInputs.img.fileImage.name + "_" + date;   // ex  toto_01022021 the new name we will give to the uploaded image before sending in DB
+
     
+    // upload the image in firebase storage
+    
+
+
+    // var uploadTask =  storageRef.put(newInputs.img.fileImage, {contentType: newInputs.img.metadata});
+     
     
     /******* PROGRESS BAR   *********/
-    const next = (snapshot) => {       
-      let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;    
-      progressRef.current.html(Math.round(percentage));
-    };
+    // const next = (snapshot) => {       
+    //   let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;    
+    //   progressRef.current.html(Math.round(percentage));
+    // };
 
-    const error = (error) => {
-      switch (error.code) {
-        case 'storage/unauthorized':
-          console.log('User has no permission')  
-          break;
-        case 'storage/canceled':
-          console.log('User was cancelled')  
-          break;
-        case 'storage/unknown':
-          console.log(error);
-          break;
-        default:
-          break;
-      }
-    };
+    // const error = (error) => {
+    //   switch (error.code) {
+    //     case 'storage/unauthorized':
+    //       console.log('User has no permission')  
+    //       break;
+    //     case 'storage/canceled':
+    //       console.log('User was cancelled')  
+    //       break;
+    //     case 'storage/unknown':
+    //       console.log(error);
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // };
 
-    const complete = () => {
-      const img = document.getElementById('myimg');
+    // const complete = () => {
+    //   //const img = document.getElementById('myimg');
+    //   const img = props.myContainer;
       
-      storageRef.getDownloadURL().then(url => img.src = url);
-      newInputs.img.urlImage = img.src;
-    };
 
-    uploadTask.on(
-      firebase.storage.TaskEvent.STATE_CHANGED, {
-        'next': next,
-        'error': error,
-        'complete': complete,
-      });
+    //   //storageRef.getDownloadURL().then(url => img.src = url);
+    // };
+
+    // uploadTask.on(
+    //   firebase.storage.TaskEvent.STATE_CHANGED, {
+    //     'next': next,
+    //     'error': error,
+    //     'complete': complete,
+    //   });
       
-      // function() {
-      //   storage.ref('images').child(newName).getDownloadURL().then(url => {   // images is the repository name in Storage Firebase
-      //     // url is the url of image in firebase storage
-      //     inputs.img.firebaseUrl = url;
-      //   })
-      // },
-   SetInputs(newInputs); 
+     
+    SetInputs(newInputs); 
     
   }
 
@@ -472,6 +470,7 @@ function Ajouter(props) {
     
     //we create the slug from the title
     const slug = generateSlug(inputs.titre.value);
+    
 
     const article = {
       titre: inputs.titre.value,
@@ -483,8 +482,9 @@ function Ajouter(props) {
       pays: inputs.pays.value,
       continent: inputs.continent.value,
       date: Date.now(),
-      image: inputs.img.urlImage,
+      imagesFile: inputs.img.fileImage,
       slug: slug,
+      url: inputs.img.url
     };
 
     
@@ -501,6 +501,52 @@ function Ajouter(props) {
       .catch(error => {
         console.log(error);
       });
+
+
+    // /******    SEND IMAGE IN STORAGE   ******/
+    // let newInputs = {...inputs};
+    // let date = Date.now();
+    // let newName = newInputs.img.fileImage.name + "_" + date;   // ex  toto_01022021 the new name we will give to the uploaded image before sending in DB
+    // var storageRef = storage.ref(`/images/${newName}`); //   images/toto_01022021
+    // // upload the image in firebase storage
+    // var uploadTask =  storageRef.put(newInputs.img.fileImage, {contentType: newInputs.img.metadata});
+ 
+    //         /******* PROGRESS BAR   *********/
+    //         const next = (snapshot) => {       
+    //           let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;    
+    //           progressRef.current.html(Math.round(percentage));
+    //         };
+
+    // const error = (error) => {
+    //   switch (error.code) {
+    //     case 'storage/unauthorized':
+    //       console.log('User has no permission')  
+    //       break;
+    //     case 'storage/canceled':
+    //       console.log('User was cancelled')  
+    //       break;
+    //     case 'storage/unknown':
+    //       console.log(error);
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // };
+
+    // const complete = () => {
+    //   //const img = document.getElementById('myimg');
+    //   //const img = props.myContainer;
+
+    //   storageRef.getDownloadURL().then(url => SetImageURLs(url));
+    // };
+
+    // uploadTask.on(
+    //   firebase.storage.TaskEvent.STATE_CHANGED, {
+    //     'next': next,
+    //     'error': error,
+    //     'complete': complete,
+    //   });
+
   }
   
   let form = (
@@ -523,7 +569,10 @@ function Ajouter(props) {
           errormessage={formElement.config.elementConfig.errormessage}
           isPays={formElement.config.elementConfig.isPays}
           fileUpload={(e) => handleUpload(e)}
-          url = {formElement.config.urlImage}
+          fileImage = {formElement.config.fileImage}
+          url= {formElement.config.url}
+          SetInputs={SetInputs}
+          inputs={inputs}
           ref = {progressRef}
         />
       ))

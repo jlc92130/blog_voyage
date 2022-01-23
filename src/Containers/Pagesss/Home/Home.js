@@ -38,9 +38,8 @@ function Home(pros) {
 
   return (
     <div>
-
       <div className={classes.ImageContainer} >
-        <img className={classes.Image}  src={Bandeau} alt='' />
+        <img className={classes.Image}  src={Bandeau} alt='illustration' />
         <h1 className={classes.titleH1}>Blog Voyage jl</h1>
       </div>
       <section>
@@ -53,7 +52,7 @@ function Home(pros) {
       </section>
       <section>
         <div className={classes.ImageContainer} >
-          <img className={classes.Image}  src={Bandeau} alt='' />
+          <img className={classes.Image}  src={Bandeau} alt='illustration' />
           <div className={classes.EspritBlog}>
             <h3>L'Esprit De Ce Blog Voyage ?</h3>
             <p>
@@ -64,7 +63,6 @@ function Home(pros) {
           </div>
         </div>
       </section>
-
     </div>
   )
 }

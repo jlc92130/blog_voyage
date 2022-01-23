@@ -2,6 +2,7 @@
 .DropdownMenuItems {
   display: none;
   flex-direction: column;
+  z-index:1;
   position: absolute;
   list-style: none;
   text-align: start;
@@ -16,6 +17,7 @@
 .DropdownMenuItems .DropdownMenuItems {
   display: none;
   flex-direction: column;
+  z-index:1;
   position: absolute;
   list-style: none;
   text-align: start;
