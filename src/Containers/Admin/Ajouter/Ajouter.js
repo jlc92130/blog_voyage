@@ -3,7 +3,6 @@ import React, { useRef, useState, useEffect} from 'react';
 import classes from './Ajouter.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
-import firebase, {storage} from '../../../firebase/index';
 import { ZoneGeoItems } from '../../../Components/Header/Navigation/NavItems/ZoneGeoItems';
 
 // Composant
@@ -189,10 +188,10 @@ function Ajouter(props) {
       },
       value: '',
       url:'',
+      createdAt:'',
       fileImage:'',
       label: 'Image',
       cont: false,
-
       valid: true,
       validation: {
         required: true,
@@ -266,10 +265,8 @@ function Ajouter(props) {
     let newInputs = {...inputs};
     newInputs[id].touched = true;
 
-    //newInputs[id].value = e.target.files[0].name;
     
       newInputs[id].value = e.target.value;    
-   // id == "destination" ? newInputs[id].value = e.target.value.split(',')[0] : newInputs[id].value = e.target.value;
 
     
     if (id === "continent") {
@@ -283,7 +280,7 @@ function Ajouter(props) {
     if(id === 'img') {
       // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
       // const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
-      const fileImage = e.target.files[0];         //  c/exem/toto.jpg
+      const fileImage = e.target.files[0];         //  Object image
       const fileName = e.target.files[0].name;     //  toto.jpg 
       const extension = fileName.split('.').pop().toLowerCase();  // JPG  -> jpg
       //const file = new File([newInputs[id].value], fileName);  other way to do 
@@ -441,7 +438,7 @@ function Ajouter(props) {
     
   }
 
-  // genererate slug
+  // genererate slug  code from github
   const generateSlug = (str) =>{
     
       str = str.replace(/^\s+|\s+$/g, ''); // trim
@@ -482,7 +479,7 @@ function Ajouter(props) {
       pays: inputs.pays.value,
       continent: inputs.continent.value,
       date: Date.now(),
-      imagesFile: inputs.img.fileImage,
+      createdAt: inputs.img.createdAt,
       slug: slug,
       url: inputs.img.url
     };
@@ -502,50 +499,6 @@ function Ajouter(props) {
         console.log(error);
       });
 
-
-    // /******    SEND IMAGE IN STORAGE   ******/
-    // let newInputs = {...inputs};
-    // let date = Date.now();
-    // let newName = newInputs.img.fileImage.name + "_" + date;   // ex  toto_01022021 the new name we will give to the uploaded image before sending in DB
-    // var storageRef = storage.ref(`/images/${newName}`); //   images/toto_01022021
-    // // upload the image in firebase storage
-    // var uploadTask =  storageRef.put(newInputs.img.fileImage, {contentType: newInputs.img.metadata});
- 
-    //         /******* PROGRESS BAR   *********/
-    //         const next = (snapshot) => {       
-    //           let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;    
-    //           progressRef.current.html(Math.round(percentage));
-    //         };
-
-    // const error = (error) => {
-    //   switch (error.code) {
-    //     case 'storage/unauthorized':
-    //       console.log('User has no permission')  
-    //       break;
-    //     case 'storage/canceled':
-    //       console.log('User was cancelled')  
-    //       break;
-    //     case 'storage/unknown':
-    //       console.log(error);
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // };
-
-    // const complete = () => {
-    //   //const img = document.getElementById('myimg');
-    //   //const img = props.myContainer;
-
-    //   storageRef.getDownloadURL().then(url => SetImageURLs(url));
-    // };
-
-    // uploadTask.on(
-    //   firebase.storage.TaskEvent.STATE_CHANGED, {
-    //     'next': next,
-    //     'error': error,
-    //     'complete': complete,
-    //   });
 
   }
   

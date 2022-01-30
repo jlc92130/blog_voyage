@@ -6,7 +6,6 @@ import ProgressBar  from "../../ProgressBar/ProgressBar";
 
 // Composant
 import classes from './Input.module.css';
-import useStorage from '../../../hooks/useStorage';
 
 
 function Input(props, ref) {
@@ -134,7 +133,7 @@ function Input(props, ref) {
       {inputElement}
       
       { props.fileImage && <div>{props.fileImage.name}</div>}
-      { props.fileImage && <ProgressBar file={props.fileImage} SetInputs={props.SetInputs} inputs={props.inputs} /> }
+      { props.fileImage && <ProgressBar file={props.fileImage} id={props.id} SetInputs={props.SetInputs} inputs={props.inputs} /> }
       
        
       {errormessage} 
