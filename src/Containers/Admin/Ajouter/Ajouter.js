@@ -7,7 +7,6 @@ import { ZoneGeoItems } from '../../../Components/Header/Navigation/NavItems/Zon
 
 // Composant
 import Inputt from '../../../Components/UI/Input/Input';
-import useStorage from '../../../hooks/useStorage';
 
 
 
@@ -182,7 +181,7 @@ function Ajouter(props) {
       elementType: 'file',
       elementConfig: {
         show: 'true',
-        errormessage: 'Vous devez choisir parmi ces fichier jpeg, jpg, png, gif'
+        errormessage: 'Vous devez choisir parmi ces fichier jpeg, jpg, png, gif,webp'
         //isFile: true,
       },
       value: '',
@@ -194,7 +193,7 @@ function Ajouter(props) {
       valid: true,
       validation: {
         required: true,
-        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif','webp'],
       },
     }
   });
@@ -298,6 +297,9 @@ function Ajouter(props) {
         case 'jpeg' :
           metadata = 'image/jpeg';
           break;
+        case 'webp' :
+          metadata = 'image/jpeg';
+          break;
         default: 
           break;
       }
@@ -375,17 +377,15 @@ function Ajouter(props) {
       formIsValid = newInputs[input].valid && formIsValid;
     }
     SetValidForm(formIsValid);
-    
-   
   }
 
   /******* UPLOAD IMAGE ***********/
-  const handleUpload = (e) => {
-    e.preventDefault();
-    // send image in firebase storage
-    let newInputs = {...inputs};
-    let date = Date.now();
-    let newName = newInputs.img.fileImage.name + "_" + date;   // ex  toto_01022021 the new name we will give to the uploaded image before sending in DB
+  // const handleUpload = (e) => {
+  //   e.preventDefault();
+  //   // send image in firebase storage
+  //   let newInputs = {...inputs};
+  //   let date = Date.now();
+  //   let newName = newInputs.img.fileImage.name + "_" + date;   // ex  toto_01022021 the new name we will give to the uploaded image before sending in DB
 
     
     // upload the image in firebase storage
@@ -433,9 +433,9 @@ function Ajouter(props) {
     //   });
       
      
-    SetInputs(newInputs); 
+  //  SetInputs(newInputs); 
     
-  }
+  //}
 
   // genererate slug  code from github
   const generateSlug = (str) =>{
@@ -520,7 +520,7 @@ function Ajouter(props) {
           show={formElement.config.elementConfig.show}
           errormessage={formElement.config.elementConfig.errormessage}
           isPays={formElement.config.elementConfig.isPays}
-          fileUpload={(e) => handleUpload(e)}
+          //fileUpload={(e) => handleUpload(e)}
           fileImage = {formElement.config.fileImage}
           url= {formElement.config.url}
           SetInputs={SetInputs}

@@ -103,13 +103,7 @@ function Input(props, ref) {
           {...props.config}
           onChange={props.changed}
           />
-    
-        
-
-        {/* <ImageUpload  urlImg={props.fileImage.name} fileUpload={props.fileUpload} />   */}
-        <button onClick={props.fileUpload} >Upload</button>
-
-        
+        {/* <button onClick={props.fileUpload} disabled={props.valid ? true : false}>Upload</button> */}
         
         </>
         
@@ -131,9 +125,10 @@ function Input(props, ref) {
     <div className={classes.Input}  style={{display: displayValue }} >
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
-      
-      { props.fileImage && <div>{props.fileImage.name}</div>}
-      { props.fileImage && <ProgressBar file={props.fileImage} id={props.id} SetInputs={props.SetInputs} inputs={props.inputs} /> }
+      {/* div is displayed if props.valid is true */}
+        { props.fileImage && props.valid  &&  <div>{props.fileImage.name}</div>}
+      {/* component ProgressBar is called if props.valid is true */}
+      { props.fileImage && props.valid && <ProgressBar file={props.fileImage} id={props.id} SetInputs={props.SetInputs} inputs={props.inputs} /> }
       
        
       {errormessage} 
