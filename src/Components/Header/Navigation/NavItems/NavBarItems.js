@@ -1,4 +1,6 @@
 import { ZoneGeoItems } from "./ZoneGeoItems";
+import { CRUD } from "./CRUD";
+
 
 export const NavBarItems = [
   {
@@ -34,9 +36,10 @@ export const NavBarItems = [
   },
   {
     id: 6,
-    title: "AJOUTER",
-    path: '/admin/ajouter',
+    title: "DASHBOARD",
+    path: '/admin/dashboard',
     cName: "NavItems",
+    dropdown: CRUD
   },
 ]
 

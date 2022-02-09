@@ -46,6 +46,9 @@ function App() {
 
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
           <Route exact path={routes.AJOUTER} component={Ajouter} />
+          <Route exact path={routes.SUPPRIMER} component={Supprimer} />
+          <Route exact path={routes.MODIFIER} component={Modifier} />
+
           <Route render={() => <h1>404</h1>} />  
         </Switch>
       </Layout>
