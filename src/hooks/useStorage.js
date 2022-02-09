@@ -9,6 +9,7 @@ const useStorage = (file) => {
   const [createdAt, setCreatedAt] = useState();
 
   useEffect(() => {
+    
     const storageRef = storage.ref(`/images/${file.name}`); // save image in storage  create images folder   images/toto_01022021
     storageRef.put(file).on('state_changed', (snapshot) => {
       let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;

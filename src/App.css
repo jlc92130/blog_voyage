@@ -22,7 +22,7 @@ body {
 }
 
 header {
-  grid-area: header;
+  /* grid-area: header; */
   /* background-color: aquamarine; */
   background: linear-gradient(90deg, rgb(218, 213, 213) 0%, black 100%);
 }

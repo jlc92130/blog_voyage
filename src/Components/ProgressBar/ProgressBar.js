@@ -15,8 +15,6 @@ const ProgressBar = ({ file, id, SetInputs, inputs }) => {
     newInputs[id].url = url;
     newInputs[id].createdAt = createdAt;
     SetInputs(newInputs);
-    console.log(createdAt);
-
   }
   
  
