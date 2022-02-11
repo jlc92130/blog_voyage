@@ -17,6 +17,9 @@ import Continent from './Containers/Pagesss/Continent/Continent';
 import Pays from './Containers/Pagesss/Pays/Pays'; 
 
 import Ajouter from './Containers/Admin/Ajouter/Ajouter';
+import Supprimer from './Containers/Admin/Supprimer/Supprimer';
+import Modifier from './Containers/Admin/Modifier/Modifier';
+
 
 
 function App() {

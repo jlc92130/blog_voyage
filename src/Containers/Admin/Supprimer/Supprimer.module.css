@@ -1,0 +1,19 @@
+.tab {
+    width: 100%;
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    margin: 0 auto;
+    padding: 30px;
+}
+.tab>* {
+    margin: 5px;
+}
+
+.button {
+    background-color: rgb(175, 10, 10);
+    color: white;
+    border-radius: 8px;
+    text-align: right;
+}
+ 

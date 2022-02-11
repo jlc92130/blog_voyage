@@ -277,7 +277,7 @@ function Ajouter(props) {
 
     if(id === 'img') {
       // const arrayPath = newInputs[id].value.replaceAll('\\','/').split('/'); // slip path (/)
-      // const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
+      //const fileName = arrayPath.pop();         // toto.jpg (in c/exem/toto.jpg)
       const fileImage = e.target.files[0];         //  Object image
       const fileName = e.target.files[0].name;     //  toto.jpg 
       const extension = fileName.split('.').pop().toLowerCase();  // JPG  -> jpg
@@ -305,9 +305,11 @@ function Ajouter(props) {
       }
       newInputs[id].metadata = metadata; // metadata is a new props of state
       newInputs[id].extension = extension;  // extension is a new props of state
-     // newInputs[id].value = fileName;
       newInputs[id].fileImage = fileImage;
 
+      let imageURLSplit = newInputs[id].value.split('\\');
+      let imageName = imageURLSplit.pop(); 
+      newInputs[id].imageName = imageName;
 
       newInputs[id].valid = checkValidity(newInputs[id].extension, newInputs[id].validation);
     } else {
@@ -480,7 +482,8 @@ function Ajouter(props) {
       date: Date.now(),
       createdAt: inputs.img.createdAt,
       slug: slug,
-      url: inputs.img.url
+      url: inputs.img.url,
+      imageName: inputs.img.imageName
     };
 
     
