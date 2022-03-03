@@ -4,6 +4,7 @@ const routes =  {
   CONTACT: '/contact',
   DESTINATIONS: '/destinations',
   CONSEILS: '/conseils',
+  DASHBOARD: '/admin/dashboard',
   AJOUTER: '/admin/ajouter',
   SUPPRIMER: '/admin/supprimer',
   MODIFIER: '/admin/modifier',

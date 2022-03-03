@@ -1,9 +1,8 @@
 // Librairie
-import React, { useRef, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import classes from './Supprimer.module.css';
 import axios from '../../../config/axios-firebase';
 import transformDate from '../../../hooks/transformDate';
-import routes from '../../../config/routes';
 import { storage} from "../../../firebase/index";
 
 
@@ -13,12 +12,6 @@ function Supprimer(props) {
     //STATE
     const [articles, setArticles] = useState([])
 
-  
-        // let arts = articles.map(article => (
-        //     <div>{article.titre}</div> 
-        //   ));
- 
-   
   
      // Axios get data
     useEffect(() => {
@@ -43,7 +36,7 @@ function Supprimer(props) {
         // delete article in firebase DB
         axios.delete(`/articles/${article.id}.json`)
         .then(resp => {
-            window.location.reload(false);
+            window.location.reload(false);  // reload page
               })
         .catch(error => {
         console.log(error)
@@ -54,7 +47,8 @@ function Supprimer(props) {
 
   return (
       <div className={classes.tab}>
-        {articles.map(article => {
+        { articles ?
+        articles.map(article => {
         return (
             <>
                 <div>{article.titre}</div> 
@@ -62,7 +56,10 @@ function Supprimer(props) {
                 <div><button className={classes.button} onClick={()=>deleteClickedHandler(article)}>Supprimer</button></div> 
             </>
         )})
+        :
+        ''
         }
+        
       </div>
   );
 }

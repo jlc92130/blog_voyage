@@ -1,5 +1,5 @@
 // Librairie
-import React, { useRef, useState, useEffect} from 'react';
+import React, { useRef, useState} from 'react';
 import classes from './Ajouter.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
@@ -153,7 +153,7 @@ function Ajouter(props) {
       label: 'Zone Geographique',
       cont: false,
       value:'',
-      valid: true,
+      valid: false,
       validation: {}
     },
 
@@ -173,7 +173,7 @@ function Ajouter(props) {
       label: 'PAYS',
       value:'',
       cont: true,
-      valid: true,
+      valid: false,
       validation: {}
     },
     
@@ -320,26 +320,31 @@ function Ajouter(props) {
     if(id === "rubrique") {
       if(e.target.value === 'destinations') {
         newInputs['continent'].elementConfig.show = true
+        newInputs['continent'].valid = false
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'destinations'
+        newInputs['pays'].valid = false
       } 
       else if(e.target.value === 'bonsplans') {
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'bonsplans'
         newInputs['continent'].value = 0
-        newInputs['pays'].value = 0
-        newInputs['continent'].elementConfig.show = false
-        newInputs['pays'].elementConfig.show = false
         newInputs['continent'].valid = true
+        newInputs['continent'].elementConfig.show = false
+        newInputs['pays'].value = 0
+        newInputs['pays'].elementConfig.show = false
+        newInputs['pays'].valid = true
+
       } 
       else if(e.target.value === 'conseils') {
         newInputs['rubrique'].valid = true
         newInputs['rubrique'].value = 'conseils'
         newInputs['continent'].value = 0 // if we choose "conseils" we reput value to 0 then if before we choosed "destination" "italie" and after "conseils" then 
-        newInputs['pays'].value = 0
         newInputs['continent'].valid = true
         newInputs['continent'].elementConfig.show = false
         newInputs['pays'].elementConfig.show = false
+        newInputs['pays'].value = 0
+        newInputs['pays'].valid = true
       } 
       else {
         newInputs['pays'].elementConfig.show = false
@@ -376,7 +381,7 @@ function Ajouter(props) {
     //check if form is valid 
     let formIsValid = true;
     for (let input in newInputs) {
-      formIsValid = newInputs[input].valid && formIsValid;
+      formIsValid = newInputs[input].valid && formIsValid
     }
     SetValidForm(formIsValid);
   }

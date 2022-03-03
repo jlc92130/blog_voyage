@@ -20,6 +20,8 @@ import Ajouter from './Containers/Admin/Ajouter/Ajouter';
 import Supprimer from './Containers/Admin/Supprimer/Supprimer';
 import Modifier from './Containers/Admin/Modifier/Modifier';
 
+import Dashboard from './Containers/Admin/Dashboard/Dashboard';
+
 
 
 function App() {
@@ -48,6 +50,7 @@ function App() {
           <Route exact path={routes.BONSPLANS + '/:slug'} component={Article} /> 
 
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
+          <Route exact path={routes.DASHBOARD} component={Dashboard} />
           <Route exact path={routes.AJOUTER} component={Ajouter} />
           <Route exact path={routes.SUPPRIMER} component={Supprimer} />
           <Route exact path={routes.MODIFIER} component={Modifier} />
