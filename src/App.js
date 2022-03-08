@@ -33,6 +33,8 @@ function App() {
           <Route exact path={routes.CONTACT} component={Contact} />
           
           <Route exact path={ routes.DESTINATIONS} component={Destinations} /> 
+          
+          <Route exact path={'/:slug'} component={Article} /> 
            
           { routes.CONTINENT.map(continent => (
             <Route exact path={routes.DESTINATIONS + continent} component={Continent} /> 

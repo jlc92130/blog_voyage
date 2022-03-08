@@ -64,8 +64,7 @@ function Pays(props) {
   //   fetchData();
    
   // }, []);
-console.log(props.match.path.split('/'))
-  console.log(hasLoaded)
+ 
   return (
     hasLoaded ? 
     (

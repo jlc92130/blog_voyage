@@ -15,7 +15,7 @@ function ArticlesBonsPlans(props) {
     axios.get(`/articles.json?orderBy="rubrique"&equalTo="bonsplans"`)
       .then(resp => {
         const articlesArray = [];
-        console.log(resp.data);
+         
         for (let key in resp.data) {
           articlesArray.push({
             ...resp.data[key], // destructuring

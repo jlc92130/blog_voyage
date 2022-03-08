@@ -18,11 +18,6 @@ function NavigationItem(props) {
     dropDownRef.current.style.display="none";
   }
 
-  function linkClick() {
-    console.log(props.to)
-  }
-
-
   return (
     <>
       <li 
@@ -51,7 +46,6 @@ function NavigationItem(props) {
             exact={props.exact} 
             to={props.to} 
             activeClassName={classes.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
-            onClick={linkClick}
           >
             {props.title}
           </NavLink>

@@ -1,5 +1,5 @@
 // Librairie
-import React, { useRef, useState} from 'react';
+import React, { useRef, useState, useEffect} from 'react';
 import classes from './Ajouter.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
@@ -23,7 +23,7 @@ function Ajouter(props) {
         placeholder: 'Titre',
         errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
       },
-      value: '',
+      value: props.location.state &&  props.location.state.titre ? props.location.state.titre : '',
       cont: false,
       label: 'Titre',
       valid: false, 
@@ -41,7 +41,7 @@ function Ajouter(props) {
         errormessage: 'L\'accroche ne doit pas être vide et doit contenir entre 5 et 10 caractères',
         type: 'text',
       },
-      value: '',
+      value: props.location.state ? props.location.state.accroche : '',
       cont: false,
 
       label: 'ACCROCHE',
@@ -60,7 +60,7 @@ function Ajouter(props) {
         errormessage: 'Vous devez rentrer au moins 5 caractères',
         type: 'text',
       },
-      value: '',
+      value: props.location.state ? props.location.state.contenu : '',
       cont: false,
 
       label: 'Contenu',
@@ -79,7 +79,7 @@ function Ajouter(props) {
         placeholder: 'Auteur',
         errormessage: 'Vous devez rentrer entre 5 et 20 caractères'
       },
-      value: '',
+      value: props.location.state ? props.location.state.auteur : '',
       cont: false,
 
       label: 'Auteur',
@@ -115,7 +115,7 @@ function Ajouter(props) {
       },
       label: 'Etat',
       cont: false,
-
+      value: props.location.state && props.location.state.brouillon ? props.location.state.brouillon : 'publié',
       valid: true,
       validation: {}
     },
@@ -152,7 +152,7 @@ function Ajouter(props) {
       },
       label: 'Zone Geographique',
       cont: false,
-      value:'',
+      value: '',
       valid: false,
       validation: {}
     },
@@ -171,7 +171,7 @@ function Ajouter(props) {
         ]
       },
       label: 'PAYS',
-      value:'',
+      value:  '',
       cont: true,
       valid: false,
       validation: {}
@@ -214,6 +214,19 @@ function Ajouter(props) {
     continentItems.push(continent.title.toLowerCase());
   });
   
+  useEffect(() => {
+    let newInputs = {...inputs};
+//console.log(props.location.state )
+    if(props.location.state !== null) {
+      newInputs["titre"].valid = true;  
+      newInputs["accroche"].valid = true;  
+      newInputs["contenu"].valid = true;    
+      newInputs["auteur"].valid = true;    
+    }
+  }, []);
+
+
+
 
   const formElementsArray = []; 
   for(let key in inputs) {
@@ -358,9 +371,7 @@ function Ajouter(props) {
         newInputs['continent'].value = e.target.value
         newInputs['pays'].elementConfig.show = true
       } 
-      // else {
-      //   newInputs['pays'].valid = false
-      // }
+     
     }
 
     if(id === "pays") {
@@ -368,10 +379,7 @@ function Ajouter(props) {
         newInputs['pays'].valid = true
         newInputs['pays'].value = e.target.value
       } 
-      // else {
-        
-      //   newInputs['pays'].valid = false
-      // }
+     
     }
     
      
@@ -384,65 +392,11 @@ function Ajouter(props) {
       formIsValid = newInputs[input].valid && formIsValid
     }
     SetValidForm(formIsValid);
-  }
-
-  /******* UPLOAD IMAGE ***********/
-  // const handleUpload = (e) => {
-  //   e.preventDefault();
-  //   // send image in firebase storage
-  //   let newInputs = {...inputs};
-  //   let date = Date.now();
-  //   let newName = newInputs.img.fileImage.name + "_" + date;   // ex  toto_01022021 the new name we will give to the uploaded image before sending in DB
-
-    
-    // upload the image in firebase storage
-    
+  } 
 
 
-    // var uploadTask =  storageRef.put(newInputs.img.fileImage, {contentType: newInputs.img.metadata});
-     
-    
-    /******* PROGRESS BAR   *********/
-    // const next = (snapshot) => {       
-    //   let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;    
-    //   progressRef.current.html(Math.round(percentage));
-    // };
 
-    // const error = (error) => {
-    //   switch (error.code) {
-    //     case 'storage/unauthorized':
-    //       console.log('User has no permission')  
-    //       break;
-    //     case 'storage/canceled':
-    //       console.log('User was cancelled')  
-    //       break;
-    //     case 'storage/unknown':
-    //       console.log(error);
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // };
-
-    // const complete = () => {
-    //   //const img = document.getElementById('myimg');
-    //   const img = props.myContainer;
-      
-
-    //   //storageRef.getDownloadURL().then(url => img.src = url);
-    // };
-
-    // uploadTask.on(
-    //   firebase.storage.TaskEvent.STATE_CHANGED, {
-    //     'next': next,
-    //     'error': error,
-    //     'complete': complete,
-    //   });
-      
-     
-  //  SetInputs(newInputs); 
-    
-  //}
+  
 
   // genererate slug  code from github
   const generateSlug = (str) =>{
@@ -464,7 +418,7 @@ function Ajouter(props) {
   
       return str;
   }
-  
+   
 
   // Submit form AJOUTER
 
@@ -473,8 +427,9 @@ function Ajouter(props) {
     
     //we create the slug from the title
     const slug = generateSlug(inputs.titre.value);
-    
 
+    
+    
     const article = {
       titre: inputs.titre.value,
       accroche: inputs.accroche.value,
@@ -491,10 +446,22 @@ function Ajouter(props) {
       imageName: inputs.img.imageName
     };
 
-    
-    
-    // Axios send data
-    axios.post('/articles.json', article)
+    if(props.location.state) {
+       // Axios send data
+       axios.put('/articles/' + props.location.state.id + '.json', article)
+       .then(response => {
+         // reload the form to clean the fields
+         //window.location.reload();
+         props.history.replace("../" + article.slug);
+         // Initialize State2
+         SetValidForm(false);
+       })
+       .catch(error => {
+         console.log(error);
+       });
+    } else {
+      // Axios send data
+      axios.post('/articles.json', article)
       .then(response => {
         // reload the form to clean the fields
         //window.location.reload();
@@ -505,15 +472,13 @@ function Ajouter(props) {
       .catch(error => {
         console.log(error);
       });
-
-
+    }
   }
   
   let form = (
     <form className={classes.Ajouter} onSubmit={(e) => formHandler(e)}>
-      
+       
       {formElementsArray.map( formElement => (
-         
         <Inputt 
           key={formElement.id}
           id={formElement.id}
@@ -539,7 +504,7 @@ function Ajouter(props) {
       }
 
       <div className={classes.submit}>
-        <input type="submit" value="Ajouter un article" disabled={validForm ? false : true}/>
+        <input type="submit" value={props.location.state ? "Modifier" : "Ajouter"} disabled={validForm ? false : true}/>
       </div>
     </form>
   );

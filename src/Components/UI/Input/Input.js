@@ -31,7 +31,7 @@ function Input(props, ref) {
   // we map the tab "options" in the state where the id="pays" we return the table "filtered"
   if(props.id === "pays") {
      reduced = props.config.options.reduce(function(filtered, option) {
-
+      
       if (option.continent === props.continent) {
          var someNewValue =  option.value;
          filtered.push(someNewValue);

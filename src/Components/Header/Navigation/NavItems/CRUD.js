@@ -2,19 +2,19 @@ export const CRUD = [
   {
     id: 1,
     title: "AJOUTER",
-    path: '../admin/ajouter',
+    path: '../../admin/ajouter',
     cName: "NavSubMenu1",
   },
   {
     id: 2,
     title: "SUPPRIMER",
-    path: '../admin/supprimer',
+    path: '../../admin/supprimer',
     cName: "NavSubMenu1",
   },
   {
     id: 3,
     title: "MODIFIER",
-    path: '../admin/modifier',
+    path: '../../admin/modifier',
     cName: "NavSubMenu1",
   },
 ]

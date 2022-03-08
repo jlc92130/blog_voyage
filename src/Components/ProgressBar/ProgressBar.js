@@ -1,5 +1,5 @@
 // Librairies
-import React, { useEffect } from 'react';
+import React from 'react';
 import useStorage from '../../hooks/useStorage';
 
 // Components 
