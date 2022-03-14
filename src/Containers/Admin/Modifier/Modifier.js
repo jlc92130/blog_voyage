@@ -50,7 +50,7 @@ function Modifier(props) {
               <div>
                 <Link
                   to={{
-                    pathname: routes.AJOUTER,
+                    pathname: routes.MANAGE_ARTICLE,
                     state: article
                   }}>
                   <button className={classes.button} onClick={()=> show()} >Modifier</button>

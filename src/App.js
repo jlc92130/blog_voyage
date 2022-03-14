@@ -16,7 +16,7 @@ import Destinations from './Containers/Pagesss/Destinations/Destinations';
 import Continent from './Containers/Pagesss/Continent/Continent'; 
 import Pays from './Containers/Pagesss/Pays/Pays'; 
 
-import Ajouter from './Containers/Admin/Ajouter/Ajouter';
+import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
 import Supprimer from './Containers/Admin/Supprimer/Supprimer';
 import Modifier from './Containers/Admin/Modifier/Modifier';
 
@@ -53,7 +53,7 @@ function App() {
 
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
           <Route exact path={routes.DASHBOARD} component={Dashboard} />
-          <Route exact path={routes.AJOUTER} component={Ajouter} />
+          <Route exact path={routes.MANAGE_ARTICLE} component={ManageArticle} />
           <Route exact path={routes.SUPPRIMER} component={Supprimer} />
           <Route exact path={routes.MODIFIER} component={Modifier} />
 

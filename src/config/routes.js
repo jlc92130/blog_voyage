@@ -5,7 +5,7 @@ const routes =  {
   DESTINATIONS: '/destinations',
   CONSEILS: '/conseils',
   DASHBOARD: '/admin/dashboard',
-  AJOUTER: '/admin/ajouter',
+  MANAGE_ARTICLE: '/admin/article',
   SUPPRIMER: '/admin/supprimer',
   MODIFIER: '/admin/modifier',
   BONSPLANS: '/bonsplans',

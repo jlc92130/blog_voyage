@@ -1,6 +1,7 @@
 // Librairie
 import React, { useRef, useState, useEffect} from 'react';
-import classes from './Ajouter.module.css';
+import { storage,  } from "../../../firebase/index";
+import classes from './ManageArticle.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
 import { ZoneGeoItems } from '../../../Components/Header/Navigation/NavItems/ZoneGeoItems';
@@ -10,7 +11,7 @@ import Inputt from '../../../Components/UI/Input/Input';
 
 
 
-function Ajouter(props) {
+function ManageArticle(props) {
   // STATES
   // State 1
   const [inputs, SetInputs] = useState({
@@ -216,17 +217,15 @@ function Ajouter(props) {
   
   useEffect(() => {
     let newInputs = {...inputs};
-//console.log(props.location.state )
     if(props.location.state !== null) {
       newInputs["titre"].valid = true;  
       newInputs["accroche"].valid = true;  
       newInputs["contenu"].valid = true;    
-      newInputs["auteur"].valid = true;    
+      newInputs["auteur"].valid = true;   
+      newInputs["img"].url = props.location.state.url; 
     }
   }, []);
-
-
-
+  
 
   const formElementsArray = []; 
   for(let key in inputs) {
@@ -418,7 +417,7 @@ function Ajouter(props) {
   
       return str;
   }
-   
+    
 
   // Submit form AJOUTER
 
@@ -476,7 +475,7 @@ function Ajouter(props) {
   }
   
   let form = (
-    <form className={classes.Ajouter} onSubmit={(e) => formHandler(e)}>
+    <form className={classes.ManageArticle} onSubmit={(e) => formHandler(e)}>
        
       {formElementsArray.map( formElement => (
         <Inputt 
@@ -516,4 +515,4 @@ function Ajouter(props) {
   )
 }
 
-export default Ajouter;
+export default ManageArticle;

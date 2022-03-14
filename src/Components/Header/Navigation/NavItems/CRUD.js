@@ -2,7 +2,7 @@ export const CRUD = [
   {
     id: 1,
     title: "AJOUTER",
-    path: '../../admin/ajouter',
+    path: '../../admin/article',
     cName: "NavSubMenu1",
   },
   {

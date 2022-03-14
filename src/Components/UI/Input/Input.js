@@ -1,6 +1,5 @@
 // Librairies
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
-//import Uploader from '../../Uploader/Uploader';
 import ProgressBar  from "../../ProgressBar/ProgressBar";
 
 

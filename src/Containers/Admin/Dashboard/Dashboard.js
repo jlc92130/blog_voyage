@@ -4,7 +4,7 @@ import routes from '../../../config/routes';
 
 function Dashboard(props) {
     const redirectionAjouter = () => {
-        props.history.replace(routes.AJOUTER);
+        props.history.replace(routes.MANAGE_ARTICLE);
     }
     const redirectionModifier = () => {
         props.history.replace(routes.MODIFIER);
