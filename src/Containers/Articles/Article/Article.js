@@ -28,6 +28,7 @@ function Article(props) {
     }, []);
 
     return (
+     
       <>
         {/* page of the article */}
           <div className={classes.ImageContainer}>
@@ -42,9 +43,11 @@ function Article(props) {
             borderColor : '#F40'}}
           />
           <span className={classes.Date}>{transformDate(article.date)}</span>
+          { article.brouillon == "true" ? <span className={classes.badge}> brouillon</span>  :  ""}
           <p className={classes.contenuArticle}>{article.contenu}</p>
         </div>
       </>
+      
     )
 }
 

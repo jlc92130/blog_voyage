@@ -12,21 +12,27 @@ function Destinations() {
 
   // State
   const [articles, setArticles] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   // ComponentDidMount 
   useEffect(() => {
     axios.get('/articles.json')
       .then(resp => {
-        const articlesArray = [];
+        let articlesArray = [];
         for (let key in resp.data) {
           articlesArray.push({
             ...resp.data[key], // destructuring
             id: key 
           });
         }
+        // Chronologie 
         articlesArray.reverse();
 
+        // Tri keep only "publié" article
+        articlesArray = articlesArray.filter(art => art.brouillon == "false");
+
         setArticles(articlesArray);
+        setHasLoaded(true);
       })
       .catch(error => {
         console.log(error)
@@ -34,10 +40,13 @@ function Destinations() {
   }, []);
 
   return (
+    hasLoaded && articles.length > 0 ? 
     <>
       <h1 className={classes.DestinationTitle}>DESTINATIONS</h1>
       <DisplayArticles articles={articles} />
     </>
+    :
+    <h1 className={classes.DestinationTitle}> DESTINATIONS </h1>
   );
 }
 

@@ -20,17 +20,20 @@ function Pays(props) {
   useEffect(() => {
     axios.get(`/articles.json?orderBy="pays"&equalTo="${props.match.path.split('/').pop()}"`)
       .then(resp => {
-        const articlesArray = [];
+        let articlesArray = [];
         for (let key in resp.data) {
           articlesArray.push({
             ...resp.data[key], // destructuring
             id: key 
           });
         }
+        // Chronologie 
         articlesArray.reverse();
+
+        // Tri keep only "publié" article
+        articlesArray = articlesArray.filter(art => art.brouillon == "false");
         
         setArticles(articlesArray);
-        
       })
       .then(() => {setHasLoaded(true)})
       .catch(error => {
@@ -66,15 +69,13 @@ function Pays(props) {
   // }, []);
  
   return (
-    hasLoaded ? 
-    (
+    hasLoaded && articles.length > 0  ? 
       <>
         <h1 className={classes.DestinationTitle}>{ articles[0].pays.toUpperCase() }</h1>
         <DisplayArticles articles={articles} />
       </>
-    )
     :
-    <p>PAYS</p>
+    <h1 className={classes.DestinationTitle}>PAYS</h1>
   )
 }
 

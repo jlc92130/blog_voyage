@@ -13,12 +13,14 @@ import Bandeau from "../../../assets/images/homePage/Cap-vert.jpg"
 function Home(pros) {
   // State
   const [articles, setArticles] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
 
   // ComponentDidMount 
   useEffect(() => {
-    axios.get('/articles.json?orderBy="date"&limitToLast=3') // display the last 3 articles ordered by date
+    axios.get('/articles.json') // ?orderBy="date"&limitToLast=3  == display the last 3 articles ordered by date
       .then(resp => {
-        const articlesArray = [];
+        let articlesArray = [];
 
         for (let key in resp.data) {
           articlesArray.push({
@@ -26,8 +28,17 @@ function Home(pros) {
             id: key 
           });
         }
+        // Chronologie 
         articlesArray.reverse();
+
+        // Tri : keep only "publié" article
+        articlesArray = articlesArray.filter(art => art.brouillon == "false");
+
+        // show only 3  articles
+        articlesArray = articlesArray.slice(0,3)
+
         setArticles(articlesArray);
+        setHasLoaded(true);
       })
       .catch(error => {
         console.log(error)
@@ -43,12 +54,26 @@ function Home(pros) {
         <h1 className={classes.titleH1}>Blog Voyage jl</h1>
       </div>
       <section>
-        <h2 className={classes.h2}>Derniers Articles</h2>
-        <DisplayArticles articles={articles} />
+        {
+        hasLoaded && articles.length > 0 ? 
+        <>
+          <h2 className={classes.h2}>Derniers Articles</h2>
+          <DisplayArticles articles={articles} />
+        </>
+        :
+        <h2 className={classes.h2}> Derniers Articles </h2>
+        }
       </section>
       <section>
-        <h2 className={classes.h2}>Articles Populaires</h2>
-        <DisplayArticles articles={articles} />
+        {
+        hasLoaded && articles.length > 0 ? 
+        <>
+          <h2 className={classes.h2}>Articles Populaires</h2>
+          <DisplayArticles articles={articles} />
+        </>
+        :
+        <h2 className={classes.h2}> Articles Populaires </h2>
+        }
       </section>
       <section>
         <div className={classes.ImageContainer} >

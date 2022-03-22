@@ -19,14 +19,18 @@ function Continent(props) {
   useEffect(() => {
     axios.get(`/articles.json?orderBy="continent"&equalTo="${props.match.path.split('/').pop()}"`)
       .then(resp => {
-        const articlesArray = [];
+        let articlesArray = [];
         for (let key in resp.data) {
           articlesArray.push({
             ...resp.data[key], // destructuring
             id: key 
           });
         }
+        // Chronologie 
         articlesArray.reverse();
+
+        // Tri keep only "publié" article
+        articlesArray = articlesArray.filter(art => art.brouillon == "false");
         
         setArticles(articlesArray);
         setHasLoaded(true);
@@ -62,18 +66,14 @@ function Continent(props) {
   //   fetchData();
    
   // }, []);
-console.log(props.match.path.split('/').pop())
-  console.log(hasLoaded)
   return (
-    hasLoaded ? 
-    (
+    hasLoaded && articles.length > 0 ? 
       <>
         <h1 className={classes.DestinationTitle}>{ articles[0].continent.toUpperCase() }</h1>
         <DisplayArticles articles={articles} />
       </>
-    )
     :
-    <p>CONTINENT</p>
+    <h1 className={classes.DestinationTitle}> {props.match.path.split('/').pop().toUpperCase()} </h1>
   )
 }
 
