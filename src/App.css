@@ -5,6 +5,7 @@
 
 .App {
   text-align: center;
+  height: 100vp;
 }
 
 body {
@@ -28,5 +29,5 @@ header {
 }
  
 footer {
-background-color: brown;
+  background: linear-gradient(90deg, rgb(218, 213, 213) 0%, black 100%);
 }

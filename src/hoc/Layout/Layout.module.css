@@ -2,3 +2,14 @@
   width: 500px;
   margin: 0 auto;
 } */
+
+.Layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.content {
+  flex-grow: 1;
+}
