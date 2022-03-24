@@ -1,12 +1,12 @@
 // Librairies
 import React, { useEffect, useState} from 'react';
 import axios from '../../../config/axios-firebase';
+import classes from './Continent.module.css';
 
 
 // Composants
 import DisplayArticles from '../../../Components/DisplayArticles/DisplayArticles';
 // CSS
-import classes from './Continent.module.css';
 
  
 function Continent(props) {

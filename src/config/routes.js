@@ -15,6 +15,7 @@ const routes =  {
   EUROPE: '/europe',
   ASIE: '/asie',
   AMERIQUE: '/amerique',
+  AUTHENTIFICATION: '/authentification'
 }
 
 export default routes;

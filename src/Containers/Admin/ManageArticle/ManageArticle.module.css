@@ -7,6 +7,10 @@
   border-radius: 4px;
 }
 
+.titre {
+  color: white;
+}
+
 .submit {
   text-align: right;
 }
@@ -22,6 +26,7 @@
 }
 .submit input:hover,
 .submit input:focus {
+  cursor: pointer;
   background-color: rgb(88, 88, 156);
 }
 

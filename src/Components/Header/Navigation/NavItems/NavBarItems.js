@@ -34,6 +34,7 @@ export const NavBarItems = [
     path: '/bonsplans',
     cName: "NavItems",
   },
+  
   {
     id: 6,
     title: "DASHBOARD",
@@ -41,6 +42,7 @@ export const NavBarItems = [
     cName: "NavItems",
     dropdown: CRUD
   },
+  
 ]
 
 

@@ -20,6 +20,8 @@ import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
 import Supprimer from './Containers/Admin/Supprimer/Supprimer';
 import Modifier from './Containers/Admin/Modifier/Modifier';
 
+import Authentification from './Containers/Security/Authentification/Authentification'
+
 import Dashboard from './Containers/Admin/Dashboard/Dashboard';
 
 
@@ -34,7 +36,6 @@ function App() {
           
           <Route exact path={ routes.DESTINATIONS} component={Destinations} /> 
           
-          <Route exact path={'/:slug'} component={Article} /> 
            
           { routes.CONTINENT.map(continent => (
             <Route exact path={routes.DESTINATIONS + continent} component={Continent} /> 
@@ -56,6 +57,9 @@ function App() {
           <Route exact path={routes.MANAGE_ARTICLE} component={ManageArticle} />
           <Route exact path={routes.SUPPRIMER} component={Supprimer} />
           <Route exact path={routes.MODIFIER} component={Modifier} />
+           
+          <Route exact path={routes.AUTHENTIFICATION} component={Authentification} />
+
 
           <Route render={() => <h1>404</h1>} />  
         </Switch>

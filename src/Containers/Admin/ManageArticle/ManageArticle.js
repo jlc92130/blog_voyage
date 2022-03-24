@@ -1,10 +1,10 @@
 // Librairie
 import React, { useRef, useState, useEffect} from 'react';
-import { storage,  } from "../../../firebase/index";
 import classes from './ManageArticle.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
 import { ZoneGeoItems } from '../../../Components/Header/Navigation/NavItems/ZoneGeoItems';
+import { checkValidity } from '../../../Shared/utility';
 
 // Composant
 import Inputt from '../../../Components/UI/Input/Input';
@@ -236,40 +236,6 @@ function ManageArticle(props) {
   }
 
   // Functions
-  
-  const checkValidity = (value, rules) => {
-    let isValid = true;
-    if (rules.required) {
-      isValid = value.trim() !== '' && isValid;
-    }
-    if(rules.minlength) {
-      isValid =  value.length >= rules.minlength && isValid;
-    }
-    if(rules.maxlength) {
-      isValid = value.length <= rules.maxlength && isValid; 
-    }
-    if(rules.allowedExtensions) {
-      isValid = rules.allowedExtensions.includes(value) && isValid;
-    }
-    // if(rules.isEmail) {
-    //   isValid = validateEmail(value) && isValid;
-    // }
-    return isValid;
-  };
- 
-
-  // const validateEmail = (email) => {
-  //   var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  //   var valid = emailReg.test(email);
-
-  //   if(!valid) {
-  //       return false;
-  //   } else {
-  //       return true;
-  //   }
-  // }
-
-
 
   const inputChangedHandler = (e, id) => {
     let newInputs = {...inputs};

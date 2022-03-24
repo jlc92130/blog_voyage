@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 // Composants
 import Navigation from './Navigation/Navigation';
-import Button from '../Button/Button';
+import AuthentificationButton from '../AuthentificationButton/AuthentificationButton';
 import Bar from '../../Containers/Bar/Bar';
 
 function Header() {
@@ -20,7 +20,7 @@ function Header() {
           {/* Responsive, burger Menu */}
         
           <Navigation />
-          <Button />
+          <AuthentificationButton />
           <Bar />
         </nav>
     </header>

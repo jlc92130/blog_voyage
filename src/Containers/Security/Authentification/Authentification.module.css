@@ -1,0 +1,38 @@
+.form {
+    color: aliceblue;
+    width: 80%;
+    max-width: 500px;
+    background-color:  rgb(67, 211, 216);
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  .titre {
+    color: white;
+  }
+  
+  .button {
+    text-align: right;
+  }
+  
+  .button {
+    background-color: rgb(234, 0, 255);
+    margin: 5px;
+    padding: 10px 15px;
+    border: 0;
+    color: aliceblue;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .button:hover,
+  .button:focus {
+    cursor: pointer;
+    background-color: rgb(88, 88, 156);
+  }
+  
+  .button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+  

@@ -5,5 +5,9 @@
 }
 .button:hover,
 .button:focus {
-  background-color: rgb(88, 88, 156);
+  background-color: rgb(18, 209, 168);
+}
+
+.Contact {
+  color: white;
 }

@@ -8,19 +8,18 @@ function Contact(props) {
     props.history.push(props.match.url + "/email");
   }
   const telClickedHandler = () => {
-    props.history.push(props.match.url + '/contact/tel');
+    props.history.push(props.match.url + '/tel');
   }
 
   return (
-    <>
-      <h1>contact</h1>
+    <div className={classes.Contact}>
+      <h1>CONTACT</h1>
       <button onClick={emailClickedHandler} className={classes.button}>Email</button>
-      <button onClick={telClickedHandler} className={classes.button}>tel</button>
+      <button onClick={telClickedHandler} className={classes.button}>Tel</button>
 
-      <Route exact path={props.match.url + "/email"} render={() => <p>email</p>} />
-      <Route exact path={props.match.url + "/tel"} render={() => <p>tel</p>} />
-
-    </>
+      <Route exact path={props.match.url + "/email"} render={() => <p>jack@gmail.com</p>} />
+      <Route exact path={props.match.url + "/tel"} render={() => <p>06 06 06 06 06</p>} />
+    </div>
   );
 }
 

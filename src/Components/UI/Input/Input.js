@@ -62,7 +62,6 @@ function Input(props, ref) {
         onChange={props.changed} />
       ) 
     break;
-
     case 'textarea':
       inputElement = (<textarea value={props.value} className={inputClasses} id={props.id} onChange={props.changed} />)
       break;
@@ -86,7 +85,6 @@ function Input(props, ref) {
             </option>  
           ))}
         </select>
-        
       )
     break;
     case 'file':
@@ -125,7 +123,7 @@ function Input(props, ref) {
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
       {/* div is displayed if props.valid is true */}
-        { props.fileImage && props.valid  &&  <div>{props.fileImage.name}</div>}
+      { props.fileImage && props.valid  &&  <div>{props.fileImage.name}</div>}
       {/* component ProgressBar is called if props.valid is true */}
       { props.fileImage && props.valid && <ProgressBar file={props.fileImage} id={props.id} SetInputs={props.SetInputs} inputs={props.inputs} /> }
       
