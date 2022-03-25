@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import classes from './Authentification.module.css';
 import { checkValidity  } from "../../../Shared/utility";
+import fire from "../../../firebase/index";
 
 // Composents
 import Inputt from '../../../Components/UI/Input/Input';
+import routes  from "../../../config/routes";
 
 
 // Functions
@@ -19,6 +21,7 @@ function Authentification(props) {
                     type: 'email',
                     placeholder: 'email',
                     show: true,
+                    errormessage: 'adresse email invalide'
                 },
                 value: '',
                 label: 'Email',
@@ -28,7 +31,6 @@ function Authentification(props) {
                     email: true,
                 },
                 touched: false,
-                errormessage: 'adresse email invalide'
             },
             password : {
                 elementType: 'input',
@@ -36,15 +38,16 @@ function Authentification(props) {
                     type: 'password',
                     placeholder: 'password',
                     show: true,
+                    errormessage: 'mot de passe obligatoire et au moins 6 caracteres'
                 },
                 value: '',
                 label: 'Password',
                 valid: false, 
                 validation: {
                     required: true,
+                    minlength: 6
                 },
                 touched: false,
-                errormessage: 'mot de passe obligatoire'
             }
         }
     );
@@ -75,6 +78,34 @@ function Authentification(props) {
         SetValidForm(formIsValid);
     } 
 
+    const registerClickHandler = () => {
+       const user = {
+           email: inputs.email.value,
+           password: inputs.password.value
+       };
+    }
+
+    const loginClickHandler = () => {
+        const user = {
+            email: inputs.email.value,
+            password: inputs.password.value
+        };
+        fire
+            .auth()
+            .createUserWithEmailAndPassword(user.email, user.password)
+            .then(resp => {
+                props.history.push(routes.HOME); // redirection if no error
+            })
+            .catch(error => {
+            });
+
+        //props.history.push(routes.HOME);
+    }
+
+    const formHandler = (e) => {
+        e.preventDefault();
+    }
+    
     const formElementsArray = []; 
     for(let key in inputs) {
         formElementsArray.push({
@@ -84,7 +115,7 @@ function Authentification(props) {
     }
 
     let form = (
-        <form className={classes.form} >
+        <form onSubmit={(e) => formHandler(e)} className={classes.form} >
            
           {formElementsArray.map( formElement => (
             <Inputt 
@@ -106,8 +137,8 @@ function Authentification(props) {
           ))
           }
             <div className={classes.form}>
-                <button className={classes.button}>Connexion</button>
-                <button className={classes.button}>Inscription</button>
+                <button onClick={loginClickHandler} disabled={!validForm} className={classes.button}>Connexion</button>
+                <button onClick={()=>registerClickHandler()} disabled={!validForm} className={classes.button}>Inscription</button>
             </div>
         </form>
     );
