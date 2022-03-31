@@ -1,8 +1,9 @@
 // Librairies
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import routes from './config/routes';
+import fire from './firebase/index';
 
 
 // Composants
@@ -27,6 +28,25 @@ import Dashboard from './Containers/Admin/Dashboard/Dashboard';
 
 
 function App() {
+
+  // State
+  const [user, setUser] = useState('');
+  // ComponentDidMount
+  useEffect(() => {
+    authListener();
+  }, []);
+
+  const authListener = () => {
+    fire.auth().onAuthStateChanged( user => {    // check if we are connected
+      if(user) {
+        setUser(user);  // if connected 
+      }
+      else {
+        setUser('');  // deconnexion of the user
+      }
+    });
+  };
+
   return (
     <div className="App">
       <Layout>

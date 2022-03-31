@@ -7,6 +7,10 @@
     padding: 20px;
     border-radius: 4px;
   }
+
+  .alert {
+    color: rgb(161, 41, 41);
+  }
   
   .titre {
     color: white;

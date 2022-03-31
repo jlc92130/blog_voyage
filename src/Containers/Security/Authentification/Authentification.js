@@ -52,10 +52,17 @@ function Authentification(props) {
         }
     );
     // State2  
-    const [validForm, SetValidForm] = useState(false);
+    const [validForm, setValidForm] = useState(false);
+    // State3
+    const [emailError, setEmailError] = useState(false);
+     // State3
+     const [loginError, setLoginError] = useState(false);
 
     //functions
     
+     // State
+  const [user, setUser] = useState();
+
    
 
 
@@ -75,7 +82,7 @@ function Authentification(props) {
         for (let input in newInputs) {
         formIsValid = newInputs[input].valid && formIsValid
         }
-        SetValidForm(formIsValid);
+        setValidForm(formIsValid);
     } 
 
     const registerClickHandler = () => {
@@ -83,6 +90,19 @@ function Authentification(props) {
            email: inputs.email.value,
            password: inputs.password.value
        };
+       fire
+            .auth()
+            .createUserWithEmailAndPassword(user.email, user.password)  // creation of user in Firebase 
+            .then(resp => {
+                props.history.push(routes.HOME); // redirection if no error
+            })
+            .catch(error => {
+                switch(error.code) {
+                    case 'auth/email-already-in-use':   // the user is already in DB
+                        setEmailError(true);
+                        break;
+                }
+            });
     }
 
     const loginClickHandler = () => {
@@ -90,16 +110,21 @@ function Authentification(props) {
             email: inputs.email.value,
             password: inputs.password.value
         };
-        fire
-            .auth()
-            .createUserWithEmailAndPassword(user.email, user.password)
-            .then(resp => {
-                props.history.push(routes.HOME); // redirection if no error
+        fire.auth()
+            .signInWithEmailAndPassword(user.email, user.password)
+            .then( resp => {
+                props.history.push(routes.HOME)
             })
             .catch(error => {
-            });
-
-        //props.history.push(routes.HOME);
+                switch(error.code) {
+                    case 'auth/invalide-email':  //combination user/password not right
+                    case 'auth/user-disabled':  //user is in DB but he has no the permission to connect
+                    case 'auth/user-not-found':  // user not un DB
+                        setLoginError(true);
+                        break;
+                }
+            })
+        
     }
 
     const formHandler = (e) => {
@@ -116,7 +141,9 @@ function Authentification(props) {
 
     let form = (
         <form onSubmit={(e) => formHandler(e)} className={classes.form} >
-           
+          {emailError ? <p className={classes.alert}>"Cette ardesse email existe déja"</p> : ''}
+          {loginError ? <p className={classes.alert}>"Cette ardesse email n'existe pas ou est erronée"</p> : ''}        
+          
           {formElementsArray.map( formElement => (
             <Inputt 
               key={formElement.id}

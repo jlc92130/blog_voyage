@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 // Composants
 import Navigation from './Navigation/Navigation';
 import AuthentificationButton from '../AuthentificationButton/AuthentificationButton';
+import DeconnexionButton from '../DeconnexionButton/DeconnexionButton';
 import Bar from '../../Containers/Bar/Bar';
 
 function Header() {
@@ -21,6 +22,7 @@ function Header() {
         
           <Navigation />
           <AuthentificationButton />
+          <DeconnexionButton />
           <Bar />
         </nav>
     </header>
