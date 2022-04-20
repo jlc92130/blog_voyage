@@ -24,6 +24,7 @@ import Modifier from './Containers/Admin/Modifier/Modifier';
 import Authentification from './Containers/Security/Authentification/Authentification'
 
 import Dashboard from './Containers/Admin/Dashboard/Dashboard';
+import { ButtonsProps } from '@syncfusion/ej2-react-inputs';
 
 
 
@@ -38,7 +39,7 @@ function App() {
 
   const authListener = () => {
     fire.auth().onAuthStateChanged( user => {    // check if we are connected
-      if(user) {
+      if(user) {  // if we are authentificate then user exist
         setUser(user);  // if connected 
       }
       else {
@@ -49,7 +50,7 @@ function App() {
 
   return (
     <div className="App">
-      <Layout>
+      <Layout user={user}>
         <Switch>
           <Route exact path={routes.HOME} component={Home} />
           <Route exact path={routes.CONTACT} component={Contact} />
@@ -74,11 +75,11 @@ function App() {
 
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
           <Route exact path={routes.DASHBOARD} component={Dashboard} />
-          <Route exact path={routes.MANAGE_ARTICLE} component={ManageArticle} />
-          <Route exact path={routes.SUPPRIMER} component={Supprimer} />
-          <Route exact path={routes.MODIFIER} component={Modifier} />
+          {user ? <Route exact path={routes.MANAGE_ARTICLE} component={ManageArticle} /> : null }
+          <Route exact path={routes.SUPPRIMER} render={()=> <Supprimer user={user} />} />
+          {user ? <Route exact path={routes.MODIFIER} component={Modifier} /> : null}
            
-          <Route exact path={routes.AUTHENTIFICATION} component={Authentification} />
+          {!user ? <Route exact path={routes.AUTHENTIFICATION} component={Authentification} /> : null }
 
 
           <Route render={() => <h1>404</h1>} />  

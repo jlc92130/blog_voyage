@@ -34,10 +34,7 @@ function Modifier(props) {
         })
     }, []);
      
-  const show = () => {
-     
    
-  }
 
   return (
       <div className={classes.tab}>
@@ -53,7 +50,7 @@ function Modifier(props) {
                     pathname: routes.MANAGE_ARTICLE,
                     state: article
                   }}>
-                  <button className={classes.button} onClick={()=> show()} >Modifier</button>
+                  <button className={classes.button} >Modifier</button>
                 </Link>
               </div> 
             </>
@@ -61,7 +58,6 @@ function Modifier(props) {
         :
         ''
         }
-        
       </div>
   );
 }

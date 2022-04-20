@@ -11,6 +11,7 @@ function Supprimer(props) {
 
     //STATE
     const [articles, setArticles] = useState([])
+    const [error, setError] = useState(false);
 
   
      // Axios get data
@@ -33,19 +34,36 @@ function Supprimer(props) {
     }, []);
      
     const deleteClickedHandler = (article) => {
-        // delete article in firebase DB
-        axios.delete(`/articles/${article.id}.json`)
-        .then(resp => {
-            window.location.reload(false);  // reload page
-              })
-        .catch(error => {
-        console.log(error)
-        })
-        //remove image from storage (firebase)
-        storage.ref().child(`/images/${article.imageName}`).delete();
-    }
+        if(props.user) {
+            props.user.getIdToken()
+            .then(token => {
+                // delete article in firebase DB
+                axios.delete(`/articles/${article.id}.json?auth=${token}`)  // we need the token because in DB 'write' is only for authentified user and all auth user have a token
+                .then(resp => {
+                    window.location.reload(false);  // reload page
+                    })
+                .catch(error => {
+                console.log(error)
+                })
+                //remove image from storage (firebase)
+                storage.ref().child(`/images/${article.imageName}`).delete(); 
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }else  // if user is not connected then user doesn't exist 
+        {
+            
+            setError(true);
+        }
+        
+    }   
+
+        
 
   return (
+      <>
+       {error ? <p1 className={classes.alert}>Vous n'etes pas authentifié</p1> : '' }
       <div className={classes.tab}>
         { articles ?
         articles.map(article => {
@@ -61,6 +79,7 @@ function Supprimer(props) {
         }
         
       </div>
+      </>
   );
 }
 

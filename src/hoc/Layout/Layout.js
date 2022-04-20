@@ -10,7 +10,7 @@ function Layout(props) {
   return (
       <div className={classes.Layout}>  
         {/* En tête  */}
-        <Header />
+        <Header user={props.user} />
         {/* Corps  */}
         <div className={classes.content}>
           {props.children}

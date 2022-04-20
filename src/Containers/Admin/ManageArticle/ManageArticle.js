@@ -8,6 +8,7 @@ import { checkValidity } from '../../../Shared/utility';
 
 // Composant
 import Inputt from '../../../Components/UI/Input/Input';
+import fire from '../../../firebase';
 
 
 
@@ -241,7 +242,6 @@ function ManageArticle(props) {
     let newInputs = {...inputs};
     newInputs[id].touched = true;
 
-    
       newInputs[id].value = e.target.value;    
 
     
@@ -411,33 +411,36 @@ function ManageArticle(props) {
       imageName: inputs.img.imageName
     };
 
-    if(props.location.state) {
-       // Axios send data
-       axios.put('/articles/' + props.location.state.id + '.json', article)
-       .then(response => {
-         // reload the form to clean the fields
-         //window.location.reload();
-         props.history.replace("../" + article.slug);
-         // Initialize State2
-         SetValidForm(false);
-       })
-       .catch(error => {
-         console.log(error);
-       });
-    } else {
-      // Axios send data
-      axios.post('/articles.json', article)
-      .then(response => {
-        // reload the form to clean the fields
-        //window.location.reload();
-        props.history.replace(routes.HOME);
-        // Initialize State2
-        SetValidForm(false);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    }
+    fire.auth().currentUser.getIdToken()   // In DB user can only modify is they are connected, if the user is connected he has a token
+        .then(token => {
+          if(props.location.state) {
+            // Axios send the article in DB
+            axios.put('/articles/' + props.location.state.id + '.json?auth=' + token, article)
+            .then(response => {
+              // reload the form to clean the fields
+              //window.location.reload();
+              props.history.replace(routes.HOME);
+              // Initialize State2
+              SetValidForm(false);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+         } else {
+           // Axios send data
+           axios.post('/articles.json?auth=' + token, article)
+           .then(response => {
+             // reload the form to clean the fields
+             //window.location.reload();
+             props.history.replace(routes.HOME);
+             // Initialize State2
+             SetValidForm(false);
+           })
+           .catch(error => {
+             console.log(error);
+           });
+         }
+        });
   }
   
   let form = (
