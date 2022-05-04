@@ -116,8 +116,11 @@ function Authentification(props) {
                 props.history.push(routes.HOME)
             })
             .catch(error => {
+                console.log(error)
+
                 switch(error.code) {
                     case 'auth/invalide-email':  //combination user/password not right
+                    case 'auth/too-many-requests': //password wrong
                     case 'auth/user-disabled':  //user is in DB but he has no the permission to connect
                     case 'auth/user-not-found':  // user not un DB
                         setLoginError(true);
@@ -141,7 +144,7 @@ function Authentification(props) {
 
     let form = (
         <form onSubmit={(e) => formHandler(e)} className={classes.form} >
-          {emailError ? <p className={classes.alert}>"Cette ardesse email existe déja"</p> : ''}
+          {emailError ? <p className={classes.alert}>"Cette ardesse email est déja utilisée"</p> : ''}
           {loginError ? <p className={classes.alert}>"Cette ardesse email n'existe pas ou est erronée"</p> : ''}        
           
           {formElementsArray.map( formElement => (

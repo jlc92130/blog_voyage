@@ -31,11 +31,10 @@ function NavigationItem(props) {
             <NavLink
               key={props.id}
               exact={props.exact} 
-
               to={props.to} 
               activeClassName={classes.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
             >
-              {props.title}
+              {props.title == 'DASHBOARD' ? (props.user  ? 'DASHBOARD' :'') : props.title}
             </NavLink>
             <Dropdown dropDownRef={dropDownRef} dropDown={props.dropDown} /> 
           </>

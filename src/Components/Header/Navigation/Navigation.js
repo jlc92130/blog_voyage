@@ -12,13 +12,13 @@ import {NavBarItems} from "./NavItems/NavBarItems";
 
 
 
-function Navigation() {
+function Navigation(props) {
 
   return (
       <ul className={classes.NavMenuItems} >
         {NavBarItems.map(item => {
           return (
-            <NavigationItem key={item.id} dropDown={item.dropdown} id={item.id} exact={true} cl={item.cName}  to={item.path} title={item.title} /> 
+            <NavigationItem key={item.id} dropDown={item.dropdown} user={props.user} id={item.id} exact={true} cl={item.cName}  to={item.path} title={item.title} /> 
           )})
         }
       </ul>

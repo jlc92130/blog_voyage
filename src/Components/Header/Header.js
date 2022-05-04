@@ -9,7 +9,6 @@ import Navigation from './Navigation/Navigation';
 import AuthentificationButton from '../AuthentificationButton/AuthentificationButton';
 import DeconnexionButton from '../DeconnexionButton/DeconnexionButton';
 import Bar from '../../Containers/Bar/Bar';
-import { ButtonsProps } from '@syncfusion/ej2-react-inputs';
 
 function Header(props) {
 
@@ -21,7 +20,7 @@ function Header(props) {
           </NavLink>
           {/* Responsive, burger Menu */}
         
-          <Navigation />
+          <Navigation  user={props.user} />
           {!props.user ? <AuthentificationButton /> : null}
           {props.user ? <DeconnexionButton /> : null}
           
