@@ -1,7 +1,7 @@
 // Librairie
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import classes from '../Supprimer/Supprimer.module.css';
+import classes from './Supprimer.module.css';
 import axios from '../../../config/axios-firebase';
 import transformDate from '../../../hooks/transformDate';
 import routes from '../../../config/routes';

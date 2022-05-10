@@ -18,13 +18,12 @@ import Continent from './Containers/Pagesss/Continent/Continent';
 import Pays from './Containers/Pagesss/Pays/Pays'; 
 
 import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
-import Supprimer from './Containers/Admin/Supprimer/Supprimer';
-import Modifier from './Containers/Admin/Modifier/Modifier';
+import Supprimer from './Containers/Admin/ManageArticle/Supprimer';
+import Modifier from './Containers/Admin/ManageArticle/Modifier';
 
 import Authentification from './Containers/Security/Authentification/Authentification'
 
 import Dashboard from './Containers/Admin/Dashboard/Dashboard';
-import { ButtonsProps } from '@syncfusion/ej2-react-inputs';
 
 
 
@@ -75,7 +74,7 @@ function App() {
 
           <Route exact path={routes.CONSEILS} component={Conseils} /> 
           <Route exact path={routes.DASHBOARD} component={Dashboard} />
-          {user ? <Route exact path={routes.MANAGE_ARTICLE} component={ManageArticle} /> : null }
+          {user ? <Route exact path={routes.MANAGE_ARTICLE} component={ManageArticle} /> : null } 
           <Route exact path={routes.SUPPRIMER} render={()=> <Supprimer user={user} />} />
           {user ? <Route exact path={routes.MODIFIER} component={Modifier} /> : null}
            

@@ -53,10 +53,8 @@ function Supprimer(props) {
             });
         }else  // if user is not connected then user doesn't exist 
         {
-            
             setError(true);
         }
-        
     }   
 
         

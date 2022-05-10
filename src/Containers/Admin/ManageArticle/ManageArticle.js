@@ -413,9 +413,9 @@ function ManageArticle(props) {
 
     fire.auth().currentUser.getIdToken()   // In DB user can only modify is they are connected, if the user is connected he has a token
         .then(token => {
-          if(props.location.state) {
+          if(props.location.state) { // article exist method PUT modify DB
             // Axios send the article in DB
-            axios.put('/articles/' + props.location.state.id + '.json?auth=' + token, article)
+            axios.put('/articles/' + props.location.state.id + '.json?auth=' + token, article) // firebase need to know if we are connected => we need token (only authentified user have "write" permission in firebase)
             .then(response => {
               // reload the form to clean the fields
               //window.location.reload();
@@ -427,7 +427,7 @@ function ManageArticle(props) {
               console.log(error);
             });
          } else {
-           // Axios send data
+           // article do not exist post create the article in DB
            axios.post('/articles.json?auth=' + token, article)
            .then(response => {
              // reload the form to clean the fields
