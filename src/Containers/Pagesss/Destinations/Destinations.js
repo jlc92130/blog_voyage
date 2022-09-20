@@ -29,7 +29,7 @@ function Destinations() {
         articlesArray.reverse();
 
         // Tri keep only "publié" article
-        articlesArray = articlesArray.filter(art => art.brouillon == "false");
+        articlesArray = articlesArray.filter(art => art.brouillon === "false");
 
         setArticles(articlesArray);
         setHasLoaded(true);

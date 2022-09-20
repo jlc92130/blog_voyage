@@ -22,7 +22,7 @@ function NavigationItem(props) {
     <>
       <li 
         key={props.id} 
-        className={classes.[props.cl]}
+        // className={classes.[props.cl]}
         onMouseEnter={props.dropDown ? () => onMouseEnterHandler() : null} 
         onMouseLeave={props.dropDown ? () => onMouseLeaveHandler() : null}
       >
@@ -34,7 +34,7 @@ function NavigationItem(props) {
               to={props.to} 
               activeClassName={classes.active}  /*  on peut remplacer activeClassName par activeStyle={{color: }}  */
             >
-              {props.title == 'DASHBOARD' ? (props.user  ? 'DASHBOARD' :'') : props.title}
+              {props.title === 'DASHBOARD' ? (props.user  ? 'DASHBOARD' :'') : props.title}
             </NavLink>
             <Dropdown dropDownRef={dropDownRef} dropDown={props.dropDown} /> 
           </>

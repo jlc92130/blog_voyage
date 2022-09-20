@@ -5,6 +5,7 @@ import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
 import { ZoneGeoItems } from '../../../Components/Header/Navigation/NavItems/ZoneGeoItems';
 import { checkValidity } from '../../../Shared/utility';
+import { toast } from 'react-toastify';
 
 // Composant
 import Inputt from '../../../Components/UI/Input/Input';
@@ -225,6 +226,7 @@ function ManageArticle(props) {
       newInputs["auteur"].valid = true;   
       newInputs["img"].url = props.location.state.url; 
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
 
@@ -411,12 +413,13 @@ function ManageArticle(props) {
       imageName: inputs.img.imageName
     };
 
-    fire.auth().currentUser.getIdToken()   // In DB user can only modify is they are connected, if the user is connected he has a token
+    fire.auth().currentUser.getIdToken()   // In DB user can only modify if they are connected, if the user is connected he has a token
         .then(token => {
-          if(props.location.state) { // article exist method PUT modify DB
+          if(props.location.state) { // article exist => we use PUT method to modify DB
             // Axios send the article in DB
             axios.put('/articles/' + props.location.state.id + '.json?auth=' + token, article) // firebase need to know if we are connected => we need token (only authentified user have "write" permission in firebase)
             .then(response => {
+              toast('article modifié');
               // reload the form to clean the fields
               //window.location.reload();
               props.history.replace(routes.HOME);
@@ -427,12 +430,12 @@ function ManageArticle(props) {
               console.log(error);
             });
          } else {
-           // article do not exist post create the article in DB
+           // article do not exist => we use "post" request to create the article in DB
            axios.post('/articles.json?auth=' + token, article)
            .then(response => {
              // reload the form to clean the fields
              //window.location.reload();
-             props.history.replace(routes.HOME);
+             //props.history.replace(routes.HOME);
              // Initialize State2
              SetValidForm(false);
            })

@@ -31,7 +31,7 @@ function Pays(props) {
         articlesArray.reverse();
 
         // Tri keep only "publié" article
-        articlesArray = articlesArray.filter(art => art.brouillon == "false");
+        articlesArray = articlesArray.filter(art => art.brouillon === "false");
         
         setArticles(articlesArray);
       })
@@ -39,6 +39,7 @@ function Pays(props) {
       .catch(error => {
         console.log(error)
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articles]);
 
 

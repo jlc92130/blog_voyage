@@ -30,7 +30,7 @@ function Continent(props) {
         articlesArray.reverse();
 
         // Tri keep only "publié" article
-        articlesArray = articlesArray.filter(art => art.brouillon == "false");
+        articlesArray = articlesArray.filter(art => art.brouillon === "false");
         
         setArticles(articlesArray);
         setHasLoaded(true);
@@ -38,6 +38,7 @@ function Continent(props) {
       .catch(error => {
         console.log(error)
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articles]);
 
 

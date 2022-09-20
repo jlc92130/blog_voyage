@@ -1,5 +1,5 @@
 // Librairies
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 

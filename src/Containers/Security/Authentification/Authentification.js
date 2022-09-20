@@ -60,8 +60,7 @@ function Authentification(props) {
 
     //functions
     
-     // State
-  const [user, setUser] = useState();
+   
 
    
 
@@ -101,6 +100,7 @@ function Authentification(props) {
                     case 'auth/email-already-in-use':   // the user is already in DB
                         setEmailError(true);
                         break;
+                    default: console.log('erreur')
                 }
             });
     }
@@ -125,6 +125,7 @@ function Authentification(props) {
                     case 'auth/user-not-found':  // user not un DB
                         setLoginError(true);
                         break;
+                    default: console.log('erreur')
                 }
             })
         

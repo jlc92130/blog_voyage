@@ -18,7 +18,7 @@ function Navigation(props) {
       <ul className={classes.NavMenuItems} >
         {NavBarItems.map(item => {
           return (
-            <NavigationItem key={item.id} dropDown={item.dropdown} user={props.user} id={item.id} exact={true} cl={item.cName}  to={item.path} title={item.title} /> 
+            <NavigationItem key={item.id} cl={item.cName} dropDown={item.dropdown} user={props.user} id={item.id} exact={true}  to={item.path} title={item.title} /> 
           )})
         }
       </ul>

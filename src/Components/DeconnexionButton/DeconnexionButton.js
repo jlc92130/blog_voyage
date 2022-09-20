@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import classes from './DeconnexionButton.module.css';
 import fire from '../../firebase/index';
 import routes from '../../config/routes';

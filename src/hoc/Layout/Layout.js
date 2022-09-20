@@ -1,10 +1,13 @@
 // Librairies
 import React from 'react';
+import classes from './Layout.module.css'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Composants
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
-import classes from './Layout.module.css'
+import { ToastContainer } from 'react-toastify';
 
 function Layout(props) {
   return (
@@ -15,6 +18,9 @@ function Layout(props) {
         <div className={classes.content}>
           {props.children}
         </div>
+
+        { /* notification */}
+        <ToastContainer />
         {/* Pied de page */}
         <Footer />
       </div>  

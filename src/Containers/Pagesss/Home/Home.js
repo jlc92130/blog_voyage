@@ -32,7 +32,7 @@ function Home(pros) {
         articlesArray.reverse();
 
         // Tri : keep only "publié" article
-        articlesArray = articlesArray.filter(art => art.brouillon == "false");
+        articlesArray = articlesArray.filter(art => art.brouillon === "false");
 
         // show only 3  articles
         articlesArray = articlesArray.slice(0,3)
