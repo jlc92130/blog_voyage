@@ -44,10 +44,10 @@ function Home(pros) {
         console.log(error)
       });
   }, []);
-
-  
+ 
 
   return (
+   
     <div>
       <div className={classes.ImageContainer} >
         <img className={classes.Image}  src={Bandeau} alt='illustration' />

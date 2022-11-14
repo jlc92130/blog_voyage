@@ -4,6 +4,7 @@ import classes from './Supprimer.module.css';
 import axios from '../../../config/axios-firebase';
 import transformDate from '../../../hooks/transformDate';
 import { storage} from "../../../firebase/index";
+import { toast } from 'react-toastify';
 
 
 
@@ -40,6 +41,8 @@ function Supprimer(props) {
                 // delete article in firebase DB
                 axios.delete(`/articles/${article.id}.json?auth=${token}`)  // we need the token because in DB 'write' is only for authentified user and all auth user have a token
                 .then(resp => {
+                    toast.success("article supprimé avec succes", {autoClose: 1500});
+
                     window.location.reload(false);  // reload page
                     })
                 .catch(error => {

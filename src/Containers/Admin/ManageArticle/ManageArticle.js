@@ -437,7 +437,10 @@ function ManageArticle(props) {
              //window.location.reload();
              //props.history.replace(routes.HOME);
              // Initialize State2
-             SetValidForm(false);
+            toast('article ajouté');
+            props.history.replace(routes.HOME);
+
+            SetValidForm(false);
            })
            .catch(error => {
              console.log(error);

@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 
 function Layout(props) {
   return (
+      
       <div className={classes.Layout}>  
         {/* En tête  */}
         <Header user={props.user} />
@@ -20,7 +21,7 @@ function Layout(props) {
         </div>
 
         { /* notification */}
-        <ToastContainer />
+        <ToastContainer autoClose="2000" />
         {/* Pied de page */}
         <Footer />
       </div>  

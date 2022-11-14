@@ -22,19 +22,22 @@
   height: 100%;
 }
 
-.ImageContainer .EspritBlog {
+.EspritBlog {
   background: rgba(0, 0, 0, 0.8);
   z-index: 1;
   overflow: hidden;
   position: absolute;
-  text-align: center;
+  text-align: left;
   font-family: Georgia;
   margin: 0 auto;
   left: 2vw;
-  top: 30%;
+  top: 10%;
   color: white;
   width: 40%;
+  height: 80%;
 }
+
+ 
 
 
  
